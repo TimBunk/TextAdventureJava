@@ -1,3 +1,4 @@
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -18,6 +19,7 @@ public class Window {
     private String title;
     private long window;
     private Vector3f backgroundColor;
+    private Matrix4f projection;
 
     /**
      * In de constructor word gecheckt of glfw al geinitialiseerd is anders wordt hij geinitialiseerd ook wordt de window hier gemaakt doormiddel van glfw
@@ -31,6 +33,8 @@ public class Window {
         this.height = height;
         this.title = title;
         backgroundColor = new Vector3f(0.0f, 0.0f, 0.0f);
+        projection = new Matrix4f().identity();
+        projection.ortho(0.0f, width, 0.0f, height, -100.0f, 100.0f);
 
         if (!Window.glfw_initialized) {
             // Initializeer glfw als dat nog niet gedaan was
@@ -64,6 +68,7 @@ public class Window {
     public int getHeight()               { return height; }
     public String getTitle()             { return title; }
     public Vector3f getBackgroundColor() { return backgroundColor; }
+    public Matrix4f getProjection()      { return projection; }
     // Setters
     public void setBackgroundColor(Vector3f backgroundColor)    { this.backgroundColor = backgroundColor; }
     public void setVSync(boolean state)                         { glfwSwapInterval((state ? 1: 0)); }

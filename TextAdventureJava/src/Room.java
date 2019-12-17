@@ -16,7 +16,7 @@ import java.util.Iterator;
  * @version 2016.02.29
  */
 
-public class Room 
+public class Room extends Lockable
 {
     private String description;
     private HashMap<String, Room> exits;        // stores exits of this room.
@@ -27,9 +27,9 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description) 
+    public Room(String name, String description)
     {
-        this.description = description;
+        super(name, description);
         exits = new HashMap<>();
     }
 

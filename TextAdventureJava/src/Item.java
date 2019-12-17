@@ -1,5 +1,6 @@
 /**
- * @author      Ruben Eekhof rubeneekhof@gmail.com
+ * @author Ruben Eekhof rubeneekhof@gmail.com
+ * All items that can be picked up by the detective.
  */
 public class Item extends Inspectable {
 
@@ -7,7 +8,11 @@ public class Item extends Inspectable {
         super(name, description);
     }
 
-    public void use(String name) {
+    /**
+     * Uses an item.
+     * @param item, the item you want to use.
+     */
+    public void use(Item item) {
         System.out.println("Using item " + name);
     }
 }

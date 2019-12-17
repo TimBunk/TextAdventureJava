@@ -1,5 +1,6 @@
 /**
- * @author      Ruben Eekhof rubeneekhof@gmail.com
+ * @author Ruben Eekhof rubeneekhof@gmail.com
+ * All objects that can be inspected by the detective.
  */
 public class Inspectable {
 
@@ -11,7 +12,12 @@ public class Inspectable {
         this.description = description;
     }
 
-    public String inspect(String item) {
+    /**
+     * Inspects an inspectable object.
+     * @param item, the object to be inspected.
+     * @return description, the objects description field.
+     */
+    public String inspect(Inspectable item) {
         return this.description;
     }
 

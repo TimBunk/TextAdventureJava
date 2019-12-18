@@ -15,18 +15,24 @@
  * @version 2016.02.29
  */
 
+import java.util.Random;
+
 public class Game 
 {
     private Parser parser;
     private Room currentRoom;
+
+    private Random rand;
         
     /**
      * Create the game and initialise its internal map.
      */
     public Game() 
     {
-        createRooms();
         parser = new Parser();
+        rand = new Random();
+        createRooms();
+        createItems();
     }
 
     /**
@@ -34,30 +40,48 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
-      
-        // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
-        
-        // initialise room exits
-        outside.setExit("east", theater);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        // initialising all the rooms
+        Room kitchen = new Room("Kitchen", "This is the kitchen.");
+        Room storage = new Room("Storage", "This is the storage room.");
+        Room bedroom = new Room("Bedroom", "This is the bedroom.");
+        Room livingroom = new Room("Living Room", "This is the living room.");
+        Room garage = new Room("Garage", "This is the garage.");
+        Room garden = new Room("Garden", "This is the garden.");
+        Room shed = new Room("Shed", "This is the shed.");
 
-        theater.setExit("west", outside);
+        // initialising all the exits
+        kitchen.setExit("livingroom", livingroom);
+        storage.setExit("livingroom", livingroom);
+        bedroom.setExit("livingroom", livingroom);
+        livingroom.setExit("bedroom", bedroom);
+        livingroom.setExit("storage", storage);
+        livingroom.setExit("kitchen", kitchen);
+        livingroom.setExit("garden", garden);
+        livingroom.setExit("garage", garage);
+        garage.setExit("livingroom", livingroom);
+        garage.setExit("garden", garden);
+        garden.setExit("livingroom", livingroom);
+        garden.setExit("garage", garage);
+        shed.setExit("garden", garden);
 
-        pub.setExit("east", outside);
+        // initialising the room the player starts in.
+        Room[] rooms = {livingroom, kitchen, garage, garden, bedroom};
+        currentRoom = rooms[rand.nextInt(rooms.length)];
+    }
 
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
-
-        office.setExit("west", lab);
-
-        currentRoom = outside;  // start game outside
+    /*
+     * Create all the rooms.
+     */
+    private void createItems() {
+        // initialising all the items
+        Item vaultKey = new Item("vault key", "Key for the vault located in the bedroom.");
+        Item carKey = new Item("car key", "Key for the car located in the garage.");
+        Item shedKey = new Item("shed key", "Key for the shed locate inside the garden.");
+        Item cellphone = new Item("cellphone", "Cellphone that appears to be someones property.");
+        Item shoppingList = new Item("shopping list", "A list with last nights bought groceries.");
+        Item ducktape = new Item("ducktape", "Ducktape? What could this be used for?");
+        Item hammer = new Item("hammer", "A hammer.");
+        Item kitchenKnive = new Item("kitchen knive", "A knive, used to cut meat and vegetables.");
     }
 
     /**
@@ -164,7 +188,7 @@ public class Game
         }
     }
 
-    /** 
+    /**
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
      * @return true, if this command quits the game, false otherwise.

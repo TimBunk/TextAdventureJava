@@ -49,6 +49,11 @@ public class Texture {
         STBImage.stbi_image_free(data);
     }
 
+    // Getter
+    public int getID() {
+        return textureID;
+    }
+
     /**
      * Roep deze functie aan als je deze texture wilt gebruiken. Doe dit voor de draw call
      */

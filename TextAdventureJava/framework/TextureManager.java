@@ -26,15 +26,15 @@ public class TextureManager {
     /**
      * Deze functie checkt of het bestand al eerder was geladen en als dat het geval is dan krijg je een bestande texture terug en anders wordt er een nieuwe texture gemaakt en opgeslagen
      * @param filePath path naar de afbeelding
-     * @return Je krijgt een texture van deze functie
+     * @return Je krijgt de id van een openGL texture
      */
-    public Texture load(String filePath) {
+    public int load(String filePath) {
         Texture t = textures.get(filePath);
         if (t == null) {
             t = new Texture(filePath);
             textures.put(filePath, t);
         }
-        return t;
+        return t.getID();
     }
 
     /**

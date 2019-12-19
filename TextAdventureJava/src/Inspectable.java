@@ -21,4 +21,7 @@ public class Inspectable {
         return this.description;
     }
 
+    public String getName() {
+        return name;
+    }
 }

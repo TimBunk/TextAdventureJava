@@ -16,29 +16,61 @@
  */
 
 import java.util.Random;
+import java.util.ArrayList;
 
 public class Game 
 {
     private Parser parser;
+    private Detective bruce;
     private Room currentRoom;
-
     private Random rand;
+    private Person murderer;
+    private String weapon;
+
         
     /**
      * Create the game and initialise its internal map.
      */
     public Game() 
     {
+        bruce = new Detective();
         parser = new Parser();
         rand = new Random();
-        createRooms();
-        createItems();
+        ArrayList<Room> rooms = createRooms();
+        ArrayList<Item> items = createItems();
+        ArrayList<Person> npcs = createNpcs();
+        addItemsToRooms(items, rooms);
+
+    }
+
+    /**
+     * Creates all npc objects and adds them to a local ArrayList.
+     */
+    private ArrayList<Person> createNpcs() {
+        // initalising all npcs
+        Person wife = new Person("wife", "The wife of Gary Larry");
+        Person housemaid = new Person("house maid", "The house maid.");
+        Person chef = new Person("chef", "Gary Larry's personal cook.");
+        Person gardener = new Person("gardener", "The gardener.");
+
+        // adding all npcs to an arraylist
+        ArrayList<Person> npcs = new ArrayList<Person>();
+        npcs.add(wife);
+        npcs.add(housemaid);
+        npcs.add(chef);
+        npcs.add(gardener);
+
+        // generating the murderer
+        int index = rand.nextInt(npcs.size());
+        murderer = npcs.get(index);
+
+        return npcs;
     }
 
     /**
      * Create all the rooms and link their exits together.
      */
-    private void createRooms()
+    private ArrayList<Room> createRooms()
     {
         // initialising all the rooms
         Room kitchen = new Room("Kitchen", "This is the kitchen.");
@@ -64,15 +96,28 @@ public class Game
         garden.setExit("garage", garage);
         shed.setExit("garden", garden);
 
-        // initialising the room the player starts in.
-        Room[] rooms = {livingroom, kitchen, garage, garden, bedroom};
-        currentRoom = rooms[rand.nextInt(rooms.length)];
+        // saving each room to an arraylist
+        ArrayList<Room> rooms = new ArrayList<Room>();
+        rooms.add(kitchen);
+        rooms.add(storage);
+        rooms.add(bedroom);
+        rooms.add(livingroom);
+        rooms.add(garage);
+        rooms.add(garden);
+        rooms.add(shed);
+
+        // initialising the room the player starts in
+        int index = rand.nextInt(rooms.size());
+        currentRoom = rooms.get(index);
+
+        return rooms;
     }
 
-    /*
+
+    /**
      * Create all the rooms.
      */
-    private void createItems() {
+    private ArrayList<Item> createItems() {
         // initialising all the items
         Item vaultKey = new Item("vault key", "Key for the vault located in the bedroom.");
         Item carKey = new Item("car key", "Key for the car located in the garage.");
@@ -82,6 +127,41 @@ public class Game
         Item ducktape = new Item("ducktape", "Ducktape? What could this be used for?");
         Item hammer = new Item("hammer", "A hammer.");
         Item kitchenKnive = new Item("kitchen knive", "A knive, used to cut meat and vegetables.");
+        Item poison = new Item("poison", "A suspicious looking bottle with a skull on it");
+
+        // adding the items to an arraylist
+        ArrayList<Item> items = new ArrayList<Item>();
+        items.add(vaultKey);
+        items.add(carKey);
+        items.add(shedKey);
+        items.add(cellphone);
+        items.add(shoppingList);
+        items.add(ducktape);
+        items.add(hammer);
+        items.add(kitchenKnive);
+        items.add(poison);
+
+        return items;
+    }
+
+    /**
+     * Adds items to each room randomly.
+     */
+    private void addItemsToRooms(ArrayList<Item> items, ArrayList<Room> rooms) {
+        for (Item i : items) {
+            boolean itemAdded = false;
+            while (!itemAdded) {
+                int index = rand.nextInt(rooms.size());
+                Room room = rooms.get(index);
+                int amountOfItems = room.getInspectablesSize();
+                if (amountOfItems < 2) {
+                    room.addItem(i);
+                    itemAdded = true;
+                } else {
+                    rooms.remove(room);
+                }
+            }
+        }
     }
 
     /**
@@ -142,6 +222,9 @@ public class Game
             case QUIT:
                 wantToQuit = quit(command);
                 break;
+
+            case PICKUP:
+                pickUp(command.getSecondWord());
         }
         return wantToQuit;
     }
@@ -160,6 +243,19 @@ public class Game
         System.out.println();
         System.out.println("Your command words are:");
         parser.showCommands();
+    }
+
+    private void pickUp(String item) {
+        Item itemToAdd = currentRoom.getItemObject(item);
+        if (itemToAdd != null) {
+            if (bruce.pickup(itemToAdd)) {
+                System.out.println("Picked up " + item);
+            } else {
+                System.out.println("Could not pick up " + item);
+            }
+        }  else {
+            System.out.println("That item does not exist.");
+        }
     }
 
     /** 

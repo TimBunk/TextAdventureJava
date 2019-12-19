@@ -19,9 +19,9 @@ import java.util.ArrayList;
 
 public class Room extends Lockable
 {
-    private String description;
     private HashMap<String, Room> exits;        // stores exits of this room.
-    private ArrayList<Item> items;
+    private ArrayList<Inspectable> inspectables;
+    private Person npc;
 
     /**
      * Create a room described "description". Initially, it has
@@ -32,7 +32,7 @@ public class Room extends Lockable
     public Room(String name, String description)
     {
         super(name, description);
-        items = new ArrayList<Item>();
+        inspectables = new ArrayList<Inspectable>();
         exits = new HashMap<>();
     }
 
@@ -63,7 +63,28 @@ public class Room extends Lockable
      */
     public String getLongDescription()
     {
-        return "You are " + description + ".\n" + getExitString();
+        String roomDescription = "You are in the " + name + "\n";
+        String objectString = getInspectableObjectsString();
+        roomDescription += objectString;
+        return  roomDescription;
+    }
+
+    /**
+     * Creates a formatted string with all the inspectables within the room.
+     * @return roomDescription, the concatenated String.
+     */
+    private String getInspectableObjectsString(){
+        String roomDescription;
+        if (inspectables.size() != 0) {
+            roomDescription = "There are some things in this room: ";
+            for (Inspectable i : inspectables) {
+                roomDescription += i.getName() + " ";
+            }
+            roomDescription += "\n";
+        } else {
+            roomDescription = "This room is empty. \n";
+        }
+        return roomDescription;
     }
 
     /**
@@ -73,7 +94,7 @@ public class Room extends Lockable
      */
     private String getExitString()
     {
-        String returnString = "Exits:";
+        String returnString = "The exits are: ";
         Set<String> keys = exits.keySet();
         for(String exit : keys) {
             returnString += " " + exit;
@@ -91,5 +112,34 @@ public class Room extends Lockable
     {
         return exits.get(direction);
     }
-}
 
+    /**
+     * Adds an item to the inspectables list.
+     * @param item, the item to add.
+     */
+    public void addItem(Item item) {
+        inspectables.add(item);
+    }
+
+    /**
+     * @return the size of the inspectables list.
+     */
+    public int getInspectablesSize() {
+        return inspectables.size();
+    }
+
+    /**
+     * Casts an inspectable object into an item object.
+     * @param itemName, the name of the item we are looking for.
+     * @return Item, if the item was found, null otherwise.
+     */
+    public Item getItemObject(String itemName) {
+        for (Inspectable i : inspectables) {
+            if (i.getName() == itemName && i instanceof Item) {
+                return (Item) i;
+            }
+        }
+        return null;
+    }
+
+}

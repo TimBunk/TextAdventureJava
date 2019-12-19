@@ -7,6 +7,9 @@ public class main {
 
     public static void main(String args[]) throws IOException {
 
+        Game game = new Game();
+        game.play();
+
         Window window = new Window(960, 540, "TextAdventureJava");
         window.use();
         window.setVSync(true);

@@ -49,7 +49,7 @@ public class Game
     private ArrayList<Person> createNpcs() {
         // initalising all npcs
         Person wife = new Person("wife", "The wife of Gary Larry");
-        Person housemaid = new Person("house maid", "The house maid.");
+        Person housemaid = new Person("house-maid", "The house maid.");
         Person chef = new Person("chef", "Gary Larry's personal cook.");
         Person gardener = new Person("gardener", "The gardener.");
 
@@ -119,14 +119,14 @@ public class Game
      */
     private ArrayList<Item> createItems() {
         // initialising all the items
-        Item vaultKey = new Item("vault key", "Key for the vault located in the bedroom.");
-        Item carKey = new Item("car key", "Key for the car located in the garage.");
-        Item shedKey = new Item("shed key", "Key for the shed locate inside the garden.");
+        Item vaultKey = new Item("vault-key", "Key for the vault located in the bedroom.");
+        Item carKey = new Item("car-key", "Key for the car located in the garage.");
+        Item shedKey = new Item("shed-key", "Key for the shed locate inside the garden.");
         Item cellphone = new Item("cellphone", "Cellphone that appears to be someones property.");
-        Item shoppingList = new Item("shopping list", "A list with last nights bought groceries.");
+        Item shoppingList = new Item("shopping-list", "A list with last nights bought groceries.");
         Item ducktape = new Item("ducktape", "Ducktape? What could this be used for?");
         Item hammer = new Item("hammer", "A hammer.");
-        Item kitchenKnive = new Item("kitchen knive", "A knive, used to cut meat and vegetables.");
+        Item kitchenKnive = new Item("kitchen-knive", "A knive, used to cut meat and vegetables.");
         Item poison = new Item("poison", "A suspicious looking bottle with a skull on it");
 
         // adding the items to an arraylist
@@ -265,6 +265,7 @@ public class Game
         Item itemToAdd = currentRoom.getItemObject(item);
         if (itemToAdd != null) {
             if (bruce.pickup(itemToAdd)) {
+                currentRoom.removeItem(itemToAdd);
                 System.out.println("Picked up: " + item);
             } else {
                 System.out.println("Could not pick up: " + item);
@@ -282,6 +283,7 @@ public class Game
         Item itemToDrop = bruce.getInventoryItem(name);
         if (itemToDrop != null) {
             if (bruce.drop(itemToDrop)) {
+                currentRoom.addItem(itemToDrop);
                 System.out.println("Dropped: " + name);
             } else {
                 System.out.println("Could not drop: " + name);

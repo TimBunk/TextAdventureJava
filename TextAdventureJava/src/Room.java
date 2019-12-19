@@ -142,4 +142,12 @@ public class Room extends Lockable
         return null;
     }
 
+    /**
+     * Removes an item from a room
+     * @param name, the name of the item we want to remove.
+     */
+    public void removeItem(Item name) {
+        inspectables.remove(name);
+    }
+
 }

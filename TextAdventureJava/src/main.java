@@ -16,10 +16,12 @@ public class main {
         window.setBackgroundColor(new Vector3f(0.0f, 0.0f, 1.0f));
 
         TextureManager textureManager = new TextureManager();
+        FontManager fontManager = new FontManager();
+        Font f = fontManager.load("Fonts/OCR_A_Extended");
 
         Sprite sprite = new Sprite(250, 250, textureManager.load("Images/awesomeface.png"));
         sprite.setColor(new Vector4f(1.0f, 0.0f, 1.0f, 1.0f));
-        sprite.setPosition(new Vector2f(480, 270));
+        sprite.setPosition(new Vector2f(240, 270));
         sprite.setRotation(-45.0f);
 
         Sprite sprite2 = new Sprite(250, 250, textureManager.load("Images/awesomeface.png"));

@@ -135,7 +135,7 @@ public class Room extends Lockable
      */
     public Item getItemObject(String itemName) {
         for (Inspectable i : inspectables) {
-            if (i.getName() == itemName && i instanceof Item) {
+            if (i.getName().equals(itemName) && i instanceof Item) {
                 return (Item) i;
             }
         }

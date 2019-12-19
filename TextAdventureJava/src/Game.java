@@ -225,6 +225,15 @@ public class Game
 
             case PICKUP:
                 pickUp(command.getSecondWord());
+                break;
+
+            case INVENTORY:
+                inventory();
+                break;
+
+            case DROP:
+                dropItem(command.getSecondWord());
+                break;
         }
         return wantToQuit;
     }
@@ -245,16 +254,40 @@ public class Game
         parser.showCommands();
     }
 
+    /**
+     * Shows the players inventory.
+     */
+    public void inventory() {
+        System.out.println(bruce.getInventoryString());
+    }
+
     private void pickUp(String item) {
         Item itemToAdd = currentRoom.getItemObject(item);
         if (itemToAdd != null) {
             if (bruce.pickup(itemToAdd)) {
-                System.out.println("Picked up " + item);
+                System.out.println("Picked up: " + item);
             } else {
-                System.out.println("Could not pick up " + item);
+                System.out.println("Could not pick up: " + item);
             }
         }  else {
             System.out.println("That item does not exist.");
+        }
+    }
+
+    /**
+     * Drops an item from the players inventory
+     * @param name, the item you want to drop.
+     */
+    private void dropItem(String name) {
+        Item itemToDrop = bruce.getInventoryItem(name);
+        if (itemToDrop != null) {
+            if (bruce.drop(itemToDrop)) {
+                System.out.println("Dropped: " + name);
+            } else {
+                System.out.println("Could not drop: " + name);
+            }
+        } else {
+            System.out.println("That item is not in your inventory.");
         }
     }
 

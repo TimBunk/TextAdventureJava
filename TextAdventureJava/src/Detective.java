@@ -45,4 +45,25 @@ public class Detective {
             return true;
         }
     }
+
+    public String getInventoryString() {
+        String inventoryString = "";
+        if (inventory.size() == 0) {
+            inventoryString += "Your inventory is empty.";
+        } else {
+            for (Item i : inventory) {
+                inventoryString += i.name + " ";
+            }
+        }
+        return inventoryString;
+    }
+
+    public Item getInventoryItem(String itemName) {
+        for (Item i : inventory) {
+            if (i.getName().equals(itemName)) {
+                return i;
+            }
+        }
+        return null;
+    }
 }

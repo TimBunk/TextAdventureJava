@@ -234,6 +234,10 @@ public class Game
             case DROP:
                 dropItem(command.getSecondWord());
                 break;
+
+            case LOOK:
+                look();
+                break;
         }
         return wantToQuit;
     }
@@ -333,5 +337,12 @@ public class Game
         else {
             return true;  // signal that we want to quit
         }
+    }
+
+    /**
+     * Stuurt de beschrijving van de kamer.
+     */
+    private void look() {
+        System.out.println(currentRoom.getLongDescription());
     }
 }

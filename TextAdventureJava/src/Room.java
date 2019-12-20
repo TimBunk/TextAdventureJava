@@ -66,6 +66,8 @@ public class Room extends Lockable
         String roomDescription = "You are in the " + name + "\n";
         String objectString = getInspectableObjectsString();
         roomDescription += objectString;
+        String exitString = getExitString();
+        roomDescription += exitString;
         return  roomDescription;
     }
 
@@ -97,7 +99,7 @@ public class Room extends Lockable
         String returnString = "The exits are: ";
         Set<String> keys = exits.keySet();
         for(String exit : keys) {
-            returnString += " " + exit;
+            returnString += exit + " ";
         }
         return returnString;
     }

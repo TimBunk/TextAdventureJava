@@ -11,7 +11,7 @@ public enum CommandWord
     // corresponding user interface string.
     GO("go"), QUIT("quit"), HELP("help"),
     PICKUP("pickup"), INVENTORY("inventory"),
-    DROP("drop"), UNKNOWN("?");
+    DROP("drop"), UNKNOWN("?"), LOOK("look");
     
     // The command string.
     private String commandString;

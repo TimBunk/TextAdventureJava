@@ -46,6 +46,10 @@ public class Detective {
         }
     }
 
+    /**
+     * Maakt een string display van de players inventory.
+     * @return inventoryString, de co
+     */
     public String getInventoryString() {
         String inventoryString = "";
         if (inventory.size() == 0) {
@@ -58,6 +62,11 @@ public class Detective {
         return inventoryString;
     }
 
+    /**
+     * Haalt een item op uit de inventory.
+     * @param itemName het item wat je wilt ophalen.
+     * @return i, het opgehaalde item.
+     */
     public Item getInventoryItem(String itemName) {
         for (Item i : inventory) {
             if (i.getName().equals(itemName)) {

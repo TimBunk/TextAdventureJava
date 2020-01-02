@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class Font {
 
-    Texture texture;
+    private Texture texture;
     private HashMap<Character, Glyph> glyphes;
 
     Font(String filePath) throws IOException {
@@ -39,10 +39,14 @@ public class Font {
 
     private void loadGlyphFromString(String[] array, float scaleW, float scaleH) {
         char id = (char)Integer.parseInt(array[2]);
-        Vector2f uv = new Vector2f(Float.parseFloat(array[4])/scaleW, (scaleH - Float.parseFloat(array[6]))/scaleH);
         Vector2f scale = new Vector2f(Integer.parseInt(array[8]), Integer.parseInt(array[10]));
         Vector2f offset = new Vector2f(Integer.parseInt(array[12]), Integer.parseInt(array[14]));
         int xAdvance = Integer.parseInt(array[16]);
+
+        float uvX = Float.parseFloat(array[4]);
+        float uvY = (scaleH - Float.parseFloat(array[6]) - scale.y);
+        Vector4f uv = new Vector4f(uvX/scaleW, uvY/scaleH, (uvX+scale.x)/scaleW, (uvY+scale.y)/scaleH);
+
         Glyph g = new Glyph(uv, scale, offset, xAdvance);
         glyphes.put(id, g);
     }
@@ -50,4 +54,8 @@ public class Font {
     public void destroy() {
         texture.destroy();
     }
+
+    // Getters
+    public Texture getTexture() { return texture; }
+    public Glyph getGlyph(Character c) { return glyphes.get(c); }
 }

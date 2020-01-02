@@ -7,8 +7,8 @@ public class main {
 
     public static void main(String args[]) throws IOException {
 
-        Game game = new Game();
-        game.play();
+        //Game game = new Game();
+        //game.play();
 
         Window window = new Window(960, 540, "TextAdventureJava");
         window.use();
@@ -18,6 +18,10 @@ public class main {
         TextureManager textureManager = new TextureManager();
         FontManager fontManager = new FontManager();
         Font f = fontManager.load("Fonts/OCR_A_Extended");
+        Text text = new Text(f, "Hello world");
+        text.setPosition(new Vector2f(0.0f, 540.0f));
+        Text text2 = new Text(f, "Sample");
+        text2.setPosition(new Vector2f(0.0f, 450.0f));
 
         Sprite sprite = new Sprite(250, 250, textureManager.load("Images/awesomeface.png"));
         sprite.setColor(new Vector4f(1.0f, 0.0f, 1.0f, 1.0f));
@@ -28,8 +32,10 @@ public class main {
         sprite2.setPosition(new Vector2f(480, 270));
 
         Renderer renderer = new Renderer();
-        renderer.addSprite(sprite);
-        renderer.addSprite(sprite2);
+        renderer.add(sprite);
+        renderer.add(sprite2);
+        renderer.add(text);
+        renderer.add(text2);
 
         while (!window.shouldClose()) {
 

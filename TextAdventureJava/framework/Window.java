@@ -19,7 +19,7 @@ public class Window {
     private String title;
     private long window;
     private Vector3f backgroundColor;
-    private Matrix4f projection;
+    private float[] projection;
 
     /**
      * In de constructor word gecheckt of glfw al geinitialiseerd is anders wordt hij geinitialiseerd ook wordt de window hier gemaakt doormiddel van glfw
@@ -33,8 +33,11 @@ public class Window {
         this.height = height;
         this.title = title;
         backgroundColor = new Vector3f(0.0f, 0.0f, 0.0f);
-        projection = new Matrix4f().identity();
-        projection.ortho(0.0f, width, 0.0f, height, -100.0f, 100.0f);
+        // De reden dat ik de project matrix4f omzet in een array van floats is omdat de shaders die deze matrix gaan gebruiken alleen maar een array van floats accepteren
+        Matrix4f projectionMatrix = new Matrix4f().identity();
+        projectionMatrix.ortho(0.0f, width, 0.0f, height, -100.0f, 100.0f);
+        projection = new float[16];
+        projection = projectionMatrix.get(projection);
 
         if (!Window.glfw_initialized) {
             // Initializeer glfw als dat nog niet gedaan was
@@ -68,7 +71,7 @@ public class Window {
     public int getHeight()               { return height; }
     public String getTitle()             { return title; }
     public Vector3f getBackgroundColor() { return backgroundColor; }
-    public Matrix4f getProjection()      { return projection; }
+    public float[] getProjection()       { return projection; }
     // Setters
     public void setBackgroundColor(Vector3f backgroundColor)    { this.backgroundColor = backgroundColor; }
     public void setVSync(boolean state)                         { glfwSwapInterval((state ? 1: 0)); }

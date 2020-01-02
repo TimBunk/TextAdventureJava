@@ -146,7 +146,7 @@ public class Renderer {
                 glBufferData(GL_ARRAY_BUFFER, toFloatArray(instances), GL_DYNAMIC_DRAW);
                 // Draw. De count wordt berekend door instances.size()/20 want er zijn 20 floats per instance
                 glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, instances.size()/20);
-
+                instances.clear();
             }
         }
     }

@@ -187,10 +187,11 @@ public class Renderer {
             // Set de model matrix
             Vector2f position = t.getPosition();
             float rotation = t.getRotation();
+            float size = t.getSize() / f.getSize();
             model = model.identity();
             model = model.translate(position.x, position.y, 0.0f);
             model = model.rotate((float)Math.toRadians(rotation), 0.0f, 0.0f, 1.0f);
-            model = model.scale(1.0f, 1.0f, 0.0f);
+            model = model.scale(size, size, 0.0f);
             float[] modelValues = new float[16];
             modelValues = model.get(modelValues);
             textShader.setUniformMatrix4f("u_model", modelValues);

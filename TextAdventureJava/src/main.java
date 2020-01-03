@@ -20,6 +20,7 @@ public class main {
         Font f = fontManager.load("Fonts/OCR_A_Extended");
         Text text = new Text(f, "Hello world");
         text.setPosition(new Vector2f(0.0f, 540.0f));
+        text.setSize(22.5f);
         Text text2 = new Text(f, "Sample");
         text2.setPosition(new Vector2f(0.0f, 450.0f));
 

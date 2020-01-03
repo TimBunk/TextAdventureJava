@@ -11,10 +11,12 @@ public class Font {
 
     private Texture texture;
     private HashMap<Character, Glyph> glyphes;
+    private float size;
 
     Font(String filePath) throws IOException {
         glyphes = new HashMap<Character, Glyph>();
         texture = new Texture(String.format("%s%s", filePath, ".png"));
+        size = 1.0f;
         loadFromFile(filePath);
     }
 
@@ -32,6 +34,9 @@ public class Font {
                 else if (array[0].equals("common")) {
                     scaleW = Float.parseFloat(array[6]);
                     scaleH = Float.parseFloat(array[8]);
+                }
+                else if (array[0].equals("info")) {
+                     size = Float.parseFloat(array[4]);
                 }
             }
         }
@@ -56,6 +61,7 @@ public class Font {
     }
 
     // Getters
-    public Texture getTexture() { return texture; }
-    public Glyph getGlyph(Character c) { return glyphes.get(c); }
+    public Texture getTexture()         { return texture; }
+    public Glyph getGlyph(Character c)  { return glyphes.get(c); }
+    public float getSize()              { return size; }
 }

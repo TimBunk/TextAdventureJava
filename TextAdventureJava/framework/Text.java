@@ -12,6 +12,7 @@ public class Text {
     private String string;
     private Vector2f position;
     private float rotation;
+    private float size;
     private Vector4f color;
 
     /**
@@ -24,6 +25,7 @@ public class Text {
         this.string = string;
         position = new Vector2f(0.0f, 0.0f);
         rotation = 0.0f;
+        size = font.getSize();
         color = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
@@ -32,6 +34,7 @@ public class Text {
     public String getString()       { return string; }
     public Vector2f getPosition()   { return position; }
     public float getRotation()      { return rotation; }
+    public float getSize()          { return size; }
     public Vector4f getColor()      { return color; }
 
     // Setters
@@ -39,6 +42,7 @@ public class Text {
     public void setString(String string)        { this.string = string; }
     public void setPosition(Vector2f position)  { this.position = position; }
     public void setRotation(float rotation)     { this.rotation = rotation; }
+    public void setSize(float size)            { this.size = size; }
     public void setColor(Vector4f color)        { this.color = color; }
 
 }

@@ -51,17 +51,17 @@ public class Window {
                 throw new RuntimeException("GLFW Error: Er ging iets mis bij het initializeren van glfw.");
             }
         }
+        // Gebruik versie 3.3 van openGL
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        // De window kan niet van grootte worden verandert
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // the window will be resizable
         // Maak de window
         window = glfwCreateWindow(this.width, this.height, this.title, 0, 0);
         // Creeer een error als de window niet met succes was gemaakt
         if (window == 0) {
             throw new RuntimeException("GLFW Error: Kon de glfw window niet aanmaken.");
         }
-        // Gebruik versie 3.3 van openGL
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        // De window kan niet van grootte worden verandert
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // the window will be resizable
         // De windowCount gaat met 1 omhoog omdat deze window met succes is gemaakt
         Window.windowCount++;
     }

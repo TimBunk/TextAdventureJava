@@ -1,8 +1,5 @@
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
@@ -196,28 +193,33 @@ public class Renderer {
             modelValues = model.get(modelValues);
             textShader.setUniformMatrix4f("u_model", modelValues);
 
-            String string = t.getString();
-            float pos = 0.0f;
-            List<Float>  vertices = new ArrayList<Float>();
-            for (int j=0;j<string.length();j++) {
-                char c = string.charAt(j);
-                Glyph g = f.getGlyph(c);
-                if (g != null) {
-                    Vector4f uv = g.getUv();
-                    Vector2f scale = g.getScale();
-                    Vector2f offset = g.getOffset();
-                    // Positions                                                            // UV's
-                    // First triangle
-                    vertices.add(pos+0.0f+offset.x); vertices.add(0.0f-offset.y-scale.y);       vertices.add(uv.x); vertices.add(uv.y); // Bottom left
-                    vertices.add(pos+scale.x+offset.x); vertices.add(0.0f-offset.y); vertices.add(uv.z); vertices.add(uv.w); // Top right
-                    vertices.add(pos+0.0f+offset.x); vertices.add(0.0f-offset.y);    vertices.add(uv.x); vertices.add(uv.w); // Top left
-                    // Second triangle
-                    vertices.add(pos+0.0f+offset.x); vertices.add(0.0f-offset.y-scale.y);       vertices.add(uv.x); vertices.add(uv.y); // Bottom left
-                    vertices.add(pos+scale.x+offset.x); vertices.add(0.0f-offset.y); vertices.add(uv.z); vertices.add(uv.w); // Top right
-                    vertices.add(pos+scale.x+offset.x); vertices.add(0.0f-offset.y-scale.y);    vertices.add(uv.z); vertices.add(uv.y); // Bottom right
 
-                    pos += g.getXAdvance();
+            Queue<String> lines = t.getLines();
+            List<Float>  vertices = new ArrayList<Float>();
+            float posY = 0;
+            for (String string : lines) {
+                float posX = 0.0f;
+                for (int j=0;j<string.length();j++) {
+                    char c = string.charAt(j);
+                    Glyph g = f.getGlyph(c);
+                    if (g != null) {
+                        Vector4f uv = g.getUv();
+                        Vector2f scale = g.getScale();
+                        Vector2f offset = g.getOffset();
+                        // Positions                                                                    // UV's
+                        // First triangle
+                        vertices.add(posX+0.0f+offset.x); vertices.add(0.0f-offset.y-scale.y-posY);     vertices.add(uv.x); vertices.add(uv.y); // Bottom left
+                        vertices.add(posX+scale.x+offset.x); vertices.add(0.0f-offset.y-posY);          vertices.add(uv.z); vertices.add(uv.w); // Top right
+                        vertices.add(posX+0.0f+offset.x); vertices.add(0.0f-offset.y-posY);             vertices.add(uv.x); vertices.add(uv.w); // Top left
+                        // Second triangle
+                        vertices.add(posX+0.0f+offset.x); vertices.add(0.0f-offset.y-scale.y-posY);     vertices.add(uv.x); vertices.add(uv.y); // Bottom left
+                        vertices.add(posX+scale.x+offset.x); vertices.add(0.0f-offset.y-posY);          vertices.add(uv.z); vertices.add(uv.w); // Top right
+                        vertices.add(posX+scale.x+offset.x); vertices.add(0.0f-offset.y-scale.y-posY);  vertices.add(uv.z); vertices.add(uv.y); // Bottom right
+
+                        posX += g.getXAdvance();
+                    }
                 }
+                posY += f.getSize();
             }
             // Draw
             glBindBuffer(GL_ARRAY_BUFFER, VBO_text);

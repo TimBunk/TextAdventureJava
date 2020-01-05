@@ -21,6 +21,9 @@ public class Window {
     private Vector3f backgroundColor;
     private float[] projection;
 
+    private double lastTime;
+    private double deltaTime;
+
     /**
      * In de constructor word gecheckt of glfw al geinitialiseerd is anders wordt hij geinitialiseerd ook wordt de window hier gemaakt doormiddel van glfw
      * @param width de breedte van de window
@@ -64,6 +67,9 @@ public class Window {
         }
         // De windowCount gaat met 1 omhoog omdat deze window met succes is gemaakt
         Window.windowCount++;
+
+        lastTime = 0.0f;
+        deltaTime = 0.0f;
     }
 
     // Getters
@@ -72,6 +78,7 @@ public class Window {
     public String getTitle()             { return title; }
     public Vector3f getBackgroundColor() { return backgroundColor; }
     public float[] getProjection()       { return projection; }
+    public double getDeltaTime()         { return deltaTime; }
     // Setters
     public void setBackgroundColor(Vector3f backgroundColor)    { this.backgroundColor = backgroundColor; }
     public void setVSync(boolean state)                         { glfwSwapInterval((state ? 1: 0)); }
@@ -106,6 +113,12 @@ public class Window {
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
+    public void update() {
+        double currentTime = glfwGetTime();
+        deltaTime = currentTime - lastTime;
+        lastTime = currentTime;
+    }
+
     /**
      * Verwisselt de buffers om alles wat er gerendert is zichtbaar te maken.
      * Voer deze functie uit na dat je gerendert hebt.
@@ -132,9 +145,7 @@ public class Window {
      * Haalt alle events op die er zijn gebeurt voor glfw.
      * Het is belangrijk deze aan het eind van je frame aan te roepen om alle huidige events op te halen zoals keyboard en window events van glfw.
      */
-    public static void pollEvents() {
-        if (Window.glfw_initialized) {
-            glfwPollEvents();
-        }
+    public void pollEvents() {
+        glfwPollEvents();
     }
 }

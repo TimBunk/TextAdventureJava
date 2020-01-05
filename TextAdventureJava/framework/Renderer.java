@@ -9,11 +9,9 @@ import static org.lwjgl.opengl.GL33.*;
 
 public class Renderer {
 
-    List<Sprite> sprites;
     Shader spriteShader;
     int VAO_sprite, VBO_sprite, VBOInstance_sprite, EBO_sprite;
 
-    List<Text> text;
     Shader textShader;
     int VAO_text, VBO_text;
 
@@ -22,7 +20,6 @@ public class Renderer {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable( GL_BLEND );
         // Intialiseer de variablen
-        sprites = new ArrayList<Sprite>();
         spriteShader = new Shader("Shaders/Sprite.glsl");
 
         float[] vertices = {
@@ -77,7 +74,6 @@ public class Renderer {
         glVertexAttribDivisor(6, 1);
 
         // Initialiseer de variablen voor de text rendering
-        text = new ArrayList<Text>();
         textShader = new Shader("Shaders/Text.glsl");
         VAO_text = glGenVertexArrays();
         glBindVertexArray(VAO_text);
@@ -90,19 +86,15 @@ public class Renderer {
         glEnableVertexAttribArray(1);
     }
 
-    public void add(Sprite sprite)  { sprites.add(sprite); }
-    public void add(Text text)      { this.text.add(text); }
-    public void clear()             { sprites.clear(); }
+    public void render(Scene scene, float[] projectionMatrix) {
 
-    public void render(Window window) {
-        window.clear();
+        List<Sprite> sprites = scene.getSprites();
+        List<Text> text = scene.getText();
 
         if (sprites.size() > 0) {
-            renderSprites(window.getProjection());
+            renderSprites(sprites, projectionMatrix);
         }
-        renderText(window.getProjection());
-
-        window.swapBuffers();
+        renderText(text, projectionMatrix);
     }
 
     public void destroy() {
@@ -117,7 +109,7 @@ public class Renderer {
         glDeleteVertexArrays(VAO_text);
     }
 
-    private void renderSprites(float[] projection) {
+    private void renderSprites(List<Sprite> sprites, float[] projection) {
         // Sorteer de sprites. De sprites worden door de class SortSprite gesorteerd op layer > texture > id
         Collections.sort(sprites, new SortSprite());
         // Gebruik de shader
@@ -168,7 +160,7 @@ public class Renderer {
         }
     }
 
-    private void renderText(float[] projection) {
+    private void renderText(List<Text> text, float[] projection) {
         textShader.use();
         textShader.setUniformMatrix4f("u_projection", projection);
         glBindVertexArray(VAO_text);

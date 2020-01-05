@@ -15,10 +15,14 @@
  * @version 2016.02.29
  */
 
+import org.joml.Vector2f;
+import org.joml.Vector4f;
+
+import java.io.IOException;
 import java.util.Random;
 import java.util.ArrayList;
 
-public class Game 
+public class Game extends Scene
 {
     private Parser parser;
     private Detective bruce;
@@ -27,12 +31,19 @@ public class Game
     private Person murderer;
     private String weapon;
 
-        
+    private Font f;
+    private Text text;
+    private Text text2;
+    private Sprite sprite;
+    private Sprite sprite2;
+    public double counter;
+    public int fps = 0;
+
+
     /**
      * Create the game and initialise its internal map.
      */
-    public Game() 
-    {
+    public Game() throws IOException {
         bruce = new Detective();
         parser = new Parser();
         rand = new Random();
@@ -41,6 +52,32 @@ public class Game
         ArrayList<Person> npcs = createNpcs();
         addItemsToRooms(items, rooms);
 
+        // Sprites en visueele text
+        f = fontManager.load("Fonts/OCR_A_Extended");
+        text = new Text(f, "Hello world\ntest how the line will fit into the test how the line will fit into the test how the line will fit into the screen.");
+        text.setPosition(new Vector2f(0.0f, 540.0f));
+        text.setSize(22.5f);
+        text.setMaxWidth(480.0f);
+
+        text2 = new Text(f, "Sample");
+        text2.setPosition(new Vector2f(0.0f, 450.0f));
+
+        sprite = new Sprite(250, 250, textureManager.load("Images/awesomeface.png"));
+        sprite.setColor(new Vector4f(1.0f, 0.0f, 1.0f, 1.0f));
+        sprite.setPosition(new Vector2f(240, 270));
+        sprite.setRotation(-45.0f);
+
+        sprite2 = new Sprite(250, 250, textureManager.load("Images/awesomeface.png"));
+        sprite2.setPosition(new Vector2f(480, 270));
+        counter = 0.0f;
+    }
+
+    @Override
+    public void update(double deltaTime) {
+        draw(sprite);
+        draw(sprite2);
+        draw(text);
+        draw(text2);
     }
 
     /**

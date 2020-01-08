@@ -6,10 +6,13 @@ public class Core {
 
     private Window window;
     private Renderer renderer;
+    private Input input;
 
     Core(Window window) throws IOException {
         this.window = window;
         window.use();
+        input = Input.init();
+        window.setInput(input);
         renderer = new Renderer();
     }
 
@@ -22,6 +25,7 @@ public class Core {
         renderer.render(scene, window.getProjection());
         scene.clear();
 
+        input.update();
         window.swapBuffers();
         window.pollEvents();
     }
@@ -34,6 +38,9 @@ public class Core {
     public Window getWindow() { return window; }
 
     // Setters
-    public void setWindow(Window window) { this.window = window; }
+    public void setWindow(Window window) {
+        this.window = window;
+        window.setInput(input);
+    }
 
 }

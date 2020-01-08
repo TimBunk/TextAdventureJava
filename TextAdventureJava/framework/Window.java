@@ -83,6 +83,11 @@ public class Window {
     public void setBackgroundColor(Vector3f backgroundColor)    { this.backgroundColor = backgroundColor; }
     public void setVSync(boolean state)                         { glfwSwapInterval((state ? 1: 0)); }
 
+    public void setInput(Input input) {
+        glfwSetKeyCallback(window, input);
+        glfwSetCharCallback(window, input);
+    }
+
     /**
      * Voor dat je de window kan gebruiken moet je use() een keer aanroepen om aan te geven dat dit de window is die je nu wilt gebruiken.
      * Als je meerdere windows hebt zorg er dan voor dat je use() een keer aanroept voor de huidige window waar je mee bezig bent.

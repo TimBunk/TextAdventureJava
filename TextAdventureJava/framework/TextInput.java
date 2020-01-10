@@ -9,6 +9,7 @@ public class TextInput extends Text {
     private Vector4f backupColor;
     private boolean empty;
     private int maxChars;
+    private TextInputCallbackI textInputCallbackI;
 
     TextInput(Font font) {
         super(font, "");
@@ -17,6 +18,7 @@ public class TextInput extends Text {
         backupColor = getColor();
         empty = true;
         maxChars = Integer.MAX_VALUE;
+        textInputCallbackI = null;
     }
 
     public void update() {
@@ -37,8 +39,13 @@ public class TextInput extends Text {
         if (empty == false) {
             // Get de string
             String s = getString();
+            // Als er op enter wordt geklikt run dan de callback
+            if (textInputCallbackI != null && Input.key(GLFW_KEY_ENTER, Key.KeyState.PRESSED)) {
+                textInputCallbackI.textInputCallback(s);
+                s = "";
+            }
             // Als er backspace wordt geklikt verwijder dan de laatse char van de string
-            if (s.length() > 0 && (Input.key(GLFW_KEY_BACKSPACE, Key.KeyState.PRESSED) || Input.key(GLFW_KEY_BACKSPACE, Key.KeyState.REPEAT))) {
+            else if (s.length() > 0 && (Input.key(GLFW_KEY_BACKSPACE, Key.KeyState.PRESSED) || Input.key(GLFW_KEY_BACKSPACE, Key.KeyState.REPEAT))) {
                 s = s.substring(0, s.length() - 1);
                 // Als de string helemaal leeg is wordt de placeholder actief gezet
                 if (s.length() == 0) {
@@ -70,7 +77,8 @@ public class TextInput extends Text {
     // Getters
     public int getMaxChars() { return maxChars; }
     // Setters
-    public void setMaxChars(int maxChars) { this.maxChars = maxChars; }
+    public void setMaxChars(int maxChars)                           { this.maxChars = maxChars; }
+    public void setCallback(TextInputCallbackI textInputCallbackI)  { this.textInputCallbackI = textInputCallbackI; }
 
     public void setColor(Vector4f color) {
         backupColor = color;

@@ -42,7 +42,9 @@ public class TextInput extends Text {
             // Als er op enter wordt geklikt run dan de callback
             if (textInputCallbackI != null && Input.key(GLFW_KEY_ENTER, Key.KeyState.PRESSED)) {
                 textInputCallbackI.textInputCallback(s);
-                s = "";
+                activatePlaceholder(true);
+                empty = true;
+                return;
             }
             // Als er backspace wordt geklikt verwijder dan de laatse char van de string
             else if (s.length() > 0 && (Input.key(GLFW_KEY_BACKSPACE, Key.KeyState.PRESSED) || Input.key(GLFW_KEY_BACKSPACE, Key.KeyState.REPEAT))) {

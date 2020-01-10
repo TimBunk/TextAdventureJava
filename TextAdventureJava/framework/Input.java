@@ -1,29 +1,16 @@
 import org.lwjgl.glfw.GLFWCharCallbackI;
 import org.lwjgl.glfw.GLFWKeyCallbackI;
-import static org.lwjgl.glfw.GLFW.*;
-import org.lwjgl.opengl.GL;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.concurrent.CountDownLatch;
-import java.util.zip.CheckedOutputStream;
 
 import static org.lwjgl.system.dyncall.DynCallback.dcbArgInt;
 import static org.lwjgl.system.dyncall.DynCallback.dcbArgPointer;
 
 public class Input implements GLFWKeyCallbackI, GLFWCharCallbackI {
 
-    public enum KeyState {
-        UP,
-        PRESSED,
-        REPEAT,
-        DOWN,
-    }
-
     private static Input input = null;
     private final String SIGNATURE = "(pi)v";
-    private HashMap<Integer, KeyState> keys;
+    private HashMap<Integer, Key> keys;
     private String chars;
 
     Input() {
@@ -38,10 +25,11 @@ public class Input implements GLFWKeyCallbackI, GLFWCharCallbackI {
         return input;
     }
 
-    public static boolean key(int key, KeyState state) {
-        KeyState keyState = input.keys.get(key);
-        if (keyState != null) {
-            return (keyState == state || (keyState == KeyState.REPEAT && state == KeyState.DOWN));
+    public static boolean key(int key, Key.KeyState state) {
+        Key k = input.keys.get(key);
+        if (k != null) {
+            Key.KeyState keyState = k.getKeyState();
+            return (keyState == state || (state == Key.KeyState.REPEAT && k.getRepeat()));
         }
         return false;
     }
@@ -51,13 +39,14 @@ public class Input implements GLFWKeyCallbackI, GLFWCharCallbackI {
     }
 
     public void update() {
-        for (HashMap.Entry<Integer, KeyState> entry : keys.entrySet()) {
-            int key = entry.getKey();
-            KeyState state = entry.getValue();
+        for (HashMap.Entry<Integer, Key> entry : keys.entrySet()) {
+            int keyCode = entry.getKey();
+            Key k = entry.getValue();
             // Update alle keys die op het moment PRESSED zijn naar DOWN
-            if (state== KeyState.PRESSED) {
-                keys.replace(key, KeyState.DOWN);
+            if (k.getKeyState()== Key.KeyState.PRESSED) {
+                k.setKeyState(Key.KeyState.DOWN);
             }
+            k.setRepeat(false);
         }
         // Maak de chars string weer leeg
         chars = "";
@@ -67,11 +56,13 @@ public class Input implements GLFWKeyCallbackI, GLFWCharCallbackI {
         //System.out.println("Key: " + key + ", action: " + action);
         // Als de key wordt ingedrukt maak een key object aan en stop hem in de hashmap
         if (action == 1) {
-            keys.put(key, KeyState.PRESSED);
+            Key k = new Key();
+            k.setKeyState(Key.KeyState.PRESSED);
+            keys.put(key, k);
         }
         // Als de key nog steeds wordt ingedrukt zet de state dan op REPEAT
         else if (action == 2) {
-            keys.replace(key, KeyState.REPEAT);
+            keys.get(key).setRepeat(true);
         }
         // Als de key niet meer wordt ingedrukt wordt het uit de hashmap verwijdert
         else {
@@ -107,14 +98,6 @@ public class Input implements GLFWKeyCallbackI, GLFWCharCallbackI {
         else {
             handleChar(key);
         }
-
-        /*char[] chars = Character.toChars(key);
-        for (char c : chars) {
-            System.out.println("Char: " + c);
-        }*/
-        //System.out.println("Scancode: " + scancode);
-        //if (key == GLFW_KEY_E && action == GLFW_PRESS)
-
     }
 
     @Override

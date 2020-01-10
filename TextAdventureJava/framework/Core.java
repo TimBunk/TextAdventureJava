@@ -22,6 +22,7 @@ public class Core {
         window.update();
 
         scene.update(window.getDeltaTime());
+        scene.draw();
         renderer.render(scene, window.getProjection());
         scene.clear();
 

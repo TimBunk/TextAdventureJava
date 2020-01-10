@@ -17,12 +17,13 @@
 
 import org.joml.Vector2f;
 import org.joml.Vector4f;
+import static org.lwjgl.glfw.GLFW.*;
 
 import java.io.IOException;
 import java.util.Random;
 import java.util.ArrayList;
 
-public class Game extends Scene
+public class Game extends Scene implements TextInputCallbackI
 {
     private Parser parser;
     private Detective bruce;
@@ -36,8 +37,7 @@ public class Game extends Scene
     private Text text2;
     private Sprite sprite;
     private Sprite sprite2;
-    public double counter;
-    public int fps = 0;
+    private TextInput textInput;
 
 
     /**
@@ -69,15 +69,25 @@ public class Game extends Scene
 
         sprite2 = new Sprite(250, 250, textureManager.load("Images/awesomeface.png"));
         sprite2.setPosition(new Vector2f(480, 270));
-        counter = 0.0f;
+
+        textInput = new TextInput(f);
+        textInput.setPosition(new Vector2f(50, 100));
+        textInput.setPlaceHolder("Placeholder", new Vector4f(0.5f, 0.5f, 0.5f, 1.0f));
+        textInput.setCallback(this);
     }
 
     @Override
     public void update(double deltaTime) {
+        textInput.update();
+    }
+
+    @Override
+    public void draw() {
         draw(sprite);
         draw(sprite2);
         draw(text);
         draw(text2);
+        draw(textInput);
     }
 
     /**
@@ -381,5 +391,10 @@ public class Game extends Scene
      */
     private void look() {
         System.out.println(currentRoom.getLongDescription());
+    }
+
+    @Override
+    public void textInputCallback(String text) {
+        System.out.println(text);
     }
 }

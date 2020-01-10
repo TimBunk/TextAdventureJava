@@ -21,6 +21,8 @@ public class Scene {
 
     }
 
+    public void draw() {}
+
     protected void draw(Sprite sprite) {
         this.sprites.add(sprite);
     }

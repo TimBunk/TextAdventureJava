@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 public class Game extends Scene implements TextInputCallbackI
 {
+    private boolean shouldClose;
     private Parser parser;
     private Detective bruce;
     private Room currentRoom;
@@ -57,7 +58,7 @@ public class Game extends Scene implements TextInputCallbackI
         spriteInventoryBackground.setPosition(new Vector2f(64, 195));
         spriteTextInputBackground = new Sprite(680, 64, new Vector4f(0.0f, 0.0f, 0.0f, 1.0f));
         spriteTextInputBackground.setPosition(new Vector2f(480, 32));
-        // Visueele text
+        // Text
         font = fontManager.load("Fonts/OCR_A_Extended");
         textNameDetective = new Text(font, "Bruce Caine");
         textNameDetective.setSize(14);
@@ -72,24 +73,8 @@ public class Game extends Scene implements TextInputCallbackI
         textLog.setSize(14);
         textLog.setPosition(new Vector2f(145, 530));
         textLog.setMaxWidth(670);
-
-
-        /*text = new Text(f, "Hello world\ntest how the line will fit into the test how the line will fit into the test how the line will fit into the screen.");
-        text.setPosition(new Vector2f(0.0f, 540.0f));
-        text.setSize(22.5f);
-        text.setMaxWidth(480.0f);
-
-        text2 = new Text(f, "Sample");
-        text2.setPosition(new Vector2f(0.0f, 450.0f));
-
-        sprite = new Sprite(250, 250, textureManager.load("Images/Bruce_Cain.png"));
-        sprite.setColor(new Vector4f(1.0f, 0.0f, 1.0f, 1.0f));
-        sprite.setPosition(new Vector2f(240, 270));
-        sprite.setRotation(-45.0f);
-
-        sprite2 = new Sprite(250, 250, textureManager.load("Images/awesomeface.png"));
-        sprite2.setPosition(new Vector2f(480, 270));*/
-
+        textLog.setMaxHeight(470);
+        // TextInput
         textInput = new TextInput(font);
         textInput.setSize(14);
         textInput.setPosition(new Vector2f(145, 39));
@@ -98,7 +83,7 @@ public class Game extends Scene implements TextInputCallbackI
         textInput.setMaxChars(70);
 
 
-
+        shouldClose = false;
         bruce = new Detective("Bruce Caine", "Bruce Caine, the best detective in the west.", spriteBruce);
         parser = new Parser();
         rand = new Random();
@@ -106,6 +91,8 @@ public class Game extends Scene implements TextInputCallbackI
         ArrayList<Item> items = createItems();
         ArrayList<Person> npcs = createNpcs();
         addItemsToRooms(items, rooms);
+
+        printWelcome();
     }
 
     @Override
@@ -116,10 +103,6 @@ public class Game extends Scene implements TextInputCallbackI
 
     @Override
     public void draw() {
-        /*draw(sprite);
-        draw(sprite2);
-        draw(text);
-        draw(text2);*/
         draw(bruce.getSprite());
         draw(murderer.getSprite());
 
@@ -270,7 +253,7 @@ public class Game extends Scene implements TextInputCallbackI
      */
     public void play() 
     {            
-        printWelcome();
+        /*printWelcome();
 
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
@@ -280,7 +263,7 @@ public class Game extends Scene implements TextInputCallbackI
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        addToTextLog("Thank you for playing.  Good bye.");*/
     }
 
     /**
@@ -288,12 +271,12 @@ public class Game extends Scene implements TextInputCallbackI
      */
     private void printWelcome()
     {
-        System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
-        System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
-        System.out.println();
-        System.out.println(currentRoom.getLongDescription());
+        addToTextLog("");
+        addToTextLog("Welcome to the World of Zuul!");
+        addToTextLog("World of Zuul is a new, incredibly boring adventure game.");
+        addToTextLog("Type '" + CommandWord.HELP + "' if you need help.");
+        addToTextLog("");
+        addToTextLog(currentRoom.getLongDescription());
     }
 
     /**
@@ -309,7 +292,7 @@ public class Game extends Scene implements TextInputCallbackI
 
         switch (commandWord) {
             case UNKNOWN:
-                System.out.println("I don't know what you mean...");
+                addToTextLog("I don't know what you mean...");
                 break;
 
             case HELP:
@@ -321,7 +304,7 @@ public class Game extends Scene implements TextInputCallbackI
                 break;
 
             case QUIT:
-                wantToQuit = quit(command);
+                shouldClose = quit(command);
                 break;
 
             case PICKUP:
@@ -352,10 +335,10 @@ public class Game extends Scene implements TextInputCallbackI
      */
     private void printHelp() 
     {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
-        System.out.println();
-        System.out.println("Your command words are:");
+        addToTextLog("You are lost. You are alone. You wander");
+        addToTextLog("around at the university.");
+        addToTextLog("");
+        addToTextLog("Your command words are:");
         parser.showCommands();
     }
 
@@ -363,7 +346,7 @@ public class Game extends Scene implements TextInputCallbackI
      * Shows the players inventory.
      */
     public void inventory() {
-        System.out.println(bruce.getInventoryString());
+        addToTextLog(bruce.getInventoryString());
     }
 
     private void pickUp(String item) {
@@ -371,12 +354,12 @@ public class Game extends Scene implements TextInputCallbackI
         if (itemToAdd != null) {
             if (bruce.pickup(itemToAdd)) {
                 currentRoom.removeItem(itemToAdd);
-                System.out.println("Picked up: " + item);
+                addToTextLog("Picked up: " + item);
             } else {
-                System.out.println("Could not pick up: " + item);
+                addToTextLog("Could not pick up: " + item);
             }
         }  else {
-            System.out.println("That item does not exist.");
+            addToTextLog("That item does not exist.");
         }
     }
 
@@ -389,12 +372,12 @@ public class Game extends Scene implements TextInputCallbackI
         if (itemToDrop != null) {
             if (bruce.drop(itemToDrop)) {
                 currentRoom.addItem(itemToDrop);
-                System.out.println("Dropped: " + name);
+                addToTextLog("Dropped: " + name);
             } else {
-                System.out.println("Could not drop: " + name);
+                addToTextLog("Could not drop: " + name);
             }
         } else {
-            System.out.println("That item is not in your inventory.");
+            addToTextLog("That item is not in your inventory.");
         }
     }
 
@@ -406,7 +389,7 @@ public class Game extends Scene implements TextInputCallbackI
     {
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
-            System.out.println("Go where?");
+            addToTextLog("Go where?");
             return;
         }
 
@@ -416,11 +399,11 @@ public class Game extends Scene implements TextInputCallbackI
         Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
-            System.out.println("There is no door!");
+            addToTextLog("There is no door!");
         }
         else {
             currentRoom = nextRoom;
-            System.out.println(currentRoom.getLongDescription());
+            addToTextLog(currentRoom.getLongDescription());
         }
     }
 
@@ -432,7 +415,7 @@ public class Game extends Scene implements TextInputCallbackI
     private boolean quit(Command command) 
     {
         if(command.hasSecondWord()) {
-            System.out.println("Quit what?");
+            addToTextLog("Quit what?");
             return false;
         }
         else {
@@ -444,14 +427,21 @@ public class Game extends Scene implements TextInputCallbackI
      * Stuurt de beschrijving van de kamer.
      */
     private void look() {
-        System.out.println(currentRoom.getLongDescription());
+        addToTextLog(currentRoom.getLongDescription());
     }
 
     @Override
     public void textInputCallback(String text) {
-        System.out.println(text);
+        addToTextLog(text);
+        Command command = parser.getCommand(text);
+        processCommand(command);
+    }
+
+    public void addToTextLog(String text) {
         String s = textLog.getString();
         s = String.format("%s%s\n", s, text);
         textLog.setString(s);
     }
+
+    public boolean shouldClose() { return shouldClose; }
 }

@@ -15,9 +15,8 @@ public class main {
         Core core = new Core(window);
 
         Game game = new Game();
-        game.play();
 
-        while (!window.shouldClose()) {
+        while (!window.shouldClose() && !game.shouldClose()) {
             core.update(game);
         }
 

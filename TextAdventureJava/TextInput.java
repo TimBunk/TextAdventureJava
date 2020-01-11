@@ -1,5 +1,3 @@
- 
-
 import org.joml.Vector4f;
 
 import static org.lwjgl.glfw.GLFW.*;

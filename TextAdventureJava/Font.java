@@ -1,10 +1,7 @@
- 
-
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;

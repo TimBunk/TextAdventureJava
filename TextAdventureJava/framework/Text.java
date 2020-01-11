@@ -65,15 +65,13 @@ public class Text {
     public void setString(String string) {
         this.string = string;
         lines.clear();
-        if (maxWidth <= 0.0f) {
-            lines.add(string);
-        }
-        else {
-            float size = this.size / font.getSize();
-            String[] linesArray = string.split("\\n");
-            for (String l : linesArray) {
-
-
+        float size = this.size / font.getSize();
+        String[] linesArray = string.split("\\n");
+        for (String l : linesArray) {
+            if (maxWidth <= 0.0f) {
+                lines.add(l);
+            }
+            else {
                 String[] wordsArray = l.split("\\s");
                 float pos = 0.0f;
                 float spaceXAdvance = font.getGlyph(' ').getXAdvance() * size;
@@ -81,7 +79,7 @@ public class Text {
                 for (String w : wordsArray) {
 
                     float wordXAdvance = 0.0f;
-                    for (int i=0;i<w.length();i++) {
+                    for (int i = 0; i < w.length(); i++) {
                         char c = string.charAt(i);
                         Glyph g = font.getGlyph(c);
                         wordXAdvance += (g.getXAdvance() * size);
@@ -89,9 +87,10 @@ public class Text {
                     pos += wordXAdvance;
                     if (newString.equals("") || pos <= maxWidth) {
                         newString += w;
-                    }
-                    else {
-                        if (newString.charAt(newString.length() -1) == ' ') { newString = newString.substring(0, newString.length() - 1); }
+                    } else {
+                        if (newString.charAt(newString.length() - 1) == ' ') {
+                            newString = newString.substring(0, newString.length() - 1);
+                        }
                         lines.add(newString);
                         newString = w;
                         pos = wordXAdvance;
@@ -104,8 +103,8 @@ public class Text {
                 if (newString.equals("") == false) {
                     lines.add(newString);
                 }
-
             }
+
         }
     }
 

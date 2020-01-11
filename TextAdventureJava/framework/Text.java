@@ -17,7 +17,7 @@ public class Text {
     private float size;
     private Vector4f color;
     private Queue<String> lines;
-    private float maxWidth;
+    private float maxWidth, maxHeight;
     private String string;
 
     /**
@@ -33,6 +33,7 @@ public class Text {
         color = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
         lines = new LinkedList<String>();
         maxWidth = -1.0f;
+        maxHeight = -1.0f;
         setString(string);
     }
 
@@ -45,6 +46,7 @@ public class Text {
     public String getString()       { return string; }
     public Queue<String> getLines() { return lines; }
     public float getMaxWidth() { return maxWidth; }
+    public float getMaxHeight() { return maxHeight; }
 
     // Setters
     public void setFont(Font font)              { this.font = font; }
@@ -62,18 +64,29 @@ public class Text {
         setString(string);
     }
 
+    public void setMaxHeight(float maxHeight) {
+        this.maxHeight = maxHeight;
+        setString(string);
+    }
+
     public void setString(String string) {
         this.string = string;
         lines.clear();
         float size = this.size / font.getSize();
+        float posY = 0.0f;
         String[] linesArray = string.split("\\n");
         for (String l : linesArray) {
             if (maxWidth <= 0.0f) {
                 lines.add(l);
+                posY += this.size;
+                if (maxHeight > 0.0f && posY > maxHeight) {
+                    lines.remove();
+                    posY -= this.size;
+                }
             }
             else {
                 String[] wordsArray = l.split("\\s");
-                float pos = 0.0f;
+                float posX = 0.0f;
                 float spaceXAdvance = font.getGlyph(' ').getXAdvance() * size;
                 String newString = "";
                 for (String w : wordsArray) {
@@ -84,24 +97,34 @@ public class Text {
                         Glyph g = font.getGlyph(c);
                         wordXAdvance += (g.getXAdvance() * size);
                     }
-                    pos += wordXAdvance;
-                    if (newString.equals("") || pos <= maxWidth) {
+                    posX += wordXAdvance;
+                    if (newString.equals("") || posX <= maxWidth) {
                         newString += w;
                     } else {
                         if (newString.charAt(newString.length() - 1) == ' ') {
                             newString = newString.substring(0, newString.length() - 1);
                         }
                         lines.add(newString);
+                        posY += this.size;
+                        if (maxHeight > 0.0f && posY > maxHeight) {
+                            lines.remove();
+                            posY -= this.size;
+                        }
                         newString = w;
-                        pos = wordXAdvance;
+                        posX = wordXAdvance;
                     }
                     newString += " ";
-                    pos += spaceXAdvance;
+                    posX += spaceXAdvance;
 
                 }
 
                 if (newString.equals("") == false) {
                     lines.add(newString);
+                    posY += this.size;
+                    if (maxHeight > 0.0f && posY > maxHeight) {
+                        lines.remove();
+                        posY -= this.size;
+                    }
                 }
             }
 

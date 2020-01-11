@@ -10,12 +10,12 @@ public class main {
         Window window = new Window(960, 540, "TextAdventureJava");
         window.use();
         window.setVSync(true);
-        window.setBackgroundColor(new Vector3f(0.0f, 0.0f, 1.0f));
+        window.setBackgroundColor(new Vector3f(0.2f, 0.2f, 0.2f));
 
         Core core = new Core(window);
 
         Game game = new Game();
-        //game.play();
+        game.play();
 
         while (!window.shouldClose()) {
             core.update(game);

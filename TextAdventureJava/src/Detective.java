@@ -9,10 +9,13 @@ public class Detective {
     private String name;
     private String description;
     private ArrayList<Item> inventory;
+    private Sprite sprite;
+    private Text text;
 
-    public Detective() {
-        name = "Bruce Caine";
-        description = "Bruce Caine, the best detective in the west.";
+    public Detective(String name, String description, Sprite sprite) {
+        this.sprite = sprite;
+        this.name = name;
+        this.description = description;
         inventory = new ArrayList<Item>();
     }
 
@@ -75,4 +78,6 @@ public class Detective {
         }
         return null;
     }
+
+    public Sprite getSprite() { return sprite; }
 }

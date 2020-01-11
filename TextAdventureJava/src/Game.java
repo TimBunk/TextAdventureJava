@@ -17,7 +17,6 @@
 
 import org.joml.Vector2f;
 import org.joml.Vector4f;
-import static org.lwjgl.glfw.GLFW.*;
 
 import java.io.IOException;
 import java.util.Random;
@@ -32,11 +31,18 @@ public class Game extends Scene implements TextInputCallbackI
     private Person murderer;
     private String weapon;
 
-    private Font f;
-    private Text text;
-    private Text text2;
-    private Sprite sprite;
-    private Sprite sprite2;
+    // Text
+    private Font font;
+    private Text textNameDetective;
+    private Text textNameSuspect;
+    private Text textNameInventory;
+    private Text textLog;
+
+    // Sprites
+    private Sprite spriteInventoryBackground;
+    private Sprite spriteTextInputBackground;
+
+    // TextInput
     private TextInput textInput;
 
 
@@ -44,17 +50,31 @@ public class Game extends Scene implements TextInputCallbackI
      * Create the game and initialise its internal map.
      */
     public Game() throws IOException {
-        bruce = new Detective();
-        parser = new Parser();
-        rand = new Random();
-        ArrayList<Room> rooms = createRooms();
-        ArrayList<Item> items = createItems();
-        ArrayList<Person> npcs = createNpcs();
-        addItemsToRooms(items, rooms);
+        // Sprites
+        Sprite spriteBruce = new Sprite(128, 128, textureManager.load("Images/Bruce_Cain.png"));
+        spriteBruce.setPosition(new Vector2f(64, 476));
+        spriteInventoryBackground = new Sprite(128, 390, new Vector4f(0.0f, 0.0f, 0.0f, 1.0f));
+        spriteInventoryBackground.setPosition(new Vector2f(64, 195));
+        spriteTextInputBackground = new Sprite(680, 64, new Vector4f(0.0f, 0.0f, 0.0f, 1.0f));
+        spriteTextInputBackground.setPosition(new Vector2f(480, 32));
+        // Visueele text
+        font = fontManager.load("Fonts/OCR_A_Extended");
+        textNameDetective = new Text(font, "Bruce Caine");
+        textNameDetective.setSize(14);
+        textNameDetective.setPosition(new Vector2f(0, 412));
+        textNameSuspect = new Text(font, "");
+        textNameSuspect.setSize(14);
+        textNameSuspect.setPosition(new Vector2f(832, 412));
+        textNameInventory = new Text(font, "Inventory");
+        textNameInventory.setSize(14);
+        textNameInventory.setPosition(new Vector2f(21, 390));
+        textLog = new Text(font, "");
+        textLog.setSize(14);
+        textLog.setPosition(new Vector2f(145, 530));
+        textLog.setMaxWidth(670);
 
-        // Sprites en visueele text
-        f = fontManager.load("Fonts/OCR_A_Extended");
-        text = new Text(f, "Hello world\ntest how the line will fit into the test how the line will fit into the test how the line will fit into the screen.");
+
+        /*text = new Text(f, "Hello world\ntest how the line will fit into the test how the line will fit into the test how the line will fit into the screen.");
         text.setPosition(new Vector2f(0.0f, 540.0f));
         text.setSize(22.5f);
         text.setMaxWidth(480.0f);
@@ -62,31 +82,55 @@ public class Game extends Scene implements TextInputCallbackI
         text2 = new Text(f, "Sample");
         text2.setPosition(new Vector2f(0.0f, 450.0f));
 
-        sprite = new Sprite(250, 250, textureManager.load("Images/awesomeface.png"));
+        sprite = new Sprite(250, 250, textureManager.load("Images/Bruce_Cain.png"));
         sprite.setColor(new Vector4f(1.0f, 0.0f, 1.0f, 1.0f));
         sprite.setPosition(new Vector2f(240, 270));
         sprite.setRotation(-45.0f);
 
         sprite2 = new Sprite(250, 250, textureManager.load("Images/awesomeface.png"));
-        sprite2.setPosition(new Vector2f(480, 270));
+        sprite2.setPosition(new Vector2f(480, 270));*/
 
-        textInput = new TextInput(f);
-        textInput.setPosition(new Vector2f(50, 100));
-        textInput.setPlaceHolder("Placeholder", new Vector4f(0.5f, 0.5f, 0.5f, 1.0f));
+        textInput = new TextInput(font);
+        textInput.setSize(14);
+        textInput.setPosition(new Vector2f(145, 39));
+        textInput.setPlaceHolder("TYPE SOMETHING...", new Vector4f(0.5f, 0.5f, 0.5f, 1.0f));
         textInput.setCallback(this);
+        textInput.setMaxChars(70);
+
+
+
+        bruce = new Detective("Bruce Caine", "Bruce Caine, the best detective in the west.", spriteBruce);
+        parser = new Parser();
+        rand = new Random();
+        ArrayList<Room> rooms = createRooms();
+        ArrayList<Item> items = createItems();
+        ArrayList<Person> npcs = createNpcs();
+        addItemsToRooms(items, rooms);
     }
 
     @Override
     public void update(double deltaTime) {
+        textNameSuspect.setString(murderer.getName());
         textInput.update();
     }
 
     @Override
     public void draw() {
-        draw(sprite);
+        /*draw(sprite);
         draw(sprite2);
         draw(text);
-        draw(text2);
+        draw(text2);*/
+        draw(bruce.getSprite());
+        draw(murderer.getSprite());
+
+        draw(spriteInventoryBackground);
+        draw(spriteTextInputBackground);
+
+        draw(textNameDetective);
+        draw(textNameSuspect);
+        draw(textNameInventory);
+        draw(textLog);
+
         draw(textInput);
     }
 
@@ -94,11 +138,21 @@ public class Game extends Scene implements TextInputCallbackI
      * Creates all npc objects and adds them to a local ArrayList.
      */
     private ArrayList<Person> createNpcs() {
+        // Maak de sprites voor de npcs
+        Sprite spriteWife = new Sprite(128, 128, textureManager.load("Images/women.png"));
+        spriteWife.setPosition(new Vector2f(896, 476));
+        Sprite spriteHousemaid = new Sprite(128, 128, textureManager.load("Images/Cleaner.png"));
+        spriteHousemaid.setPosition(new Vector2f(896, 476));
+        Sprite spriteChef = new Sprite(128, 128, textureManager.load("Images/Chef.png"));
+        spriteChef.setPosition(new Vector2f(896, 476));
+        Sprite spriteGardener = new Sprite(128, 128, textureManager.load("Images/Gardener.png"));
+        spriteGardener.setPosition(new Vector2f(896, 476));
+
         // initalising all npcs
-        Person wife = new Person("wife", "The wife of Gary Larry");
-        Person housemaid = new Person("house-maid", "The house maid.");
-        Person chef = new Person("chef", "Gary Larry's personal cook.");
-        Person gardener = new Person("gardener", "The gardener.");
+        Person wife = new Person("Wife", "The wife of Gary Larry", spriteWife);
+        Person housemaid = new Person("House-maid", "The house maid.", spriteHousemaid);
+        Person chef = new Person("Chef", "Gary Larry's personal cook.", spriteChef);
+        Person gardener = new Person("Gardener", "The gardener.", spriteGardener);
 
         // adding all npcs to an arraylist
         ArrayList<Person> npcs = new ArrayList<Person>();
@@ -396,5 +450,8 @@ public class Game extends Scene implements TextInputCallbackI
     @Override
     public void textInputCallback(String text) {
         System.out.println(text);
+        String s = textLog.getString();
+        s = String.format("%s%s\n", s, text);
+        textLog.setString(s);
     }
 }

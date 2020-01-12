@@ -19,7 +19,7 @@ public class Lockable extends Inspectable {
      * @return true, if unlocked succesfully, false otherwise.
      */
     private boolean unlock(Lockable lockableObject) {
-        if (locked == true) {
+        if (locked) {
             locked = false;
             return true;
         } else {
@@ -33,7 +33,7 @@ public class Lockable extends Inspectable {
      * @return true, if locked succesfully, false otherwise.
      */
     private boolean lock(Lockable lockableObject) {
-        if (locked == false) {
+        if (!locked) {
             locked = true;
             return true;
         } else {

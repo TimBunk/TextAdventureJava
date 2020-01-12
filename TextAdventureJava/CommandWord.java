@@ -1,4 +1,4 @@
- 
+
 
 /**
  * Representations for all the valid command words for the game
@@ -11,10 +11,17 @@ public enum CommandWord
 {
     // A value for each command word along with its
     // corresponding user interface string.
-    GO("go"), QUIT("quit"), HELP("help"),
-    PICKUP("pickup"), INVENTORY("inventory"),
-    DROP("drop"), UNKNOWN("?"), LOOK("look");
-    
+    GO(Localization.Commands.GO_COMMAND),
+    QUIT(Localization.Commands.QUIT_COMMAND),
+    HELP(Localization.Commands.HELP_COMMAND),
+    PICKUP(Localization.Commands.PICKUP_COMMAND),
+    INVENTORY(Localization.Commands.INVENTORY_COMMAND),
+    DROP(Localization.Commands.DROP_COMMAND),
+    UNKNOWN(Localization.Commands.UNKNOWN_COMMAND),
+    LOOK(Localization.Commands.LOOK_COMMAND),
+    BACK(Localization.Commands.BACK_COMMAND),
+    LANGUAGE(Localization.Commands.LANGUAGE_COMMAND);
+
     // The command string.
     private String commandString;
     
@@ -22,7 +29,7 @@ public enum CommandWord
      * Initialise with the corresponding command string.
      * @param commandString The command string.
      */
-    CommandWord(String commandString)
+    private CommandWord(String commandString)
     {
         this.commandString = commandString;
     }
@@ -32,6 +39,6 @@ public enum CommandWord
      */
     public String toString()
     {
-        return commandString;
+        return Localization.getString(commandString);
     }
 }

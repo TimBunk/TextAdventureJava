@@ -1,11 +1,21 @@
 import java.io.IOException;
 
+/**
+ * @Author Tim Bunk
+ * De core class is zoals de naam zegt is het de core van de framework. Je maakt deze aan en geeft een window mee die je wilt gebruiken. De core class die zorgt ervoor dat alles wordt upgedate elke frame
+ */
 public class Core {
 
     private Window window;
     private Renderer renderer;
     private Input input;
 
+    /**
+     * Initialiseert de input en renderer en zet de window aan door de use() functie
+     *
+     * @param window de window die op het moment gebruikt gaat worden
+     * @throws IOException
+     */
     Core(Window window) throws IOException {
         this.window = window;
         window.use();
@@ -14,6 +24,12 @@ public class Core {
         renderer = new Renderer();
     }
 
+    /**
+     * De update functie roept de functie clear, update, swapBuffers en pollEvents aan van window.
+     * Ook worden de functies update, draw en clear aangeroepn voor scene en als laatst word de renderer ook nog aangeroepen om te renderen
+     *
+     * @param scene de scene die je wil updaten
+     */
     public void update(Scene scene) {
 
         window.clear();
@@ -29,6 +45,9 @@ public class Core {
         window.pollEvents();
     }
 
+    /**
+     * Roept de destroy functie aan voor de renderer
+     */
     public void destroy() {
         renderer.destroy();
     }

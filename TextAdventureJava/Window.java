@@ -117,6 +117,7 @@ public class Window {
     }
 
     /**
+     * Je moet use() een keer hebben aangeroepen voordat we OpenGL code kunnnen gebruiken
      * Voor dat je de window kan gebruiken moet je use() een keer aanroepen om aan te geven dat dit de window is die je nu wilt gebruiken.
      * Als je meerdere windows hebt zorg er dan voor dat je use() een keer aanroept voor de huidige window waar je mee bezig bent.
      */
@@ -146,6 +147,9 @@ public class Window {
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
+    /**
+     * In deze update functie wordt de deltaTime berekent
+     */
     public void update() {
         double currentTime = glfwGetTime();
         deltaTime = currentTime - lastTime;

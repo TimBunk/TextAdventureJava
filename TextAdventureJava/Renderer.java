@@ -10,6 +10,9 @@ import java.util.Queue;
 
 import static org.lwjgl.opengl.GL33.*;
 
+/**
+ * De renderer class zorgt ervoor dat alle sprites en text wordt gerendert doormiddel van OpenGL
+ */
 public class Renderer {
 
     Shader spriteShader;
@@ -18,6 +21,11 @@ public class Renderer {
     Shader textShader;
     int VAO_text, VBO_text;
 
+    /**
+     * De constructor van de renderer zorgt ervoor dat all VAO's en VBO's worden geinitialiseerd. Ook worden er twee shaders aangemaakt, een voor de sprite en de andere voor de text
+     *
+     * @throws IOException
+     */
     Renderer() throws IOException {
         // Door deze twwee functies aan te roepen is het mogelijk om plaatjes met doorzichtige achtergronden te gebruiken
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -89,6 +97,12 @@ public class Renderer {
         glEnableVertexAttribArray(1);
     }
 
+    /**
+     * Rendert de sprites en text objecten die in de scene staan
+     *
+     * @param scene            de scene die je wilt renderen
+     * @param projectionMatrix de projectionMatrix kan je uit de window halen
+     */
     public void render(Scene scene, float[] projectionMatrix) {
 
         List<Sprite> sprites = scene.getSprites();
@@ -100,6 +114,9 @@ public class Renderer {
         renderText(text, projectionMatrix);
     }
 
+    /**
+     * Verwijdert de gemaakte shaders, VAO's en VBO's
+     */
     public void destroy() {
         spriteShader.destroy();
         glDeleteBuffers(VBO_sprite);

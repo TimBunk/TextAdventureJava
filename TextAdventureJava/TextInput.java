@@ -3,6 +3,9 @@ import org.joml.Vector4f;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_BACKSPACE;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER;
 
+/**
+ * TextInput is een extensie van Text en maakt gebruik van de input class dus die moet geinitialiseerd zijn voor het gebruik van deze class
+ */
 public class TextInput extends Text {
 
     private String placeHolderString;
@@ -12,6 +15,10 @@ public class TextInput extends Text {
     private int maxChars;
     private TextInputCallbackI textInputCallbackI;
 
+    /**
+     * De constructor van de textInput
+     * @param font de font die gebruikt moet worden voor de text
+     */
     TextInput(Font font) {
         super(font, "");
         placeHolderString = "";
@@ -22,6 +29,9 @@ public class TextInput extends Text {
         textInputCallbackI = null;
     }
 
+    /**
+     * Update zorgt ervoor dat alle text die getypt is wordt opgehaald en als er geen text is getypt wordt er eventueel een placeholder neergezet
+     */
     public void update() {
         String c = Input.chars();
         // Empty is true als er nog geen characters zijn getypt

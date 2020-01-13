@@ -6,6 +6,10 @@ import java.util.HashMap;
 import static org.lwjgl.system.dyncall.DynCallback.dcbArgInt;
 import static org.lwjgl.system.dyncall.DynCallback.dcbArgPointer;
 
+/**
+ * De input class implements GLFWKeyCallbackI en GLFWCharCallbackI
+ * De input class krijgt dus info over welke keys er zijn gedrukt doormiddel van GLFW
+ */
 public class Input implements GLFWKeyCallbackI, GLFWCharCallbackI {
 
     private static Input input = null;
@@ -13,11 +17,19 @@ public class Input implements GLFWKeyCallbackI, GLFWCharCallbackI {
     private HashMap<Integer, Key> keys;
     private String chars;
 
+    /**
+     * Constructor input
+     */
     Input() {
         keys = new HashMap<>();
         chars = "";
     }
 
+    /**
+     * Initialiseer een static versie van input omdat je maar een input nodig bent in een applicatie
+     *
+     * @return de static input
+     */
     public static Input init() {
         if (input == null) {
             input = new Input();
@@ -25,6 +37,13 @@ public class Input implements GLFWKeyCallbackI, GLFWCharCallbackI {
         return input;
     }
 
+    /**
+     * Met deze functie kan je checken of een key daadwerkelijk is ingedrukt
+     *
+     * @param key   Voorbeeld: GLFW_KEY_SPACE
+     * @param state State kan zijn up, down, pressed of repeat
+     * @return
+     */
     public static boolean key(int key, Key.KeyState state) {
         Key k = input.keys.get(key);
         if (k != null) {
@@ -34,10 +53,16 @@ public class Input implements GLFWKeyCallbackI, GLFWCharCallbackI {
         return false;
     }
 
+    /**
+     * @return welke chars zijn ingedrukt op de huidige frame het kan dus zijn dat er een lege string wordt gereturned
+     */
     public static String chars() {
         return input.chars;
     }
 
+    /**
+     * Update de keys die pressed zijn naar down en setRepeat naar false ook worden de chars leeggemaakt
+     */
     public void update() {
         for (HashMap.Entry<Integer, Key> entry : keys.entrySet()) {
             int keyCode = entry.getKey();

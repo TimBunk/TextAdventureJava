@@ -19,6 +19,8 @@ import org.joml.Vector2f;
 import org.joml.Vector4f;
 
 import java.io.IOException;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Random;
 import java.util.ArrayList;
 
@@ -45,6 +47,8 @@ public class Game extends Scene implements TextInputCallbackI
 
     // TextInput
     private TextInput textInput;
+
+    private Deque<String> backlog = new ArrayDeque<String>();
 
 
     /**
@@ -157,13 +161,13 @@ public class Game extends Scene implements TextInputCallbackI
     private ArrayList<Room> createRooms()
     {
         // initialising all the rooms
-        Room kitchen = new Room("Kitchen", "This is the kitchen.");
-        Room storage = new Room("Storage", "This is the storage room.");
-        Room bedroom = new Room("Bedroom", "This is the bedroom.");
-        Room livingroom = new Room("Living Room", "This is the living room.");
-        Room garage = new Room("Garage", "This is the garage.");
-        Room garden = new Room("Garden", "This is the garden.");
-        Room shed = new Room("Shed", "This is the shed.");
+        Room kitchen = new Room("kitchen", "This is the kitchen.");
+        Room storage = new Room("storage", "This is the storage room.");
+        Room bedroom = new Room("bedroom", "This is the bedroom.");
+        Room livingroom = new Room("livingroom", "This is the living room.");
+        Room garage = new Room("garage", "This is the garage.");
+        Room garden = new Room("garden", "This is the garden.");
+        Room shed = new Room("shed", "This is the shed.");
 
         // initialising all the exits
         kitchen.setExit("livingroom", livingroom);
@@ -300,7 +304,10 @@ public class Game extends Scene implements TextInputCallbackI
                 break;
 
             case GO:
-                goRoom(command);
+                String previousRoom = goRoom(command);
+                if(previousRoom != null) {
+                    backlog.push(previousRoom);
+                }
                 break;
 
             case QUIT:
@@ -327,6 +334,10 @@ public class Game extends Scene implements TextInputCallbackI
                 Localization.setLanguage(command.getSecondWord());
                 CommandWords.setCommandWords();
                 break;
+
+            case BACK:
+                goBack();
+                break;
         }
         return wantToQuit;
     }
@@ -345,6 +356,17 @@ public class Game extends Scene implements TextInputCallbackI
         addToTextLog("");
         addToTextLog("Your command words are:");
         addToTextLog(parser.showCommands());
+    }
+
+
+    private void goBack() {
+        if(backlog.size() < 1) {
+            addToTextLog("You cannot use this command yet.");
+        } else {
+            String roomToGoBack = backlog.pop();
+            Command c = parser.getCommand(Localization.getString(Localization.Commands.GO_COMMAND)  + " " + roomToGoBack);
+            goRoom(c);
+        }
     }
 
     /**
@@ -390,12 +412,12 @@ public class Game extends Scene implements TextInputCallbackI
      * Try to go in one direction. If there is an exit, enter the new
      * room, otherwise print an error message.
      */
-    private void goRoom(Command command) 
+    private String goRoom(Command command)
     {
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
             addToTextLog("Go where?");
-            return;
+            return null;
         }
 
         String direction = command.getSecondWord();
@@ -405,10 +427,13 @@ public class Game extends Scene implements TextInputCallbackI
 
         if (nextRoom == null) {
             addToTextLog("There is no door!");
+            return null;
         }
         else {
+            String previousRoom = currentRoom.getName();
             currentRoom = nextRoom;
             addToTextLog(currentRoom.getLongDescription());
+            return previousRoom;
         }
     }
 

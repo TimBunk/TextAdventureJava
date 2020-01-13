@@ -107,6 +107,11 @@ public class Text {
         setString(string);
     }
 
+    /**
+     * De setString functie zorgt ervoor dat elke lijn text die er moet komen in een queue wordt gezet.
+     * Als de maxWidth is bereikt wordt de rest automatisch op de volgende lijn gezet en als de maxHeight is bereikt wordt de eerste lijn verwijdert
+     * @param string de string die je wilt zetten voor de text
+     */
     public void setString(String string) {
         this.string = string;
         lines.clear();

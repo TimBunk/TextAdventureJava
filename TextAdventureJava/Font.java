@@ -6,12 +6,24 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * @Author Tim Bunk
+ * De font class bevat een texture waar alle glyps op afgedrukt staan
+ * De font class heeft ook nog een hashmap met glyphs en die glyps hebben info over de uv's
+ * De font class verwacht dat je met hierro een font maakt en dat je die inlaadt
+ */
 public class Font {
 
     private Texture texture;
     private HashMap<Character, Glyph> glyphes;
     private float size;
 
+    /**
+     * De texture en de font bestand worden ingeladen
+     *
+     * @param filePath path naar de locatie van de font bestand en plaatje. Het kan er als volgt uitzien: "Fonts/OCR_A_Extended"
+     * @throws IOException
+     */
     Font(String filePath) throws IOException {
         glyphes = new HashMap<Character, Glyph>();
         texture = new Texture(String.format("%s%s", filePath, ".png"));

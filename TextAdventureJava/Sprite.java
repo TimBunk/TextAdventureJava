@@ -18,9 +18,10 @@ public class Sprite {
 
     /**
      * Constructor van de sprite waar alles geinitialiseerd wordt
-     * @param width de breedte van de sprite
+     *
+     * @param width  de breedte van de sprite
      * @param height de hoogte van de sprite
-     * @param color de kleur van de sprite
+     * @param color  de kleur van de sprite
      */
     Sprite(int width, int height, Vector4f color) {
         this.width = width;
@@ -37,8 +38,9 @@ public class Sprite {
 
     /**
      * Constructor van de sprite waar alles geinitialiseerd wordt
-     * @param width de breedte van de sprite
-     * @param height de hoogte van de sprite
+     *
+     * @param width     de breedte van de sprite
+     * @param height    de hoogte van de sprite
      * @param textureID de texture die deze sprite moet gebruiken
      */
     Sprite(int width, int height, int textureID) {
@@ -55,30 +57,71 @@ public class Sprite {
     }
 
     // Getters
-    public Vector4f getColor()      { return color; }
-    public int getTextureID()       { return textureID; }
-    public float getRotation()      { return rotation; }
-    public int getLayer()           { return layer; }
-    public int getID()              { return id; }
-    public int getWidth()           { return width; }
-    public int getHeight()          { return height; }
-    public Vector2f getPosition()   { return position; }
-    public Vector2f getPivot()      { return pivot; }
+    public Vector4f getColor() {
+        return color;
+    }
+
+    public int getTextureID() {
+        return textureID;
+    }
+
+    public float getRotation() {
+        return rotation;
+    }
+
+    public int getLayer() {
+        return layer;
+    }
+
+    public int getID() {
+        return id;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public Vector2f getPosition() {
+        return position;
+    }
+
+    public Vector2f getPivot() {
+        return pivot;
+    }
 
     // Setters
-    public void setColor(Vector4f color)        { this.color = color; }
-    public void setTextureID(int textureID)     { this.textureID = textureID; }
-    public void setRotation(float rotation)     { this.rotation = rotation; }
-    public void setLayer(int layer)             { this.layer = layer; }
+    public void setColor(Vector4f color) {
+        this.color = color;
+    }
+
+    public void setTextureID(int textureID) {
+        this.textureID = textureID;
+    }
+
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
+    }
+
+    public void setLayer(int layer) {
+        this.layer = layer;
+    }
+
     public void setWidth(int width) {
         this.width = width;
     }
+
     public void setHeight(int height) {
         this.height = height;
     }
+
     public void setPosition(Vector2f position) {
         this.position = position;
     }
+
     public void setPivot(Vector2f pivot) {
         this.pivot = pivot;
     }

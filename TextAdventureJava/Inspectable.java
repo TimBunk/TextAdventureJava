@@ -1,5 +1,3 @@
- 
-
 /**
  * @author Ruben Eekhof rubeneekhof@gmail.com
  * All objects that can be inspected by the detective.
@@ -16,6 +14,7 @@ public class Inspectable {
 
     /**
      * Inspects an inspectable object.
+     *
      * @param item, the object to be inspected.
      * @return description, the objects description field.
      */

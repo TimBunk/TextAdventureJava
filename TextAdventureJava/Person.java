@@ -1,5 +1,3 @@
- 
-
 /**
  * @author Ruben Eekhof rubeneekhof@gmail.com
  */
@@ -13,5 +11,7 @@ public class Person extends Inspectable {
     }
 
     // Getters
-    public Sprite getSprite() { return sprite; }
+    public Sprite getSprite() {
+        return sprite;
+    }
 }

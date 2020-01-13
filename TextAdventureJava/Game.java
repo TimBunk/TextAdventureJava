@@ -1,17 +1,17 @@
 /**
- *  This class is the main class of the "World of Zuul" application. 
- *  "World of Zuul" is a very simple, text based adventure game.  Users 
- *  can walk around some scenery. That's all. It should really be extended 
- *  to make it more interesting!
- * 
- *  To play this game, create an instance of this class and call the "play"
- *  method.
- * 
- *  This main class creates and initialises all the others: it creates all
- *  rooms, creates the parser and starts the game.  It also evaluates and
- *  executes the commands that the parser returns.
- * 
- * @author  Michael Kölling and David J. Barnes
+ * This class is the main class of the "World of Zuul" application.
+ * "World of Zuul" is a very simple, text based adventure game.  Users
+ * can walk around some scenery. That's all. It should really be extended
+ * to make it more interesting!
+ * <p>
+ * To play this game, create an instance of this class and call the "play"
+ * method.
+ * <p>
+ * This main class creates and initialises all the others: it creates all
+ * rooms, creates the parser and starts the game.  It also evaluates and
+ * executes the commands that the parser returns.
+ *
+ * @author Michael Kölling and David J. Barnes
  * @version 2016.02.29
  */
 
@@ -20,12 +20,11 @@ import org.joml.Vector4f;
 
 import java.io.IOException;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Random;
-import java.util.ArrayList;
 
-public class Game extends Scene implements TextInputCallbackI
-{
+public class Game extends Scene implements TextInputCallbackI {
     private boolean shouldClose;
     private Parser parser;
     private Detective bruce;
@@ -158,8 +157,7 @@ public class Game extends Scene implements TextInputCallbackI
     /**
      * Create all the rooms and link their exits together.
      */
-    private ArrayList<Room> createRooms()
-    {
+    private ArrayList<Room> createRooms() {
         // initialising all the rooms
         Room kitchen = new Room("kitchen", "This is the kitchen.");
         Room storage = new Room("storage", "This is the storage room.");
@@ -253,10 +251,9 @@ public class Game extends Scene implements TextInputCallbackI
     }
 
     /**
-     *  Main play routine.  Loops until end of play.
+     * Main play routine.  Loops until end of play.
      */
-    public void play() 
-    {            
+    public void play() {
         /*printWelcome();
 
         // Enter the main command loop.  Here we repeatedly read commands and
@@ -273,23 +270,18 @@ public class Game extends Scene implements TextInputCallbackI
     /**
      * Print out the opening message for the player.
      */
-    private void printWelcome()
-    {
-        addToTextLog("");
-        addToTextLog("Welcome to the World of Zuul!");
-        addToTextLog("World of Zuul is a new, incredibly boring adventure game.");
-        addToTextLog("Type '" + CommandWord.HELP + "' if you need help.");
-        addToTextLog("");
+    private void printWelcome() {
+        addToTextLog(Localization.getString(Localization.Text.WELCOME_TEXT));
         addToTextLog(currentRoom.getLongDescription());
     }
 
     /**
      * Given a command, process (that is: execute) the command.
+     *
      * @param command The command to be processed.
      * @return true If the command ends the game, false otherwise.
      */
-    private boolean processCommand(Command command) 
-    {
+    private boolean processCommand(Command command) {
         boolean wantToQuit = false;
 
         CommandWord commandWord = command.getCommandWord();
@@ -305,7 +297,7 @@ public class Game extends Scene implements TextInputCallbackI
 
             case GO:
                 String previousRoom = goRoom(command);
-                if(previousRoom != null) {
+                if (previousRoom != null) {
                     backlog.push(previousRoom);
                 }
                 break;
@@ -346,11 +338,10 @@ public class Game extends Scene implements TextInputCallbackI
 
     /**
      * Print out some help information.
-     * Here we print some stupid, cryptic message and a list of the 
+     * Here we print some stupid, cryptic message and a list of the
      * command words.
      */
-    private void printHelp() 
-    {
+    private void printHelp() {
         addToTextLog("You are lost. You are alone. You wander");
         addToTextLog("around at the university.");
         addToTextLog("");
@@ -360,11 +351,11 @@ public class Game extends Scene implements TextInputCallbackI
 
 
     private void goBack() {
-        if(backlog.size() < 1) {
+        if (backlog.size() < 1) {
             addToTextLog("You cannot use this command yet.");
         } else {
             String roomToGoBack = backlog.pop();
-            Command c = parser.getCommand(Localization.getString(Localization.Commands.GO_COMMAND)  + " " + roomToGoBack);
+            Command c = parser.getCommand(Localization.getString(Localization.Commands.GO_COMMAND) + " " + roomToGoBack);
             goRoom(c);
         }
     }
@@ -385,13 +376,14 @@ public class Game extends Scene implements TextInputCallbackI
             } else {
                 addToTextLog("Could not pick up: " + item);
             }
-        }  else {
+        } else {
             addToTextLog("That item does not exist.");
         }
     }
 
     /**
      * Drops an item from the players inventory
+     *
      * @param name, the item you want to drop.
      */
     private void dropItem(String name) {
@@ -408,13 +400,12 @@ public class Game extends Scene implements TextInputCallbackI
         }
     }
 
-    /** 
+    /**
      * Try to go in one direction. If there is an exit, enter the new
      * room, otherwise print an error message.
      */
-    private String goRoom(Command command)
-    {
-        if(!command.hasSecondWord()) {
+    private String goRoom(Command command) {
+        if (!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
             addToTextLog("Go where?");
             return null;
@@ -428,8 +419,7 @@ public class Game extends Scene implements TextInputCallbackI
         if (nextRoom == null) {
             addToTextLog("There is no door!");
             return null;
-        }
-        else {
+        } else {
             String previousRoom = currentRoom.getName();
             currentRoom = nextRoom;
             addToTextLog(currentRoom.getLongDescription());
@@ -440,15 +430,14 @@ public class Game extends Scene implements TextInputCallbackI
     /**
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
+     *
      * @return true, if this command quits the game, false otherwise.
      */
-    private boolean quit(Command command) 
-    {
-        if(command.hasSecondWord()) {
+    private boolean quit(Command command) {
+        if (command.hasSecondWord()) {
             addToTextLog("Quit what?");
             return false;
-        }
-        else {
+        } else {
             return true;  // signal that we want to quit
         }
     }
@@ -473,5 +462,7 @@ public class Game extends Scene implements TextInputCallbackI
         textLog.setString(s);
     }
 
-    public boolean shouldClose() { return shouldClose; }
+    public boolean shouldClose() {
+        return shouldClose;
+    }
 }

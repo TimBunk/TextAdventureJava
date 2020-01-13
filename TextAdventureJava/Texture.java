@@ -1,8 +1,7 @@
- 
+import org.lwjgl.stb.STBImage;
 
 import java.nio.ByteBuffer;
 
-import org.lwjgl.stb.STBImage;
 import static org.lwjgl.opengl.GL33.*;
 
 /**
@@ -15,6 +14,7 @@ public class Texture {
 
     /**
      * Constructor voor texture waar de afbeelding wordt geladen en opgeslagen in het geheugen
+     *
      * @param filePath lokaal path naar de afbeelding
      */
     Texture(String filePath) {
@@ -42,8 +42,7 @@ public class Texture {
         // Set de texture data
         if (nrChannels[0] == 3) {
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width[0], height[0], 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        }
-        else if (nrChannels[0] == 4) {
+        } else if (nrChannels[0] == 4) {
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width[0], height[0], 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
         }
         glGenerateMipmap(GL_TEXTURE_2D);

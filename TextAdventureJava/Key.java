@@ -1,5 +1,3 @@
- 
-
 public class Key {
     public enum KeyState {
         UP,
@@ -17,17 +15,24 @@ public class Key {
     }
 
     // Getter
-    public boolean getRepeat() { return repeat; }
-    public KeyState getKeyState() { return keyState; }
+    public boolean getRepeat() {
+        return repeat;
+    }
+
+    public KeyState getKeyState() {
+        return keyState;
+    }
+
     // Setters
-    public void setRepeat(boolean repeat) { this.repeat = repeat; }
+    public void setRepeat(boolean repeat) {
+        this.repeat = repeat;
+    }
 
     public void setKeyState(KeyState keyState) {
         if (keyState == KeyState.REPEAT) {
             repeat = true;
             this.keyState = KeyState.DOWN;
-        }
-        else {
+        } else {
             this.keyState = keyState;
         }
     }

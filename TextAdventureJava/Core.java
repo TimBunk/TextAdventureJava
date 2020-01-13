@@ -34,7 +34,9 @@ public class Core {
     }
 
     // Getters
-    public Window getWindow() { return window; }
+    public Window getWindow() {
+        return window;
+    }
 
     // Setters
     public void setWindow(Window window) {

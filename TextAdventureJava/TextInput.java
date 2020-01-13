@@ -1,6 +1,7 @@
 import org.joml.Vector4f;
 
-import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_BACKSPACE;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER;
 
 public class TextInput extends Text {
 
@@ -69,18 +70,25 @@ public class TextInput extends Text {
         if (activate) {
             setString(placeHolderString);
             super.setColor(placeHolderColor);
-        }
-        else {
+        } else {
             setString("");
             super.setColor(backupColor);
         }
     }
 
     // Getters
-    public int getMaxChars() { return maxChars; }
+    public int getMaxChars() {
+        return maxChars;
+    }
+
     // Setters
-    public void setMaxChars(int maxChars)                           { this.maxChars = maxChars; }
-    public void setCallback(TextInputCallbackI textInputCallbackI)  { this.textInputCallbackI = textInputCallbackI; }
+    public void setMaxChars(int maxChars) {
+        this.maxChars = maxChars;
+    }
+
+    public void setCallback(TextInputCallbackI textInputCallbackI) {
+        this.textInputCallbackI = textInputCallbackI;
+    }
 
     public void setColor(Vector4f color) {
         backupColor = color;

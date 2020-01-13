@@ -11,9 +11,13 @@ public class SortSprite implements Comparator<Sprite> {
     public int compare(Sprite sprite1, Sprite sprite2) {
         // Layer > texture > id
         int layerDiff = sprite1.getLayer() - sprite2.getLayer();
-        if (layerDiff != 0) { return layerDiff; }
+        if (layerDiff != 0) {
+            return layerDiff;
+        }
         int textureIDDiff = sprite1.getTextureID() - sprite2.getTextureID();
-        if (textureIDDiff != 0) { return textureIDDiff; }
+        if (textureIDDiff != 0) {
+            return textureIDDiff;
+        }
         return sprite1.getID() - sprite2.getID();
     }
 }

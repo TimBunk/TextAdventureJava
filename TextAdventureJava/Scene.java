@@ -21,7 +21,8 @@ public class Scene {
 
     }
 
-    public void draw() {}
+    public void draw() {
+    }
 
     protected void draw(Sprite sprite) {
         this.sprites.add(sprite);
@@ -42,7 +43,12 @@ public class Scene {
     }
 
     // Getters
-    public List<Sprite> getSprites() { return sprites; }
-    public List<Text> getText() { return text; }
+    public List<Sprite> getSprites() {
+        return sprites;
+    }
+
+    public List<Text> getText() {
+        return text;
+    }
 
 }

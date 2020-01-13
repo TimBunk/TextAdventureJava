@@ -1,5 +1,3 @@
- 
-
 /**
  * @author Ruben Eekhof rubeneekhof@gmail.com
  * All items that can be picked up by the detective.
@@ -12,6 +10,7 @@ public class Item extends Inspectable {
 
     /**
      * Uses an item.
+     *
      * @param item, the item you want to use.
      */
     public void use(Item item) {

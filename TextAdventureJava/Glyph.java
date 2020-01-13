@@ -1,5 +1,3 @@
- 
-
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
@@ -19,10 +17,21 @@ public class Glyph {
 
     // Getters
     // De eerste twee waardes representeren de uv's voor links onder en de laatste twee waardes represeneteren de uv's voor rechts boven
-    public Vector4f getUv() { return uv; }
-    public Vector2f getScale() { return scale; }
-    public Vector2f getOffset() { return offset; }
-    public int getXAdvance()    { return  xAdvance; }
+    public Vector4f getUv() {
+        return uv;
+    }
+
+    public Vector2f getScale() {
+        return scale;
+    }
+
+    public Vector2f getOffset() {
+        return offset;
+    }
+
+    public int getXAdvance() {
+        return xAdvance;
+    }
 
 
 }

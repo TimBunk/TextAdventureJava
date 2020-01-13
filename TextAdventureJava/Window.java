@@ -1,10 +1,12 @@
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
-import org.lwjgl.opengl.GL;
 import org.lwjgl.glfw.GLFWErrorCallback;
-// Door het gebruik van import static kunnen we de de static functies van GLFW direct aanroepen zonder eerst de class naam te benoemen
-import static org.lwjgl.opengl.GL33.*;
+import org.lwjgl.opengl.GL;
+
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL33.*;
+
+// Door het gebruik van import static kunnen we de de static functies van GLFW direct aanroepen zonder eerst de class naam te benoemen
 
 /**
  * @author Tim Bunk
@@ -26,9 +28,10 @@ public class Window {
 
     /**
      * In de constructor word gecheckt of glfw al geinitialiseerd is anders wordt hij geinitialiseerd ook wordt de window hier gemaakt doormiddel van glfw
-     * @param width de breedte van de window
+     *
+     * @param width  de breedte van de window
      * @param height de hoogte van de window
-     * @param title de titel van de window
+     * @param title  de titel van de window
      */
     Window(int width, int height, String title) {
         // Initializeer alle variablen
@@ -57,8 +60,8 @@ public class Window {
         // Gebruik versie 3.3 van openGL
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint (GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-        glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         // De window kan niet van grootte worden verandert
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // the window will be resizable
         // Maak de window
@@ -75,15 +78,38 @@ public class Window {
     }
 
     // Getters
-    public int getWidth()                { return width; }
-    public int getHeight()               { return height; }
-    public String getTitle()             { return title; }
-    public Vector3f getBackgroundColor() { return backgroundColor; }
-    public float[] getProjection()       { return projection; }
-    public double getDeltaTime()         { return deltaTime; }
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Vector3f getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public float[] getProjection() {
+        return projection;
+    }
+
+    public double getDeltaTime() {
+        return deltaTime;
+    }
+
     // Setters
-    public void setBackgroundColor(Vector3f backgroundColor)    { this.backgroundColor = backgroundColor; }
-    public void setVSync(boolean state)                         { glfwSwapInterval((state ? 1: 0)); }
+    public void setBackgroundColor(Vector3f backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
+    public void setVSync(boolean state) {
+        glfwSwapInterval((state ? 1 : 0));
+    }
 
     public void setInput(Input input) {
         glfwSetKeyCallback(window, input);

@@ -1,5 +1,3 @@
- 
-
 import org.lwjgl.glfw.GLFWCharCallbackI;
 import org.lwjgl.glfw.GLFWKeyCallbackI;
 
@@ -45,7 +43,7 @@ public class Input implements GLFWKeyCallbackI, GLFWCharCallbackI {
             int keyCode = entry.getKey();
             Key k = entry.getValue();
             // Update alle keys die op het moment PRESSED zijn naar DOWN
-            if (k.getKeyState()== Key.KeyState.PRESSED) {
+            if (k.getKeyState() == Key.KeyState.PRESSED) {
                 k.setKeyState(Key.KeyState.DOWN);
             }
             k.setRepeat(false);
@@ -96,8 +94,7 @@ public class Input implements GLFWKeyCallbackI, GLFWCharCallbackI {
     public void invoke(long window, int key, int scancode, int action, int mods) {
         if (scancode != 0) {
             handleInput(key, action);
-        }
-        else {
+        } else {
             handleChar(key);
         }
     }

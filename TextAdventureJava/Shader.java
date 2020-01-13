@@ -18,6 +18,7 @@ public class Shader {
      * In deze constructor moet je een path opgeven naar een shader bestand waar zowel de vertex en fragment shader inbeschreven staan.
      * Om aan te geven welke gedeelte voor de vertex shader is en welke gedeelte voor de fragment shader moet je '!VERTEX' of '!FRAGMENT' boven je code zetten op een aparte regel.
      * Als je klaar bent met de dat gedeelte zet je een '!END' neer op een aparte regel zie ook de spriteShader.glsl als voorbeeld
+     *
      * @param shaderFilePath path naar de shader bestand
      * @throws IOException als het opgegeven bestand niet gevonden wordt onstaat er een IOException error
      */
@@ -32,9 +33,10 @@ public class Shader {
 
     /**
      * In deze constructor moet je een path opgeven naar de vertex shader en de fragment shader
-     * @param vertexShaderFilePath path naar de vertex shader bestand
+     *
+     * @param vertexShaderFilePath   path naar de vertex shader bestand
      * @param fragmentShaderFilePath path naar de fragment shader bestand
-     * @throws IOException  als het opgegeven bestand niet gevonden wordt onstaat er een IOException error
+     * @throws IOException als het opgegeven bestand niet gevonden wordt onstaat er een IOException error
      */
     Shader(String vertexShaderFilePath, String fragmentShaderFilePath) throws IOException {
         // Make the shaderFilePaths absolute
@@ -69,15 +71,19 @@ public class Shader {
     public void setUniform2f(String uniformName, float f0, float f1) {
         glUniform2f(getUniformLocation(uniformName), f0, f1);
     }
+
     public void setUniform3f(String uniformName, float f0, float f1, float f2) {
         glUniform3f(getUniformLocation(uniformName), f0, f1, f2);
     }
+
     public void setUniform4f(String uniformName, float f0, float f1, float f2, float f3) {
         glUniform4f(getUniformLocation(uniformName), f0, f1, f2, f3);
     }
+
     public void setUniformMatrix4f(String uniformName, float[] value) {
         glUniformMatrix4fv(getUniformLocation(uniformName), false, value);
     }
+
     public void setUniformMatrix4f(String uniformName, FloatBuffer value) {
         glUniformMatrix4fv(getUniformLocation(uniformName), false, value);
     }
@@ -125,12 +131,10 @@ public class Shader {
         StringBuilder sb = new StringBuilder();
         BufferedReader br = new BufferedReader(new FileReader(filePath));
         String currentLine = "";
-        while((currentLine = br.readLine()) != null)
-        {
+        while ((currentLine = br.readLine()) != null) {
             if (currentLine.equals("!VERTEX")) {
                 vertexShaderSource = getShaderSource(sb, br);
-            }
-            else if (currentLine.equals("!FRAGMENT")) {
+            } else if (currentLine.equals("!FRAGMENT")) {
                 fragmentShaderSource = getShaderSource(sb, br);
             }
         }
@@ -139,8 +143,7 @@ public class Shader {
     private String getShaderSource(StringBuilder sb, BufferedReader br) throws IOException {
         sb.setLength(0);
         String currentLine = "";
-        while ((currentLine = br.readLine()) != null && currentLine.equals("!END") == false)
-        {
+        while ((currentLine = br.readLine()) != null && currentLine.equals("!END") == false) {
             sb.append(currentLine).append("\n");
         }
         String vertexSource = sb.toString();

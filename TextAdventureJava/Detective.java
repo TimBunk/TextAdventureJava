@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * @author      Ruben Eekhof rubeneekhof@gmail.com
+ * @author Ruben Eekhof rubeneekhof@gmail.com
  * The detective class stores its inventory and the items he has picked up.
  */
 public class Detective {
@@ -22,6 +22,7 @@ public class Detective {
     /**
      * Adds an item to the detectives inventory.
      * Checks if his inventory is already full or not.
+     *
      * @param item, the item object to be added to the inventory.
      * @return true, if the item was succesfully added, false otherwise.
      */
@@ -37,6 +38,7 @@ public class Detective {
     /**
      * Removes an item from the detectives inventory.
      * Checks if his inventory is already empty or not.
+     *
      * @param item, the item object to be removed to the inventory.
      * @return true, if the item was succesfully dropped, false otherwise.
      */
@@ -51,6 +53,7 @@ public class Detective {
 
     /**
      * Maakt een string display van de players inventory.
+     *
      * @return inventoryString
      */
     public String getInventoryString() {
@@ -67,6 +70,7 @@ public class Detective {
 
     /**
      * Haalt een item op uit de inventory.
+     *
      * @param itemName het item wat je wilt ophalen.
      * @return i, het opgehaalde item.
      */
@@ -79,5 +83,7 @@ public class Detective {
         return null;
     }
 
-    public Sprite getSprite() { return sprite; }
+    public Sprite getSprite() {
+        return sprite;
+    }
 }

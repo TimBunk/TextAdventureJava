@@ -1,5 +1,3 @@
- 
-
 import java.util.HashMap;
 
 /**
@@ -27,6 +25,7 @@ public class TextureManager {
 
     /**
      * Deze functie checkt of het bestand al eerder was geladen en als dat het geval is dan krijg je een bestande texture terug en anders wordt er een nieuwe texture gemaakt en opgeslagen
+     *
      * @param filePath path naar de afbeelding
      * @return Je krijgt de id van een openGL texture
      */
@@ -41,6 +40,7 @@ public class TextureManager {
 
     /**
      * Verwijder een specifieke texture uit het geheugen
+     *
      * @param filePath path naar de afbeelding die je uit het geheugen wil verwijderen
      */
     public void remove(String filePath) {

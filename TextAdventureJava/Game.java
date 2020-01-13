@@ -325,6 +325,7 @@ public class Game extends Scene implements TextInputCallbackI
 
             case LANGUAGE:
                 Localization.setLanguage(command.getSecondWord());
+                CommandWords.setCommandWords();
                 break;
         }
         return wantToQuit;
@@ -343,7 +344,7 @@ public class Game extends Scene implements TextInputCallbackI
         addToTextLog("around at the university.");
         addToTextLog("");
         addToTextLog("Your command words are:");
-        parser.showCommands();
+        addToTextLog(parser.showCommands());
     }
 
     /**

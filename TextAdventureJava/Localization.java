@@ -40,7 +40,7 @@ public class Localization {
         englishWords.put(Commands.LANGUAGE_COMMAND, "language");
 
         HashMap<String, String> dutchWords = new HashMap<>();
-        dutchWords.put(Commands.GO_COMMAND, "ga");
+        dutchWords.put(Commands.GO_COMMAND, "verplaats");
         dutchWords.put(Commands.QUIT_COMMAND, "sluit");
         dutchWords.put(Commands.HELP_COMMAND, "help");
         dutchWords.put(Commands.PICKUP_COMMAND, "oppakken");
@@ -54,7 +54,7 @@ public class Localization {
         dictionary.put("en", englishWords);
         dictionary.put("nl", dutchWords);
 
-        language = "en";
+        language = "nl";
     }
 
     public static String getString(final String code) {

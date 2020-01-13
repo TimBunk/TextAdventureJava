@@ -1,5 +1,3 @@
- 
-
 import java.util.HashMap;
 
 /**
@@ -17,15 +15,20 @@ public class CommandWords
 {
     // A mapping between a command word and the CommandWord
     // associated with it.
-    private HashMap<String, CommandWord> validCommands;
+    private static HashMap<String, CommandWord> validCommands = new HashMap<String, CommandWord>();
+
+    static {
+        setCommandWords();
+    }
 
     /**
      * Constructor - initialise the command words.
      */
-    public CommandWords()
+    public static void setCommandWords()
     {
-        validCommands = new HashMap<>();
+        validCommands.clear();
         for(CommandWord command : CommandWord.values()) {
+            System.out.println(command);
             if(command != CommandWord.UNKNOWN) {
                 validCommands.put(command.toString(), command);
             }
@@ -61,11 +64,12 @@ public class CommandWords
     /**
      * Print all valid commands to System.out.
      */
-    public void showAll() 
+    public String showAll()
     {
+        String commandShow = "";
         for(String command : validCommands.keySet()) {
-            System.out.print(command + "  ");
+            commandShow += command + " ";
         }
-        System.out.println();
+        return commandShow += "\n";
     }
 }

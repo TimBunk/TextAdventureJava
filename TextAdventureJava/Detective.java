@@ -1,5 +1,3 @@
- 
-
 import java.util.ArrayList;
 
 /**
@@ -53,7 +51,7 @@ public class Detective {
 
     /**
      * Maakt een string display van de players inventory.
-     * @return inventoryString, de co
+     * @return inventoryString
      */
     public String getInventoryString() {
         String inventoryString = "";

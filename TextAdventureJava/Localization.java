@@ -25,6 +25,7 @@ public class Localization {
         String EXIT_STRING = "text.exit_string";
     }
 
+    // all items
     public interface Items {
         String VAULT_KEY_NAME = "item.vault_key_name";
         String VAULT_KEY_DESCRIPTION = "item.vault_key_description";
@@ -44,6 +45,23 @@ public class Localization {
         String KITCHEN_KNIVE_DESCRIPTION = "item.kitchen_knive_description";
         String POISON_NAME = "item.poison_name";
         String POISON_DESCRIPTION = "item.poison_description";
+    }
+
+    public interface Rooms {
+        String KITCHEN_ROOM_NAME = "room.kitchen.name";
+        String KITCHEN_ROOM_DESCRIPTION = "room.kitchen.description";
+        String STORAGE_ROOM_NAME = "room.kitchen.name";
+        String STORAGE_ROOM_DESCRIPTION = "room.kitchen.description";
+        String BEDROOM_ROOM_NAME = "room.bedroom.name";
+        String BEDROOM_ROOM_DESCRIPTION = "room.bedroom.description";
+        String LIVINGROOM_ROOM_NAME = "room.livingroom.name";
+        String LIVINGROOM_ROOM_DESCRIPTION = "room.livingroom.description";
+        String GARAGE_ROOM_NAME = "room.garage.name";
+        String GARAGE_ROOM_DESCRIPTION = "room.garage.description";
+        String GARDEN_ROOM_NAME = "room.garden.name";
+        String GARDEN_ROOM_DESCRIPTION = "room.garden.description";
+        String SHED_ROOM_NAME = "room.shed.name";
+        String SHED_ROOM_DESCRIPTION = "room.shed.description";
     }
 
     private static String language;

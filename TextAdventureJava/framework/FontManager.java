@@ -1,3 +1,5 @@
+package framework;
+
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -11,7 +13,7 @@ public class FontManager {
     /**
      * Initialiseert de fontManager
      */
-    FontManager() {
+    public FontManager() {
         fonts = new HashMap<String, Font>();
     }
 

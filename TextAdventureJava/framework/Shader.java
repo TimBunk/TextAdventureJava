@@ -1,3 +1,5 @@
+package framework;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -22,7 +24,7 @@ public class Shader {
      * @param shaderFilePath path naar de shader bestand
      * @throws IOException als het opgegeven bestand niet gevonden wordt onstaat er een IOException error
      */
-    Shader(String shaderFilePath) throws IOException {
+    public Shader(String shaderFilePath) throws IOException {
         // Make the shaderFilePath absolute
         shaderFilePath = getClass().getResource(shaderFilePath).getPath();
         // Get the shader soruce

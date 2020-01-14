@@ -1,3 +1,5 @@
+package framework;
+
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
@@ -23,7 +25,7 @@ public class Sprite {
      * @param height de hoogte van de sprite
      * @param color  de kleur van de sprite
      */
-    Sprite(int width, int height, Vector4f color) {
+    public Sprite(int width, int height, Vector4f color) {
         this.width = width;
         this.height = height;
         this.color = color;
@@ -43,7 +45,7 @@ public class Sprite {
      * @param height    de hoogte van de sprite
      * @param textureID de texture die deze sprite moet gebruiken
      */
-    Sprite(int width, int height, int textureID) {
+    public Sprite(int width, int height, int textureID) {
         this.width = width;
         this.height = height;
         this.color = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);

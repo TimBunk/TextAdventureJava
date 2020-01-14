@@ -1,3 +1,5 @@
+package framework;
+
 import org.lwjgl.stb.STBImage;
 
 import java.nio.ByteBuffer;
@@ -17,7 +19,7 @@ public class Texture {
      *
      * @param filePath lokaal path naar de afbeelding
      */
-    Texture(String filePath) {
+    public Texture(String filePath) {
         // Make the filePath absolute
         filePath = getClass().getResource(filePath).getPath().substring(1);
         // Genereer texture

@@ -1,3 +1,5 @@
+package framework;
+
 import org.lwjgl.glfw.GLFWCharCallbackI;
 import org.lwjgl.glfw.GLFWKeyCallbackI;
 
@@ -20,7 +22,7 @@ public class Input implements GLFWKeyCallbackI, GLFWCharCallbackI {
     /**
      * Constructor input
      */
-    Input() {
+    public Input() {
         keys = new HashMap<>();
         chars = "";
     }

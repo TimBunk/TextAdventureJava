@@ -1,3 +1,5 @@
+import framework.Sprite;
+
 /**
  * @author Ruben Eekhof rubeneekhof@gmail.com
  */

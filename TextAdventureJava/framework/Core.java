@@ -1,3 +1,5 @@
+package framework;
+
 import java.io.IOException;
 
 /**
@@ -16,7 +18,7 @@ public class Core {
      * @param window de window die op het moment gebruikt gaat worden
      * @throws IOException
      */
-    Core(Window window) throws IOException {
+    public Core(Window window) throws IOException {
         this.window = window;
         window.use();
         input = Input.init();

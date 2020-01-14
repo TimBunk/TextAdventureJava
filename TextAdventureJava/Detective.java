@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import framework.Sprite;
+import framework.Text;
 
 /**
  * @author Ruben Eekhof rubeneekhof@gmail.com

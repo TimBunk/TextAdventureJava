@@ -1,3 +1,5 @@
+package framework;
+
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
@@ -18,7 +20,7 @@ public class Glyph {
      * @param offset   offset van de standaard locatie
      * @param xAdvance afstand tussen de huidige glyph en de volgende glyph
      */
-    Glyph(Vector4f uv, Vector2f scale, Vector2f offset, int xAdvance) {
+    public Glyph(Vector4f uv, Vector2f scale, Vector2f offset, int xAdvance) {
         this.uv = uv;
         this.scale = scale;
         this.offset = offset;

@@ -24,6 +24,13 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Random;
 
+import framework.Scene;
+import framework.TextInputCallbackI;
+import framework.Font;
+import framework.Text;
+import framework.TextInput;
+import framework.Sprite;
+
 public class Game extends Scene implements TextInputCallbackI {
     private boolean shouldClose;
     private Parser parser;
@@ -55,14 +62,14 @@ public class Game extends Scene implements TextInputCallbackI {
      */
     public Game() throws IOException {
         // Sprites
-        Sprite spriteBruce = new Sprite(128, 128, textureManager.load("Images/Bruce_Cain.png"));
+        Sprite spriteBruce = new Sprite(128, 128, textureManager.load("../Resources/Images/Bruce_Cain.png"));
         spriteBruce.setPosition(new Vector2f(64, 476));
         spriteInventoryBackground = new Sprite(128, 390, new Vector4f(0.0f, 0.0f, 0.0f, 1.0f));
         spriteInventoryBackground.setPosition(new Vector2f(64, 195));
         spriteTextInputBackground = new Sprite(680, 64, new Vector4f(0.0f, 0.0f, 0.0f, 1.0f));
         spriteTextInputBackground.setPosition(new Vector2f(480, 32));
         // Text
-        font = fontManager.load("Fonts/OCR_A_Extended");
+        font = fontManager.load("../Resources/Fonts/OCR_A_Extended");
         textNameDetective = new Text(font, "Bruce Caine");
         textNameDetective.setSize(14);
         textNameDetective.setPosition(new Vector2f(0, 412));
@@ -125,13 +132,13 @@ public class Game extends Scene implements TextInputCallbackI {
      */
     private ArrayList<Person> createNpcs() {
         // Maak de sprites voor de npcs
-        Sprite spriteWife = new Sprite(128, 128, textureManager.load("Images/women.png"));
+        Sprite spriteWife = new Sprite(128, 128, textureManager.load("../Resources/Images/women.png"));
         spriteWife.setPosition(new Vector2f(896, 476));
-        Sprite spriteHousemaid = new Sprite(128, 128, textureManager.load("Images/Cleaner.png"));
+        Sprite spriteHousemaid = new Sprite(128, 128, textureManager.load("../Resources/Images/Cleaner.png"));
         spriteHousemaid.setPosition(new Vector2f(896, 476));
-        Sprite spriteChef = new Sprite(128, 128, textureManager.load("Images/Chef.png"));
+        Sprite spriteChef = new Sprite(128, 128, textureManager.load("../Resources/Images/Chef.png"));
         spriteChef.setPosition(new Vector2f(896, 476));
-        Sprite spriteGardener = new Sprite(128, 128, textureManager.load("Images/Gardener.png"));
+        Sprite spriteGardener = new Sprite(128, 128, textureManager.load("../Resources/Images/Gardener.png"));
         spriteGardener.setPosition(new Vector2f(896, 476));
 
         // initalising all npcs

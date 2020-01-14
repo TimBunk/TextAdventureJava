@@ -1,3 +1,5 @@
+package framework;
+
 import org.joml.Vector4f;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_BACKSPACE;
@@ -19,7 +21,7 @@ public class TextInput extends Text {
      * De constructor van de textInput
      * @param font de font die gebruikt moet worden voor de text
      */
-    TextInput(Font font) {
+    public TextInput(Font font) {
         super(font, "");
         placeHolderString = "";
         placeHolderColor = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);

@@ -1,3 +1,5 @@
+package framework;
+
 /**
  * De Key class bevat informatie over de status van een key.
  * Een key kan pressed, down, up of repeat zijn. Als een key op repeat staat is die ook down
@@ -17,7 +19,7 @@ public class Key {
      * Constructor key
      * Repeat staat standaard op false en keyState staat standaard op UP
      */
-    Key() {
+    public Key() {
         repeat = false;
         keyState = KeyState.UP;
     }

@@ -1,3 +1,5 @@
+package framework;
+
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
@@ -26,7 +28,7 @@ public class Text {
      * @param font   de font die gebruikt moet worden voor dit stuk tekst
      * @param string de charaters die dit stuk tekst bevat
      */
-    Text(Font font, String string) {
+    public Text(Font font, String string) {
         this.font = font;
         position = new Vector2f(0.0f, 0.0f);
         rotation = 0.0f;

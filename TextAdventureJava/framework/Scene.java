@@ -1,3 +1,5 @@
+package framework;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class Scene {
     /**
      * Constructor voor de scene
      */
-    Scene() {
+    public Scene() {
         sprites = new ArrayList<Sprite>();
         text = new ArrayList<Text>();
 

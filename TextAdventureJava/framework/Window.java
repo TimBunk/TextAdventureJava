@@ -1,3 +1,5 @@
+package framework;
+
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -33,7 +35,7 @@ public class Window {
      * @param height de hoogte van de window
      * @param title  de titel van de window
      */
-    Window(int width, int height, String title) {
+    public Window(int width, int height, String title) {
         // Initializeer alle variablen
         this.width = width;
         this.height = height;

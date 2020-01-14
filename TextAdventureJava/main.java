@@ -1,6 +1,8 @@
 import org.joml.Vector3f;
 
 import java.io.IOException;
+import framework.Core;
+import framework.Window;
 
 public class main {
 

@@ -47,11 +47,12 @@ public class Localization {
         String POISON_DESCRIPTION = "item.poison_description";
     }
 
+    // all rooms
     public interface Rooms {
         String KITCHEN_ROOM_NAME = "room.kitchen.name";
         String KITCHEN_ROOM_DESCRIPTION = "room.kitchen.description";
-        String STORAGE_ROOM_NAME = "room.kitchen.name";
-        String STORAGE_ROOM_DESCRIPTION = "room.kitchen.description";
+        String STORAGE_ROOM_NAME = "room.storage.name";
+        String STORAGE_ROOM_DESCRIPTION = "room.storage.description";
         String BEDROOM_ROOM_NAME = "room.bedroom.name";
         String BEDROOM_ROOM_DESCRIPTION = "room.bedroom.description";
         String LIVINGROOM_ROOM_NAME = "room.livingroom.name";
@@ -65,6 +66,7 @@ public class Localization {
     }
 
     private static String language;
+    // the hashmap we will be saving all the data in
     private static HashMap<String, HashMap<String, String>> dictionary = new HashMap<>();
 
     // static initializer
@@ -114,9 +116,42 @@ public class Localization {
         englishWords.put(Text.ROOM_EMPTY, "This room is empty. \n");
         englishWords.put(Text.EXIT_STRING, "The exits are: ");
 
+        // adding all items to the hashmap
+        dutchWords.put(Rooms.BEDROOM_ROOM_NAME, "Slaapkamer");
+        dutchWords.put(Rooms.BEDROOM_ROOM_DESCRIPTION, "De slaapkamer van de eigenaar.");
+        dutchWords.put(Rooms.GARAGE_ROOM_NAME, "Garage");
+        dutchWords.put(Rooms.GARAGE_ROOM_DESCRIPTION, "De garage, hier staat de auto geparkeerd.");
+        dutchWords.put(Rooms.GARDEN_ROOM_NAME, "Tuin");
+        dutchWords.put(Rooms.GARDEN_ROOM_DESCRIPTION, "De tuin, er staat een mooie fontijn en de bloemen zijn aan het bloeien.");
+        dutchWords.put(Rooms.KITCHEN_ROOM_NAME, "Keuken");
+        dutchWords.put(Rooms.KITCHEN_ROOM_DESCRIPTION, "De keuken, met al het keukengerei en een modern kookstel.");
+        dutchWords.put(Rooms.SHED_ROOM_NAME, "Schuur");
+        dutchWords.put(Rooms.SHED_ROOM_DESCRIPTION, "De schuur, een geheimzinnige ruimte.");
+        dutchWords.put(Rooms.STORAGE_ROOM_NAME, "Opslag");
+        dutchWords.put(Rooms.STORAGE_ROOM_DESCRIPTION, "De opslag, veel dozen en een hoop rommel.");
+        dutchWords.put(Rooms.LIVINGROOM_ROOM_NAME, "Woonkamer");
+        dutchWords.put(Rooms.LIVINGROOM_ROOM_DESCRIPTION, "De woonkamer, een gezellige knusse ruimte.");
+
+        englishWords.put(Rooms.BEDROOM_ROOM_NAME, "Bedroom");
+        englishWords.put(Rooms.BEDROOM_ROOM_DESCRIPTION, "The owners bedroom.");
+        englishWords.put(Rooms.GARAGE_ROOM_NAME, "Garage");
+        englishWords.put(Rooms.GARAGE_ROOM_DESCRIPTION, "The garage, the car is parked here.");
+        englishWords.put(Rooms.GARDEN_ROOM_NAME, "Garden");
+        englishWords.put(Rooms.GARDEN_ROOM_DESCRIPTION, "The garden, with a nice fountain and beatifull flowers.");
+        englishWords.put(Rooms.KITCHEN_ROOM_NAME, "Kitchen");
+        englishWords.put(Rooms.KITCHEN_ROOM_DESCRIPTION, "The kitchen, with all of its equipment and a mordern stove.");
+        englishWords.put(Rooms.SHED_ROOM_NAME, "Shed");
+        englishWords.put(Rooms.SHED_ROOM_DESCRIPTION, "The shed, a somewhat mysterious location.");
+        englishWords.put(Rooms.STORAGE_ROOM_NAME, "Storage");
+        englishWords.put(Rooms.STORAGE_ROOM_DESCRIPTION, "The storage, a lot of boxes and a lot of junk");
+        dutchWords.put(Rooms.LIVINGROOM_ROOM_NAME, "Livingroom");
+        dutchWords.put(Rooms.LIVINGROOM_ROOM_DESCRIPTION, "The livingroom, a tidy and cosy place.");
+
+        // adding all keys
         dictionary.put("en", englishWords);
         dictionary.put("nl", dutchWords);
 
+        // setting the default language
         language = "nl";
     }
 

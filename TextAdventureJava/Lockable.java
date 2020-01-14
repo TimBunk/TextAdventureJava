@@ -17,9 +17,9 @@ public class Lockable extends Inspectable {
      * @param lockableObject, the object to be unlocked
      * @return true, if unlocked succesfully, false otherwise.
      */
-    private boolean unlock(Lockable lockableObject) {
+    public boolean unlock() {
         if (locked) {
-            locked = false;
+            this.locked = false;
             return true;
         } else {
             return false;
@@ -32,9 +32,9 @@ public class Lockable extends Inspectable {
      * @param lockableObject, the object to be locked.
      * @return true, if locked succesfully, false otherwise.
      */
-    private boolean lock(Lockable lockableObject) {
+    public boolean lock() {
         if (!locked) {
-            locked = true;
+            this.locked = true;
             return true;
         } else {
             return false;

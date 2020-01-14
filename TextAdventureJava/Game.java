@@ -145,8 +145,7 @@ public class Game extends Scene implements TextInputCallbackI {
         Person wife = new Person("Wife", "The wife of Gary Larry", spriteWife);
         Person housemaid = new Person("House-maid", "The house maid.", spriteHousemaid);
         Person chef = new Person("Chef", "Gary Larry's personal cook.", spriteChef);
-        Person gardener = new Person("Gardener", "The gardener.", spriteGardener);
-
+        Person gardener = new Person("Gardener", "The gardener.", spriteGardener);  
         // adding all npcs to an arraylist
         ArrayList<Person> npcs = new ArrayList<Person>();
         npcs.add(wife);
@@ -196,8 +195,9 @@ public class Game extends Scene implements TextInputCallbackI {
         rooms.add(bedroom);
         rooms.add(livingroom);
         rooms.add(garage);
-        rooms.add(garden);
-        rooms.add(shed);
+        
+        // bepaalde ruimtes op slot doen
+        shed.lock();
 
         // initialising the room the player starts in
         int index = rand.nextInt(rooms.size());
@@ -349,10 +349,7 @@ public class Game extends Scene implements TextInputCallbackI {
      * command words.
      */
     private void printHelp() {
-        addToTextLog("You are lost. You are alone. You wander");
-        addToTextLog("around at the university.");
-        addToTextLog("");
-        addToTextLog("Your command words are:");
+        addToTextLog(Localization.getString(Localization.Text.PRINT_HELP));
         addToTextLog(parser.showCommands());
     }
 

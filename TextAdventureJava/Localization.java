@@ -1,8 +1,18 @@
 import java.util.HashMap;
 
+
+/**
+ * Localization gaat over het opslaan van de vertalingen van de game.
+ * @author: Ruben Eekhof
+ */
 public class Localization {
 
-    // all command words
+    /**
+     * Een interface die alle dictionary keys opslaat voor de commandos.
+     * Dit doen we ook voor alle andere objecten die een vertaling nodig heeft.
+     * Dit voorkomt type fouten.
+     */
+    // alle commandos
     public interface Commands {
         String GO_COMMAND = "commands.go.name";
         String QUIT_COMMAND = "text.quit.command";
@@ -14,18 +24,20 @@ public class Localization {
         String LOOK_COMMAND = "commands.look.name";
         String BACK_COMMAND = "commands.back.name";
         String LANGUAGE_COMMAND = "commands.language.name";
+        String USE_COMMAND = "commands.use.name";  
     }
 
-    // all text
+    // alle text
     public interface Text {
         String WELCOME_TEXT = "text.welcome";
         String ROOM_DESCRIPTION = "text.room_long_description.";
         String ROOM_EMPTY = "text.room_empty";
         String ROOM_START_DESCRIPTION = "text.room_start_description";
         String EXIT_STRING = "text.exit_string";
+        String PRINT_HELP = "text.print_help"; 
     }
 
-    // all items
+    // alle items
     public interface Items {
         String VAULT_KEY_NAME = "item.vault_key_name";
         String VAULT_KEY_DESCRIPTION = "item.vault_key_description";
@@ -47,7 +59,7 @@ public class Localization {
         String POISON_DESCRIPTION = "item.poison_description";
     }
 
-    // all rooms
+    // alle kamers
     public interface Rooms {
         String KITCHEN_ROOM_NAME = "room.kitchen.name";
         String KITCHEN_ROOM_DESCRIPTION = "room.kitchen.description";
@@ -64,13 +76,27 @@ public class Localization {
         String SHED_ROOM_NAME = "room.shed.name";
         String SHED_ROOM_DESCRIPTION = "room.shed.description";
     }
+    
+    // alle personen
+    public interface Persons {
+        String WIFE_NAME = "person.wife.name";
+        String WIFE_DESCRIPTION = "person.wife.description"; 
+        String GARDENER_NAME = "person.gardener.name";  
+        String GARDENER_DESCRIPTION = "person.gardener.description";  
+        String CHEF_NAME = "person.chef.name"; 
+        String CHEF_DESCRIPTION = "person.chef.description"; 
+        String HOUSEMAID_NAME = "person.housemaid.name";
+        String HOUSEMAID_DESCRIPTION = "person.housemaid.description";   
+    }
 
     private static String language;
-    // the hashmap we will be saving all the data in
+    // de hashmap waarin we onze data opslaan
     private static HashMap<String, HashMap<String, String>> dictionary = new HashMap<>();
 
-    // static initializer
-    // called when class is loaded by the jvm
+    /**
+     * De static intialiser.
+     * Deze word aangeroepen wanneer de jvm de klasse compileert.
+     */
     static {
         HashMap<String, String> englishWords = new HashMap<>();
         // adding all commands to the hashmap
@@ -84,6 +110,7 @@ public class Localization {
         englishWords.put(Commands.LOOK_COMMAND, "look");
         englishWords.put(Commands.BACK_COMMAND, "back");
         englishWords.put(Commands.LANGUAGE_COMMAND, "language");
+        englishWords.put(Commands.USE_COMMAND, "use");
 
         HashMap<String, String> dutchWords = new HashMap<>();
         dutchWords.put(Commands.GO_COMMAND, "verplaats");
@@ -96,8 +123,8 @@ public class Localization {
         dutchWords.put(Commands.LOOK_COMMAND, "kijk");
         dutchWords.put(Commands.BACK_COMMAND, "terug");
         dutchWords.put(Commands.LANGUAGE_COMMAND, "taal");
-
-        // adding all the text to the hashmap
+        dutchWords.put(Commands.USE_COMMAND, "gebruik");  
+        
         dutchWords.put(Text.WELCOME_TEXT, "Er is iemand vermoord." +
                 "\nBruce Cain de beste detective te vinden op deze planeet, moet de moordenaar zien te vinden.\n" +
                 "Er zijn 4 verdachten, jij moet als Bruce onderzoek doen naar wie de moordenaar is." +
@@ -106,6 +133,7 @@ public class Localization {
         dutchWords.put(Text.ROOM_START_DESCRIPTION, "Er zijn wat dingen in deze kamer: ");
         dutchWords.put(Text.ROOM_EMPTY, "Deze kamer is leeg. \n");
         dutchWords.put(Text.EXIT_STRING, "De uitgangen zijn: ");
+        dutchWords.put(Text.PRINT_HELP, "Je probeert de moordenaar van de rijke man te zoeken. Je hebt de volgende commandos:\n");
 
         englishWords.put(Text.WELCOME_TEXT, "Someone has been murdered." +
                 "\nBruce Cain the best detective on this planet has to find the murderer.\n" +
@@ -115,8 +143,8 @@ public class Localization {
         englishWords.put(Text.ROOM_START_DESCRIPTION, "There are some things in this room: ");
         englishWords.put(Text.ROOM_EMPTY, "This room is empty. \n");
         englishWords.put(Text.EXIT_STRING, "The exits are: ");
+        englishWords.put(Text.PRINT_HELP, "Youre trying to find the rich guys murderer. You've got acces to the following commands:\n");  
 
-        // adding all items to the hashmap
         dutchWords.put(Rooms.BEDROOM_ROOM_NAME, "Slaapkamer");
         dutchWords.put(Rooms.BEDROOM_ROOM_DESCRIPTION, "De slaapkamer van de eigenaar.");
         dutchWords.put(Rooms.GARAGE_ROOM_NAME, "Garage");
@@ -147,7 +175,6 @@ public class Localization {
         dutchWords.put(Rooms.LIVINGROOM_ROOM_NAME, "Livingroom");
         dutchWords.put(Rooms.LIVINGROOM_ROOM_DESCRIPTION, "The livingroom, a tidy and cosy place.");
 
-        // adding all keys
         dictionary.put("en", englishWords);
         dictionary.put("nl", dutchWords);
 
@@ -155,10 +182,16 @@ public class Localization {
         language = "nl";
     }
 
+    /**
+     * Haalt de correcte string op uit de hashmap.
+     */
     public static String getString(final String code) {
         return dictionary.get(language).get(code);
     }
 
+    /**
+     * Setter voor de language.
+     */
     public static void setLanguage(final String languageCode) {
         language = languageCode;
     }

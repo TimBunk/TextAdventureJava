@@ -271,7 +271,8 @@ public class Renderer {
             // Draw
             glBindBuffer(GL_ARRAY_BUFFER, VBO_text);
             glBufferData(GL_ARRAY_BUFFER, toFloatArray(vertices), GL_DYNAMIC_DRAW);
-            glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+            // Ik deel de vertices door 4 omdat een vertex bestaat uit een x,y posititie en een u en v
+            glDrawArrays(GL_TRIANGLES, 0, vertices.size()/4);
         }
     }
 

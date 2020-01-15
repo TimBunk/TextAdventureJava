@@ -61,43 +61,12 @@ public class Game extends Scene implements TextInputCallbackI {
      * Create the game and initialise its internal map.
      */
     public Game() throws IOException {
+        
         shouldClose = false;
         rand = new Random();
-
-        // Sprites
-        Sprite spriteBruce = new Sprite(128, 128, textureManager.load("../Resources/Images/Bruce_Cain.png"));
-        spriteBruce.setPosition(new Vector2f(64, 476));
-        spriteInventoryBackground = new Sprite(128, 390, new Vector4f(0.0f, 0.0f, 0.0f, 1.0f));
-        spriteInventoryBackground.setPosition(new Vector2f(64, 195));
-        spriteTextInputBackground = new Sprite(680, 64, new Vector4f(0.0f, 0.0f, 0.0f, 1.0f));
-        spriteTextInputBackground.setPosition(new Vector2f(480, 32));
-        // Text
-        font = fontManager.load("../Resources/Fonts/OCR_A_Extended");
-        textNameDetective = new Text(font, "bruce caine");
-        textNameDetective.setSize(14);
-        textNameDetective.setPosition(new Vector2f(0, 412));
-        textNameSuspect = new Text(font, "");
-        textNameSuspect.setSize(14);
-        textNameSuspect.setPosition(new Vector2f(832, 412));
-        textNameInventory = new Text(font, "Inventory");
-        textNameInventory.setSize(14);
-        textNameInventory.setPosition(new Vector2f(21, 390));
-        textLog = new Text(font, "");
-        textLog.setSize(14);
-        textLog.setPosition(new Vector2f(145, 530));
-        textLog.setMaxWidth(670);
-        textLog.setMaxHeight(470);
-        // TextInput
-        textInput = new TextInput(font);
-        textInput.setSize(14);
-        textInput.setPosition(new Vector2f(145, 39));
-        textInput.setPlaceHolder("TYPE SOMETHING...", new Vector4f(0.5f, 0.5f, 0.5f, 1.0f));
-        textInput.setCallback(this);
-        textInput.setMaxChars(70);
-
-        // Game
         parser = new Parser();
-        bruce = new Detective("Bruce Caine", "Bruce Caine, the best detective in the west.", spriteBruce);
+
+        setupGraphics();
         setupRooms();
 
         printWelcome();
@@ -413,5 +382,40 @@ public class Game extends Scene implements TextInputCallbackI {
         // De moordenaar is de chef
         murderer = chef;
 
+    }
+
+    public void setupGraphics() throws IOException {
+        // Sprites
+        Sprite spriteBruce = new Sprite(128, 128, textureManager.load("../Resources/Images/Bruce_Cain.png"));
+        spriteBruce.setPosition(new Vector2f(64, 476));
+        spriteInventoryBackground = new Sprite(128, 390, new Vector4f(0.0f, 0.0f, 0.0f, 1.0f));
+        spriteInventoryBackground.setPosition(new Vector2f(64, 195));
+        spriteTextInputBackground = new Sprite(680, 64, new Vector4f(0.0f, 0.0f, 0.0f, 1.0f));
+        spriteTextInputBackground.setPosition(new Vector2f(480, 32));
+        // Text
+        font = fontManager.load("../Resources/Fonts/OCR_A_Extended");
+        textNameDetective = new Text(font, "bruce caine");
+        textNameDetective.setSize(14);
+        textNameDetective.setPosition(new Vector2f(0, 412));
+        textNameSuspect = new Text(font, "");
+        textNameSuspect.setSize(14);
+        textNameSuspect.setPosition(new Vector2f(832, 412));
+        textNameInventory = new Text(font, "Inventory");
+        textNameInventory.setSize(14);
+        textNameInventory.setPosition(new Vector2f(21, 390));
+        textLog = new Text(font, "");
+        textLog.setSize(14);
+        textLog.setPosition(new Vector2f(145, 530));
+        textLog.setMaxWidth(670);
+        textLog.setMaxHeight(470);
+        // TextInput
+        textInput = new TextInput(font);
+        textInput.setSize(14);
+        textInput.setPosition(new Vector2f(145, 39));
+        textInput.setPlaceHolder("TYPE SOMETHING...", new Vector4f(0.5f, 0.5f, 0.5f, 1.0f));
+        textInput.setCallback(this);
+        textInput.setMaxChars(70);
+
+        bruce = new Detective("Bruce Caine", "Bruce Caine, the best detective in the west.", spriteBruce);
     }
 }

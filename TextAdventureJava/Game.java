@@ -189,8 +189,7 @@ public class Game extends Scene implements TextInputCallbackI {
                 break;
 
             case LANGUAGE:
-                Localization.setLanguage(command.getSecondWord());
-                CommandWords.setCommandWords();
+                language(command.getSecondWord());
                 break;
 
             case BACK:
@@ -284,6 +283,16 @@ public class Game extends Scene implements TextInputCallbackI {
             addToTextLog(currentRoom.getLongDescription());
             return previousRoom;
         }
+    }
+
+    private void language(String languageCode) {
+        if (Localization.setLanguage(languageCode)) {
+            addToTextLog(Localization.getString(Localization.Text.LANGUAGE_CHANGE_SUCCESS));
+        }
+        else {
+            addToTextLog(Localization.getLanguageOptionsString());
+        }
+        CommandWords.setCommandWords();
     }
 
     /**

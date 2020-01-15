@@ -24,7 +24,8 @@ public class Localization {
         String LOOK_COMMAND = "commands.look.name";
         String BACK_COMMAND = "commands.back.name";
         String LANGUAGE_COMMAND = "commands.language.name";
-        String USE_COMMAND = "commands.use.name";  
+        String USE_COMMAND = "commands.use.name";
+        String INSPECT_COMMAND = "commands.inspect.name";
     }
 
     // alle text
@@ -34,7 +35,9 @@ public class Localization {
         String ROOM_EMPTY = "text.room_empty";
         String ROOM_START_DESCRIPTION = "text.room_start_description";
         String EXIT_STRING = "text.exit_string";
-        String PRINT_HELP = "text.print_help"; 
+        String PRINT_HELP = "text.print_help";
+        String LANGUAGE_CHANGE_SUCCESS = "text.language_change_success";
+        String LANGUAGE_OPTIONS = "text.language_options";
     }
 
     // alle items
@@ -89,6 +92,12 @@ public class Localization {
         String HOUSEMAID_DESCRIPTION = "person.housemaid.description";   
     }
 
+    private interface LanguageHashMaps {
+        HashMap<String, String> englishWords = new HashMap<>();
+        HashMap<String, String> dutchWords = new HashMap<>();
+        void addWords(String key, String english, String dutch);
+    }
+
     private static String language;
     // de hashmap waarin we onze data opslaan
     private static HashMap<String, HashMap<String, String>> dictionary = new HashMap<>();
@@ -98,85 +107,162 @@ public class Localization {
      * Deze word aangeroepen wanneer de jvm de klasse compileert.
      */
     static {
-        HashMap<String, String> englishWords = new HashMap<>();
+
+        LanguageHashMaps languages = (String key, String english, String dutch) -> { LanguageHashMaps.englishWords.put(key, english); LanguageHashMaps.dutchWords.put(key, dutch); };
+
         // adding all commands to the hashmap
-        englishWords.put(Commands.GO_COMMAND, "go");
-        englishWords.put(Commands.QUIT_COMMAND, "quit");
-        englishWords.put(Commands.HELP_COMMAND, "help");
-        englishWords.put(Commands.PICKUP_COMMAND, "pickup");
-        englishWords.put(Commands.INVENTORY_COMMAND, "inventory");
-        englishWords.put(Commands.DROP_COMMAND, "drop");
-        englishWords.put(Commands.UNKNOWN_COMMAND, "unknown");
-        englishWords.put(Commands.LOOK_COMMAND, "look");
-        englishWords.put(Commands.BACK_COMMAND, "back");
-        englishWords.put(Commands.LANGUAGE_COMMAND, "language");
-        englishWords.put(Commands.USE_COMMAND, "use");
+        languages.addWords(Commands.GO_COMMAND,
+                "go",
+                "verplaats"
+        );
+        languages.addWords(Commands.QUIT_COMMAND,
+                "quit",
+                "sluit"
+        );
+        languages.addWords(Commands.HELP_COMMAND,
+                "help",
+                "help"
+        );
+        languages.addWords(Commands.PICKUP_COMMAND,
+                "pickup",
+                "oppakken"
+        );
+        languages.addWords(Commands.INVENTORY_COMMAND,
+                "inventory",
+                "inventaris"
+        );
+        languages.addWords(Commands.DROP_COMMAND,
+                "drop",
+                "drop"
+        );
+        languages.addWords(Commands.UNKNOWN_COMMAND,
+                "unknown",
+                "onbekend"
+        );
+        languages.addWords(Commands.LOOK_COMMAND,
+                "look",
+                "kijk"
+        );
+        languages.addWords(Commands.BACK_COMMAND,
+                "back",
+                "terug"
+        );
+        languages.addWords(Commands.LANGUAGE_COMMAND,
+                "language",
+                "taal"
+        );
+        languages.addWords(Commands.USE_COMMAND,
+                "use",
+                "gebruik"
+        );
+        languages.addWords(Commands.INSPECT_COMMAND,
+                "inspect",
+                "inspecteer"
+        );
 
-        HashMap<String, String> dutchWords = new HashMap<>();
-        dutchWords.put(Commands.GO_COMMAND, "verplaats");
-        dutchWords.put(Commands.QUIT_COMMAND, "sluit");
-        dutchWords.put(Commands.HELP_COMMAND, "help");
-        dutchWords.put(Commands.PICKUP_COMMAND, "oppakken");
-        dutchWords.put(Commands.INVENTORY_COMMAND, "inventaris");
-        dutchWords.put(Commands.DROP_COMMAND, "drop");
-        dutchWords.put(Commands.UNKNOWN_COMMAND, "onbekend");
-        dutchWords.put(Commands.LOOK_COMMAND, "kijk");
-        dutchWords.put(Commands.BACK_COMMAND, "terug");
-        dutchWords.put(Commands.LANGUAGE_COMMAND, "taal");
-        dutchWords.put(Commands.USE_COMMAND, "gebruik");  
-        
-        dutchWords.put(Text.WELCOME_TEXT, "Er is iemand vermoord." +
-                "\nBruce Cain de beste detective te vinden op deze planeet, moet de moordenaar zien te vinden.\n" +
-                "Er zijn 4 verdachten, jij moet als Bruce onderzoek doen naar wie de moordenaar is." +
-                "Veel geluk, en type help voor een lijst voor alle commando's.");
-        dutchWords.put(Text.ROOM_DESCRIPTION, "Je bent in de ");
-        dutchWords.put(Text.ROOM_START_DESCRIPTION, "Er zijn wat dingen in deze kamer: ");
-        dutchWords.put(Text.ROOM_EMPTY, "Deze kamer is leeg. \n");
-        dutchWords.put(Text.EXIT_STRING, "De uitgangen zijn: ");
-        dutchWords.put(Text.PRINT_HELP, "Je probeert de moordenaar van de rijke man te zoeken. Je hebt de volgende commandos:\n");
-
-        englishWords.put(Text.WELCOME_TEXT, "Someone has been murdered." +
+        // Welkom
+        languages.addWords(Text.WELCOME_TEXT,
+                "Someone has been murdered." +
                 "\nBruce Cain the best detective on this planet has to find the murderer.\n" +
                 "There are 4 suspects, you have to play as Bruce and find the murderer." +
-                "Good luck, and type help for a list of all commands.");
-        englishWords.put(Text.ROOM_DESCRIPTION, "You are in the ");
-        englishWords.put(Text.ROOM_START_DESCRIPTION, "There are some things in this room: ");
-        englishWords.put(Text.ROOM_EMPTY, "This room is empty. \n");
-        englishWords.put(Text.EXIT_STRING, "The exits are: ");
-        englishWords.put(Text.PRINT_HELP, "Youre trying to find the rich guys murderer. You've got acces to the following commands:\n");  
+                "Good luck, and type help for a list of all commands.",
+                "Er is iemand vermoord." +
+                "\nBruce Cain de beste detective te vinden op deze planeet, moet de moordenaar zien te vinden.\n" +
+                "Er zijn 4 verdachten, jij moet als Bruce onderzoek doen naar wie de moordenaar is." +
+                "Veel geluk, en type help voor een lijst voor alle commando's."
+        );
 
-        dutchWords.put(Rooms.BEDROOM_ROOM_NAME, "Slaapkamer");
-        dutchWords.put(Rooms.BEDROOM_ROOM_DESCRIPTION, "De slaapkamer van de eigenaar.");
-        dutchWords.put(Rooms.GARAGE_ROOM_NAME, "Garage");
-        dutchWords.put(Rooms.GARAGE_ROOM_DESCRIPTION, "De garage, hier staat de auto geparkeerd.");
-        dutchWords.put(Rooms.GARDEN_ROOM_NAME, "Tuin");
-        dutchWords.put(Rooms.GARDEN_ROOM_DESCRIPTION, "De tuin, er staat een mooie fontijn en de bloemen zijn aan het bloeien.");
-        dutchWords.put(Rooms.KITCHEN_ROOM_NAME, "Keuken");
-        dutchWords.put(Rooms.KITCHEN_ROOM_DESCRIPTION, "De keuken, met al het keukengerei en een modern kookstel.");
-        dutchWords.put(Rooms.SHED_ROOM_NAME, "Schuur");
-        dutchWords.put(Rooms.SHED_ROOM_DESCRIPTION, "De schuur, een geheimzinnige ruimte.");
-        dutchWords.put(Rooms.STORAGE_ROOM_NAME, "Opslag");
-        dutchWords.put(Rooms.STORAGE_ROOM_DESCRIPTION, "De opslag, veel dozen en een hoop rommel.");
-        dutchWords.put(Rooms.LIVINGROOM_ROOM_NAME, "Woonkamer");
-        dutchWords.put(Rooms.LIVINGROOM_ROOM_DESCRIPTION, "De woonkamer, een gezellige knusse ruimte.");
+        // Kamer beschrijvingen
+        languages.addWords(Text.ROOM_DESCRIPTION,
+                "You are in the ",
+                "Je bent in de "
+        );
+        languages.addWords(Text.ROOM_START_DESCRIPTION,
+                "There are some things in this room: ",
+                "Er zijn wat dingen in deze kamer: "
+        );
+        languages.addWords(Text.ROOM_EMPTY,
+                "This room is empty. \n",
+                "Deze kamer is leeg. \n"
+        );
+        languages.addWords(Text.EXIT_STRING,
+                "The exits are: ",
+                "De uitgangen zijn: "
+        );
+        languages.addWords(Text.PRINT_HELP,
+                "Youre trying to find the rich guys murderer. You've got acces to the following commands:\n",
+                "Je probeert de moordenaar van de rijke man te zoeken. Je hebt de volgende commandos:\n"
+        );
 
-        englishWords.put(Rooms.BEDROOM_ROOM_NAME, "Bedroom");
-        englishWords.put(Rooms.BEDROOM_ROOM_DESCRIPTION, "The owners bedroom.");
-        englishWords.put(Rooms.GARAGE_ROOM_NAME, "Garage");
-        englishWords.put(Rooms.GARAGE_ROOM_DESCRIPTION, "The garage, the car is parked here.");
-        englishWords.put(Rooms.GARDEN_ROOM_NAME, "Garden");
-        englishWords.put(Rooms.GARDEN_ROOM_DESCRIPTION, "The garden, with a nice fountain and beatifull flowers.");
-        englishWords.put(Rooms.KITCHEN_ROOM_NAME, "Kitchen");
-        englishWords.put(Rooms.KITCHEN_ROOM_DESCRIPTION, "The kitchen, with all of its equipment and a mordern stove.");
-        englishWords.put(Rooms.SHED_ROOM_NAME, "Shed");
-        englishWords.put(Rooms.SHED_ROOM_DESCRIPTION, "The shed, a somewhat mysterious location.");
-        englishWords.put(Rooms.STORAGE_ROOM_NAME, "Storage");
-        englishWords.put(Rooms.STORAGE_ROOM_DESCRIPTION, "The storage, a lot of boxes and a lot of junk");
-        dutchWords.put(Rooms.LIVINGROOM_ROOM_NAME, "Livingroom");
-        dutchWords.put(Rooms.LIVINGROOM_ROOM_DESCRIPTION, "The livingroom, a tidy and cosy place.");
+        languages.addWords(Rooms.BEDROOM_ROOM_NAME,
+                "bedroom",
+                "slaapkamer"
+        );
+        languages.addWords(Rooms.BEDROOM_ROOM_DESCRIPTION,
+                "The owners bedroom.",
+                "De slaapkamer van de eigenaar."
+        );
+        languages.addWords(Rooms.GARAGE_ROOM_NAME,
+                "garage",
+                "garage"
+        );
+        languages.addWords(Rooms.GARAGE_ROOM_DESCRIPTION,
+                "The garage, the car is parked here.",
+                "De garage, hier staat de auto geparkeerd."
+        );
+        languages.addWords(Rooms.GARDEN_ROOM_NAME,
+                "garden",
+                "tuin"
+        );
+        languages.addWords(Rooms.GARDEN_ROOM_DESCRIPTION,
+                "The garden, with a nice fountain and beatifull flowers.",
+                "De tuin, er staat een mooie fontijn en de bloemen zijn aan het bloeien."
+        );
+        languages.addWords(Rooms.KITCHEN_ROOM_NAME,
+                "kitchen",
+                "keuken"
+        );
+        languages.addWords(Rooms.KITCHEN_ROOM_DESCRIPTION,
+                "The kitchen, with all of its equipment and a mordern stove.",
+                "De keuken, met al het keukengerei en een modern kookstel."
+        );
+        languages.addWords(Rooms.SHED_ROOM_NAME,
+                "shed",
+                "schuur"
+        );
+        languages.addWords(Rooms.SHED_ROOM_DESCRIPTION,
+                "The shed, a somewhat mysterious location.",
+                "De schuur, een geheimzinnige ruimte."
+        );
+        languages.addWords(Rooms.STORAGE_ROOM_NAME,
+                "storage",
+                "opslag"
+        );
+        languages.addWords(Rooms.STORAGE_ROOM_DESCRIPTION,
+                "The storage, a lot of boxes and a lot of junk",
+                "De opslag, veel dozen en een hoop rommel."
+        );
+        languages.addWords(Rooms.LIVINGROOM_ROOM_NAME,
+                "livingroom",
+                "woonkamer"
+        );
+        languages.addWords(Rooms.LIVINGROOM_ROOM_DESCRIPTION,
+                "The livingroom, a tidy and cosy place.",
+                "De woonkamer, een gezellige knusse ruimte."
+        );
 
-        dictionary.put("en", englishWords);
-        dictionary.put("nl", dutchWords);
+        // Talen
+        languages.addWords(Text.LANGUAGE_OPTIONS,
+                "Choose one of the folling languages:\n",
+                "Kies een van de volgende talen:\n"
+        );
+        languages.addWords(Text.LANGUAGE_CHANGE_SUCCESS,
+                "The languages has been changed.",
+                "De taal is verandert."
+        );
+
+        dictionary.put("en", LanguageHashMaps.englishWords);
+        dictionary.put("nl", LanguageHashMaps.dutchWords);
 
         // setting the default language
         language = "nl";
@@ -192,7 +278,21 @@ public class Localization {
     /**
      * Setter voor de language.
      */
-    public static void setLanguage(final String languageCode) {
-        language = languageCode;
+    public static boolean setLanguage(final String languageCode) {
+        for (String key : dictionary.keySet()) {
+            if (key.equals(languageCode)) {
+                language = languageCode;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String getLanguageOptionsString() {
+        String languageOptions = getString(Text.LANGUAGE_OPTIONS);
+        for (String key : dictionary.keySet()) {
+            languageOptions = String.format("%s%s ", languageOptions, key);
+        }
+        return languageOptions;
     }
 }

@@ -1,11 +1,16 @@
+import framework.Sprite;
+
 /**
  * @author Ruben Eekhof rubeneekhof@gmail.com
  * All items that can be picked up by the detective.
  */
 public class Item extends Inspectable {
 
-    public Item(String name, String description) {
+    Sprite sprite;
+
+    public Item(String name, String description, Sprite sprite) {
         super(name, description);
+        this.sprite = sprite;
     }
 
     /**
@@ -16,4 +21,7 @@ public class Item extends Inspectable {
     public void use(Item item) {
         System.out.println("Using item " + name);
     }
+
+
+    public Sprite getSprite() { return sprite; }
 }

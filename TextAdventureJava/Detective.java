@@ -28,7 +28,7 @@ public class Detective extends Inspectable {
      * @return true, if the item was succesfully added, false otherwise.
      */
     public boolean pickup(Item item) {
-        if (inventory.size() == 6) {
+        if (inventory.size() == 5) {
             return false;
         } else {
             inventory.add(item);
@@ -97,5 +97,9 @@ public class Detective extends Inspectable {
             }
         }
         return null;
+    }
+
+    public ArrayList<Item> getInventory() {
+        return inventory;
     }
 }

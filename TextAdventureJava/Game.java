@@ -19,10 +19,7 @@ import org.joml.Vector2f;
 import org.joml.Vector4f;
 
 import java.io.IOException;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.Random;
+import java.util.*;
 
 import framework.Scene;
 import framework.TextInputCallbackI;
@@ -88,12 +85,21 @@ public class Game extends Scene implements TextInputCallbackI {
 
     @Override
     public void draw() {
+        // Teken de npc als er een npc is
         Person npc = currentRoom.getNpc();
         if (npc != null) {
             draw(npc.getSprite());
         }
-        draw(bruce.getSprite());
+        // Teken de items in de inventory als die er zijn
+        ArrayList<Item> inventory = bruce.getInventory();
+        for (int i=0;i<inventory.size();i++) {
+            Sprite s = inventory.get(i).getSprite();
+            s.setPosition(new Vector2f(64, 335 - (i*72)));
+            draw(s);
+        }
 
+        draw(bruce.getSprite());
+        
         draw(spriteInventoryBackground);
         draw(spriteTextInputBackground);
 
@@ -400,16 +406,27 @@ public class Game extends Scene implements TextInputCallbackI {
         // De ruimte waarin je begint is de livingroom
         currentRoom = livingroom;
 
+        // Maak de sprites voor de items
+        Sprite spriteVaultKey = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+        Sprite spriteCarKey = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+        Sprite spriteShedKey = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+        Sprite spriteCellphone = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+        Sprite spriteShoppingList = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+        Sprite spriteDucktape = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+        Sprite spriteHammer = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+        Sprite spriteKitchenKnive = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+        Sprite spritePoison = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+
         // Initialiseer de items
-        Item vaultKey = new Item("vault-key", "Key for the vault located in the bedroom.");
-        Item carKey = new Item("car-key", "Key for the car located in the garage.");
-        Item shedKey = new Item("shed-key", "Key for the shed locate inside the garden.");
-        Item cellphone = new Item("cellphone", "Cellphone that appears to be someones property.");
-        Item shoppingList = new Item("shopping-list", "A list with last nights bought groceries.");
-        Item ducktape = new Item("ducktape", "Ducktape? What could this be used for?");
-        Item hammer = new Item("hammer", "A hammer.");
-        Item kitchenKnive = new Item("kitchen-knive", "A knive, used to cut meat and vegetables.");
-        Item poison = new Item("poison", "A suspicious looking bottle with a skull on it");
+        Item vaultKey = new Item("vault-key", "Key for the vault located in the bedroom.", spriteVaultKey);
+        Item carKey = new Item("car-key", "Key for the car located in the garage.", spriteCarKey);
+        Item shedKey = new Item("shed-key", "Key for the shed locate inside the garden.", spriteShedKey);
+        Item cellphone = new Item("cellphone", "Cellphone that appears to be someones property.", spriteCellphone);
+        Item shoppingList = new Item("shopping-list", "A list with last nights bought groceries.", spriteShoppingList);
+        Item ducktape = new Item("ducktape", "Ducktape? What could this be used for?", spriteDucktape);
+        Item hammer = new Item("hammer", "A hammer.", spriteHammer);
+        Item kitchenKnive = new Item("kitchen-knive", "A knive, used to cut meat and vegetables.", spriteKitchenKnive);
+        Item poison = new Item("poison", "A suspicious looking bottle with a skull on it", spritePoison);
 
         // Plaats de items in de kamer
         kitchen.addInspectable(shoppingList);

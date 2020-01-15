@@ -152,8 +152,8 @@ public class Game extends Scene implements TextInputCallbackI {
                 dropItem(command.getSecondWord());
                 break;
 
-            case LOOK:
-                look();
+            case INSPECT:
+                inspect(command);
                 break;
 
             case LANGUAGE:
@@ -218,7 +218,7 @@ public class Game extends Scene implements TextInputCallbackI {
     private void dropItem(String name) {
         Item droppedItem = bruce.drop(name);
         if (droppedItem != null) {
-            currentRoom.addItem(droppedItem);
+            currentRoom.addInspectable(droppedItem);
             addToTextLog("Dropped: " + droppedItem.getName());
         } else {
             addToTextLog("That item is not in your inventory.");
@@ -278,10 +278,31 @@ public class Game extends Scene implements TextInputCallbackI {
     }
 
     /**
-     * Stuurt de beschrijving van de kamer.
+     * Stuurt de beschrijving van de kamer of een inspectable die in de kamer ligt of in bruce zijn inventory zit
      */
-    private void look() {
-        addToTextLog(currentRoom.getLongDescription());
+    private void inspect(Command command) {
+        // Als er geen twee woord is meegegeven dan printen we de beschrijving van de kamer
+        if (command.hasSecondWord() == false) {
+            addToTextLog(currentRoom.getLongDescription());
+        }
+        else {
+            // Als er wel een tweede woord is meegegeven dan kijken we of die inspectable in de kamer zit zodat we die beschrijving kunnen printen
+            String description = currentRoom.inspectInspectable(command.getSecondWord());
+            if (description != null) {
+                addToTextLog(description);
+            }
+            else {
+                // Als het inspectable niet in de kamer ligt kan het zijn dat Bruce cain de inspectable in zijn inventory heeft zitten
+                description = bruce.inspectItem(command.getSecondWord());
+                if (description != null) {
+                    addToTextLog(description);
+                }
+                // Als de inspectable helemaal niet wordt gevonden dan vertellen we de speler dat de inspectable niet is gevonden
+                else {
+                    addToTextLog(Localization.getString(Localization.Text.ROOM_INSPECTABLE_NON_EXISTENT) + command.getSecondWord());
+                }
+            }
+        }
     }
 
     @Override
@@ -345,15 +366,15 @@ public class Game extends Scene implements TextInputCallbackI {
         Item poison = new Item("poison", "A suspicious looking bottle with a skull on it");
 
         // Plaats de items in de kamer
-        kitchen.addItem(shoppingList);
-        kitchen.addItem(poison);
-        kitchen.addItem(kitchenKnive);
-        bedroom.addItem(cellphone);
-        bedroom.addItem(carKey);
-        garage.addItem(ducktape);
-        garage.addItem(shedKey);
-        garden.addItem(vaultKey);
-        garage.addItem(hammer);
+        kitchen.addInspectable(shoppingList);
+        kitchen.addInspectable(poison);
+        kitchen.addInspectable(kitchenKnive);
+        bedroom.addInspectable(cellphone);
+        bedroom.addInspectable(carKey);
+        garage.addInspectable(ducktape);
+        garage.addInspectable(shedKey);
+        garden.addInspectable(vaultKey);
+        garage.addInspectable(hammer);
 
         // Maak de sprites voor de npcs
         Sprite spriteWife = new Sprite(128, 128, textureManager.load("../Resources/Images/women.png"));

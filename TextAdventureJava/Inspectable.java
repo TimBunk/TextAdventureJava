@@ -13,12 +13,11 @@ public class Inspectable {
     }
 
     /**
-     * Inspects an inspectable object.
+     * Inspecteer deze inspectable
      *
-     * @param item, the object to be inspected.
-     * @return description, the objects description field.
+     * @return je krijgt de beschrijving terug van deze inspectable
      */
-    public String inspect(Inspectable item) {
+    public String inspect() {
         return this.description;
     }
 

@@ -85,4 +85,18 @@ public class Detective {
     public Sprite getSprite() {
         return sprite;
     }
+
+    /**
+     * Inspecteert een item die in de inventory zit van de detective
+     * @param itemName de naam van de item in de inventory
+     * @return je krijgt of de beschrijving terug van het item of je krijgt null terug als er geen item is gevonden
+     */
+    public String inspectItem(String itemName) {
+        for (Item i : inventory) {
+            if (i.getName().equals(itemName)) {
+                return i.inspect();
+            }
+        }
+        return null;
+    }
 }

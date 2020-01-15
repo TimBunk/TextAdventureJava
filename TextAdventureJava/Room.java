@@ -49,7 +49,9 @@ public class Room extends Lockable {
      * @Author Tim Bunk
      * @param npc de npc die je in deze kamer wil plaatsen.
      */
-    public void setNpc(Person npc) { this.npc = npc; }
+    public void setNpc(Person npc) {
+        this.npc = npc;
+    }
 
     /**
      * @return de npc die in deze kamer staat. Let op deze kan null zijn.
@@ -126,19 +128,12 @@ public class Room extends Lockable {
     }
 
     /**
-     * Adds an item to the inspectables list.
+     * Voegt een inspectable toe aan de inspectable list
      *
-     * @param item, the item to add.
+     * @param inspectable is de inspectable die je wil toevoegen
      */
-    public void addItem(Item item) {
-        inspectables.add(item);
-    }
-
-    /**
-     * @return the size of the inspectables list.
-     */
-    public int getInspectablesSize() {
-        return inspectables.size();
+    public void addInspectable(Inspectable inspectable) {
+        inspectables.add(inspectable);
     }
 
     /**
@@ -159,10 +154,32 @@ public class Room extends Lockable {
     /**
      * Removes an item from a room
      *
-     * @param name, the name of the item we want to remove.
+     * @param item, het item dat verwijdert moet worden uit de lijst
      */
-    public void removeItem(Item name) {
-        inspectables.remove(name);
+    public void removeItem(Item item) {
+        inspectables.remove(item);
+    }
+
+    /**
+     * Inspecteert een naastliggende kamer of inspectable in de huidige kamer
+     * @param inspectableName de naam van de inspectable die je wilt inspecteren
+     * @return een string met een beschrijving over de inspectable of null als de inspectable niet gevonden werd
+     */
+    public String inspectInspectable(String inspectableName) {
+        for (Inspectable i : inspectables) {
+            if (i.getName().equals(inspectableName)) {
+                return i.inspect();
+            }
+        }
+        for (Room r : exits.values()) {
+            if (r.getName().equals(inspectableName)) {
+                return r.inspect();
+            }
+        }
+        if (npc != null && npc.getName().equals(inspectableName)) {
+            return npc.inspect();
+        }
+        return null;
     }
 
 }

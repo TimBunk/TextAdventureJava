@@ -15,7 +15,7 @@ public enum CommandWord {
     INVENTORY(Localization.Commands.INVENTORY_COMMAND),
     DROP(Localization.Commands.DROP_COMMAND),
     UNKNOWN(Localization.Commands.UNKNOWN_COMMAND),
-    LOOK(Localization.Commands.LOOK_COMMAND),
+    INSPECT(Localization.Commands.INSPECT_COMMAND),
     BACK(Localization.Commands.BACK_COMMAND),
     LANGUAGE(Localization.Commands.LANGUAGE_COMMAND);
 

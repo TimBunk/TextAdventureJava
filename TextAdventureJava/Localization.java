@@ -33,6 +33,7 @@ public class Localization {
         String WELCOME_TEXT = "text.welcome";
         String ROOM_DESCRIPTION = "text.room_long_description.";
         String ROOM_EMPTY = "text.room_empty";
+        String ROOM_INSPECTABLE_NON_EXISTENT = "text.room_inspectable_non_existent";
         String ROOM_START_DESCRIPTION = "text.room_start_description";
         String EXIT_STRING = "text.exit_string";
         String PRINT_HELP = "text.print_help";
@@ -249,6 +250,10 @@ public class Localization {
         languages.addWords(Rooms.LIVINGROOM_ROOM_DESCRIPTION,
                 "The livingroom, a tidy and cosy place.",
                 "De woonkamer, een gezellige knusse ruimte."
+        );
+        languages.addWords(Text.ROOM_INSPECTABLE_NON_EXISTENT,
+                "There is no ",
+                "Er is geen "
         );
 
         // Talen

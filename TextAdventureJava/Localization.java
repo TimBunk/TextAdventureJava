@@ -39,6 +39,7 @@ public class Localization {
         String PRINT_HELP = "text.print_help";
         String LANGUAGE_CHANGE_SUCCESS = "text.language_change_success";
         String LANGUAGE_OPTIONS = "text.language_options";
+        String INSPECT_WHAT = "text.inspect_what";
     }
 
     // alle items
@@ -254,6 +255,10 @@ public class Localization {
         languages.addWords(Text.ROOM_INSPECTABLE_NON_EXISTENT,
                 "There is no ",
                 "Er is geen "
+        );
+        languages.addWords(Text.INSPECT_WHAT,
+                "Inspect what?",
+                "Inspecteer wat?"
         );
 
         // Talen

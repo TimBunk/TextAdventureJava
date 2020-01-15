@@ -59,14 +59,6 @@ public class Room extends Lockable {
     public Person getNpc() { return npc; }
 
     /**
-     * @return The short description of the room
-     * (the one that was defined in the constructor).
-     */
-    public String getShortDescription() {
-        return description;
-    }
-
-    /**
      * Return a description of the room in the form:
      * You are in the kitchen.
      * Exits: north west
@@ -166,6 +158,9 @@ public class Room extends Lockable {
      * @return een string met een beschrijving over de inspectable of null als de inspectable niet gevonden werd
      */
     public String inspectInspectable(String inspectableName) {
+        if (name.equals(inspectableName)) {
+            return getLongDescription();
+        }
         for (Inspectable i : inspectables) {
             if (i.getName().equals(inspectableName)) {
                 return i.inspect();

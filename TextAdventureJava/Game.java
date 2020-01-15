@@ -152,6 +152,10 @@ public class Game extends Scene implements TextInputCallbackI {
                 dropItem(command.getSecondWord());
                 break;
 
+            case LOOK:
+                look();
+                break;
+
             case INSPECT:
                 inspect(command);
                 break;
@@ -280,10 +284,14 @@ public class Game extends Scene implements TextInputCallbackI {
     /**
      * Stuurt de beschrijving van de kamer of een inspectable die in de kamer ligt of in bruce zijn inventory zit
      */
+    private void look() {
+        addToTextLog(currentRoom.getLongDescription());
+    }
+
     private void inspect(Command command) {
-        // Als er geen twee woord is meegegeven dan printen we de beschrijving van de kamer
+        // Als er geen twee woord is vraag dan wat de gebruiker wil inspecteren
         if (command.hasSecondWord() == false) {
-            addToTextLog(currentRoom.getLongDescription());
+            addToTextLog(Localization.getString(Localization.Text.INSPECT_WHAT));
         }
         else {
             // Als er wel een tweede woord is meegegeven dan kijken we of die inspectable in de kamer zit zodat we die beschrijving kunnen printen

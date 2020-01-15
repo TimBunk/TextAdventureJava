@@ -325,18 +325,24 @@ public class Game extends Scene implements TextInputCallbackI {
         int questionNumber = extractNumber(questionNumberString);
         questionNumber--;
         if (questionNumber >= 0 && questionNumber < questions.size()) {
-            addToTextLog(String.format("%s: %s", bruce.getName(), questions.get(questionNumber)));
+            addToTextLog(String.format("%s: %s", bruce.getName(), Localization.getString(questions.get(questionNumber))));
             // Als er een npc in de room is dan gaat hij de vraag beantwoorden
-            if (currentRoom.getNpc() != null) {
-                // TODO: Laat de npc antwoorden
+            Person npc = currentRoom.getNpc();
+            if (npc != null) {
+                String answer = npc.getAnswer(questionNumber);
+                if (answer != null) {
+                    addToTextLog(String.format("%s: %s", npc.getName(), answer));
+                } else {
+                    addToTextLog(Localization.getString(Localization.Persons.NO_RESPONSE));
+                }
             } else {
                 // Als er niemand in de room is dan antwoord er ook niemand
-                addToTextLog("No one responded.");
+                addToTextLog(Localization.getString(Localization.Persons.NO_RESPONSE));
             }
         }
         // Geef de speler een hint hoe hij ask commando moet gebruiken
         else {
-            questionNumberString = "ask { ";
+            questionNumberString = String.format("%s { ", Localization.getString(Localization.Commands.ASK_COMMAND));
             for (int i = 1;i<=questions.size();i++) {
                 questionNumberString += String.format("%d ", i);
             }
@@ -428,9 +434,29 @@ public class Game extends Scene implements TextInputCallbackI {
 
         // Initialiseer de npc's
         Person wife = new Person("wife", "The wife of Gary Larry", spriteWife);
+        wife.addAnswer("answer1");
+        wife.addAnswer("answer2");
+        wife.addAnswer("answer3");
+        wife.addAnswer("answer4");
+        wife.addAnswer("answer5");
         Person housemaid = new Person("house-maid", "The house maid.", spriteHousemaid);
+        housemaid.addAnswer("answer1");
+        housemaid.addAnswer("answer2");
+        housemaid.addAnswer("answer3");
+        housemaid.addAnswer("answer4");
+        housemaid.addAnswer("answer5");
         Person chef = new Person("chef", "Gary Larry's personal cook.", spriteChef);
+        chef.addAnswer("answer1");
+        chef.addAnswer("answer2");
+        chef.addAnswer("answer3");
+        chef.addAnswer("answer4");
+        chef.addAnswer("answer5");
         Person gardener = new Person("gardener", "The gardener.", spriteGardener);
+        gardener.addAnswer("answer1");
+        gardener.addAnswer("answer2");
+        gardener.addAnswer("answer3");
+        gardener.addAnswer("answer4");
+        gardener.addAnswer("answer5");
 
         // Plaats de npc's in een kamer
         bedroom.setNpc(wife);
@@ -442,11 +468,11 @@ public class Game extends Scene implements TextInputCallbackI {
         murderer = chef;
 
         // Initialiseer de questions
-        questions.add(Localization.getString(Localization.Questions.QUESTION_1));
-        questions.add(Localization.getString(Localization.Questions.QUESTION_2));
-        questions.add(Localization.getString(Localization.Questions.QUESTION_3));
-        questions.add(Localization.getString(Localization.Questions.QUESTION_4));
-        questions.add(Localization.getString(Localization.Questions.QUESTION_5));
+        questions.add(Localization.Questions.QUESTION_1);
+        questions.add(Localization.Questions.QUESTION_2);
+        questions.add(Localization.Questions.QUESTION_3);
+        questions.add(Localization.Questions.QUESTION_4);
+        questions.add(Localization.Questions.QUESTION_5);
     }
 
     public void setupGraphics() throws IOException {

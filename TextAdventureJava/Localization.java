@@ -101,7 +101,8 @@ public class Localization {
         String CHEF_NAME = "person.chef.name"; 
         String CHEF_DESCRIPTION = "person.chef.description"; 
         String HOUSEMAID_NAME = "person.housemaid.name";
-        String HOUSEMAID_DESCRIPTION = "person.housemaid.description";   
+        String HOUSEMAID_DESCRIPTION = "person.housemaid.description";
+        String NO_RESPONSE = "text.no_response";
     }
 
     private interface LanguageHashMaps {
@@ -305,6 +306,12 @@ public class Localization {
         languages.addWords(Questions.QUESTION_5,
                 "How are you doing?",
                 "Hoe gaat het met je?"
+        );
+
+        // Personen
+        languages.addWords(Persons.NO_RESPONSE,
+                "No one responded.",
+                "Niemand geeft antwoord."
         );
 
         dictionary.put("en", LanguageHashMaps.englishWords);

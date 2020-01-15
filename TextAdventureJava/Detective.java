@@ -6,15 +6,14 @@ import framework.Text;
  * @author Ruben Eekhof rubeneekhof@gmail.com
  * The detective class stores its inventory and the items he has picked up.
  */
-public class Detective {
+public class Detective extends Inspectable {
 
-    private String name;
-    private String description;
     private ArrayList<Item> inventory;
     private Sprite sprite;
     private Text text;
 
     public Detective(String name, String description, Sprite sprite) {
+        super(name, description);
         this.sprite = sprite;
         this.name = name;
         this.description = description;

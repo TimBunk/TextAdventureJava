@@ -20,6 +20,7 @@ import org.joml.Vector4f;
 
 import java.io.IOException;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Random;
 
@@ -38,6 +39,7 @@ public class Game extends Scene implements TextInputCallbackI {
     // Game
     private Parser parser;
     private Detective bruce;
+    private ArrayList<String> questions;
     private Person murderer;
     private Room currentRoom;
     private Deque<String> backlog = new ArrayDeque<String>();
@@ -65,6 +67,7 @@ public class Game extends Scene implements TextInputCallbackI {
         shouldClose = false;
         rand = new Random();
         parser = new Parser();
+        questions = new ArrayList<>();
 
         setupGraphics();
         setupRooms();
@@ -385,13 +388,13 @@ public class Game extends Scene implements TextInputCallbackI {
         garage.addInspectable(hammer);
 
         // Maak de sprites voor de npcs
-        Sprite spriteWife = new Sprite(128, 128, textureManager.load("../Resources/Images/women.png"));
+        Sprite spriteWife = new Sprite(128, 128, textureManager.load("Resources/Images/women.png"));
         spriteWife.setPosition(new Vector2f(896, 476));
-        Sprite spriteHousemaid = new Sprite(128, 128, textureManager.load("../Resources/Images/Cleaner.png"));
+        Sprite spriteHousemaid = new Sprite(128, 128, textureManager.load("Resources/Images/Cleaner.png"));
         spriteHousemaid.setPosition(new Vector2f(896, 476));
-        Sprite spriteChef = new Sprite(128, 128, textureManager.load("../Resources/Images/Chef.png"));
+        Sprite spriteChef = new Sprite(128, 128, textureManager.load("Resources/Images/Chef.png"));
         spriteChef.setPosition(new Vector2f(896, 476));
-        Sprite spriteGardener = new Sprite(128, 128, textureManager.load("../Resources/Images/Gardener.png"));
+        Sprite spriteGardener = new Sprite(128, 128, textureManager.load("Resources/Images/Gardener.png"));
         spriteGardener.setPosition(new Vector2f(896, 476));
 
         // Initialiseer de npc's
@@ -409,18 +412,20 @@ public class Game extends Scene implements TextInputCallbackI {
         // De moordenaar is de chef
         murderer = chef;
 
+        // Initialiseer de questions
+
     }
 
     public void setupGraphics() throws IOException {
         // Sprites
-        Sprite spriteBruce = new Sprite(128, 128, textureManager.load("../Resources/Images/Bruce_Cain.png"));
+        Sprite spriteBruce = new Sprite(128, 128, textureManager.load("Resources/Images/Bruce_Cain.png"));
         spriteBruce.setPosition(new Vector2f(64, 476));
         spriteInventoryBackground = new Sprite(128, 390, new Vector4f(0.0f, 0.0f, 0.0f, 1.0f));
         spriteInventoryBackground.setPosition(new Vector2f(64, 195));
         spriteTextInputBackground = new Sprite(680, 64, new Vector4f(0.0f, 0.0f, 0.0f, 1.0f));
         spriteTextInputBackground.setPosition(new Vector2f(480, 32));
         // Text
-        font = fontManager.load("../Resources/Fonts/OCR_A_Extended");
+        font = fontManager.load("Resources/Fonts/OCR_A_Extended");
         textNameDetective = new Text(font, "bruce caine");
         textNameDetective.setSize(14);
         textNameDetective.setPosition(new Vector2f(0, 412));

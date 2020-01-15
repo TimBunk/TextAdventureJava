@@ -25,8 +25,6 @@ public class Shader {
      * @throws IOException als het opgegeven bestand niet gevonden wordt onstaat er een IOException error
      */
     public Shader(String shaderFilePath) throws IOException {
-        // Make the shaderFilePath absolute
-        shaderFilePath = getClass().getResource(shaderFilePath).getPath();
         // Get the shader soruce
         readShaderSource(shaderFilePath);
         // Create the shaders
@@ -41,9 +39,6 @@ public class Shader {
      * @throws IOException als het opgegeven bestand niet gevonden wordt onstaat er een IOException error
      */
     Shader(String vertexShaderFilePath, String fragmentShaderFilePath) throws IOException {
-        // Make the shaderFilePaths absolute
-        vertexShaderFilePath = getClass().getResource(vertexShaderFilePath).getPath();
-        fragmentShaderFilePath = getClass().getResource(fragmentShaderFilePath).getPath();
         // Get the shaders sources
         StringBuilder sb = new StringBuilder();
         BufferedReader br = new BufferedReader(new FileReader(vertexShaderFilePath));

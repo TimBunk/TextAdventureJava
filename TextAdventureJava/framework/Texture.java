@@ -21,7 +21,7 @@ public class Texture {
      */
     public Texture(String filePath) {
         // Make the filePath absolute
-        filePath = getClass().getResource(filePath).getPath().substring(1);
+        //filePath = getClass().getResource(filePath).getPath().substring(1);
         // Genereer texture
         textureID = glGenTextures();
         glBindTexture(GL_TEXTURE_2D, textureID);

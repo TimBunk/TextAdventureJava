@@ -33,7 +33,7 @@ public class Renderer {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_BLEND);
         // Intialiseer de variablen
-        spriteShader = new Shader("Shaders/Sprite.glsl");
+        spriteShader = new Shader("Resources/Shaders/Sprite.glsl");
 
         float[] vertices = {
                 // Position     // Texture coords
@@ -87,7 +87,7 @@ public class Renderer {
         glVertexAttribDivisor(6, 1);
 
         // Initialiseer de variablen voor de text rendering
-        textShader = new Shader("Shaders/Text.glsl");
+        textShader = new Shader("Resources/Shaders/Text.glsl");
         VAO_text = glGenVertexArrays();
         glBindVertexArray(VAO_text);
         VBO_text = glGenBuffers();

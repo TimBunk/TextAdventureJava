@@ -34,7 +34,7 @@ public class Font {
     }
 
     private void loadFromFile(String filePath) throws IOException {
-        filePath = getClass().getResource(String.format("%s%s", filePath, ".fnt")).getPath();
+        filePath = String.format("%s%s", filePath, ".fnt");
         BufferedReader br = new BufferedReader(new FileReader(filePath));
         String currentLine = "";
         float scaleW = 0, scaleH = 0;

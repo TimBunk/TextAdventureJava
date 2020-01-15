@@ -32,6 +32,7 @@ public class Room extends Lockable {
         super(name, description);
         inspectables = new ArrayList<Inspectable>();
         exits = new HashMap<>();
+        npc = null;
     }
 
     /**
@@ -43,6 +44,17 @@ public class Room extends Lockable {
     public void setExit(String direction, Room neighbor) {
         exits.put(direction, neighbor);
     }
+
+    /**
+     * @Author Tim Bunk
+     * @param npc de npc die je in deze kamer wil plaatsen.
+     */
+    public void setNpc(Person npc) { this.npc = npc; }
+
+    /**
+     * @return de npc die in deze kamer staat. Let op deze kan null zijn.
+     */
+    public Person getNpc() { return npc; }
 
     /**
      * @return The short description of the room

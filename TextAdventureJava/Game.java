@@ -61,7 +61,7 @@ public class Game extends Scene implements TextInputCallbackI {
      * Create the game and initialise its internal map.
      */
     public Game() throws IOException {
-        
+
         shouldClose = false;
         rand = new Random();
         parser = new Parser();
@@ -116,8 +116,7 @@ public class Game extends Scene implements TextInputCallbackI {
      * @param command The command to be processed.
      * @return true If the command ends the game, false otherwise.
      */
-    private boolean processCommand(Command command) {
-        boolean wantToQuit = false;
+    private void processCommand(Command command) {
 
         CommandWord commandWord = command.getCommandWord();
 
@@ -165,7 +164,6 @@ public class Game extends Scene implements TextInputCallbackI {
                 goBack();
                 break;
         }
-        return wantToQuit;
     }
 
     // implementations of user commands:

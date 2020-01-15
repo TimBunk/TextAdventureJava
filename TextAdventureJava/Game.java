@@ -20,7 +20,6 @@ import org.joml.Vector4f;
 
 import java.io.IOException;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Random;
 
@@ -32,13 +31,16 @@ import framework.TextInput;
 import framework.Sprite;
 
 public class Game extends Scene implements TextInputCallbackI {
+
     private boolean shouldClose;
+    private Random rand;
+
+    // Game
     private Parser parser;
     private Detective bruce;
-    private Room currentRoom;
-    private Random rand;
     private Person murderer;
-    private String weapon;
+    private Room currentRoom;
+    private Deque<String> backlog = new ArrayDeque<String>();
 
     // Text
     private Font font;
@@ -54,13 +56,14 @@ public class Game extends Scene implements TextInputCallbackI {
     // TextInput
     private TextInput textInput;
 
-    private Deque<String> backlog = new ArrayDeque<String>();
-
 
     /**
      * Create the game and initialise its internal map.
      */
     public Game() throws IOException {
+        shouldClose = false;
+        rand = new Random();
+
         // Sprites
         Sprite spriteBruce = new Sprite(128, 128, textureManager.load("../Resources/Images/Bruce_Cain.png"));
         spriteBruce.setPosition(new Vector2f(64, 476));
@@ -70,7 +73,7 @@ public class Game extends Scene implements TextInputCallbackI {
         spriteTextInputBackground.setPosition(new Vector2f(480, 32));
         // Text
         font = fontManager.load("../Resources/Fonts/OCR_A_Extended");
-        textNameDetective = new Text(font, "Bruce Caine");
+        textNameDetective = new Text(font, "bruce caine");
         textNameDetective.setSize(14);
         textNameDetective.setPosition(new Vector2f(0, 412));
         textNameSuspect = new Text(font, "");
@@ -92,29 +95,32 @@ public class Game extends Scene implements TextInputCallbackI {
         textInput.setCallback(this);
         textInput.setMaxChars(70);
 
-
-        shouldClose = false;
-        bruce = new Detective("Bruce Caine", "Bruce Caine, the best detective in the west.", spriteBruce);
+        // Game
         parser = new Parser();
-        rand = new Random();
-        ArrayList<Room> rooms = createRooms();
-        ArrayList<Item> items = createItems();
-        ArrayList<Person> npcs = createNpcs();
-        addItemsToRooms(items, rooms);
+        bruce = new Detective("Bruce Caine", "Bruce Caine, the best detective in the west.", spriteBruce);
+        setupRooms();
 
         printWelcome();
     }
 
     @Override
     public void update(double deltaTime) {
-        textNameSuspect.setString(murderer.getName());
+        Person npc = currentRoom.getNpc();
+        if (npc != null) {
+            textNameSuspect.setString(npc.getName());
+        } else {
+            textNameSuspect.setString("");
+        }
         textInput.update();
     }
 
     @Override
     public void draw() {
+        Person npc = currentRoom.getNpc();
+        if (npc != null) {
+            draw(npc.getSprite());
+        }
         draw(bruce.getSprite());
-        draw(murderer.getSprite());
 
         draw(spriteInventoryBackground);
         draw(spriteTextInputBackground);
@@ -125,153 +131,6 @@ public class Game extends Scene implements TextInputCallbackI {
         draw(textLog);
 
         draw(textInput);
-    }
-
-    /**
-     * Creates all npc objects and adds them to a local ArrayList.
-     */
-    private ArrayList<Person> createNpcs() {
-        // Maak de sprites voor de npcs
-        Sprite spriteWife = new Sprite(128, 128, textureManager.load("../Resources/Images/women.png"));
-        spriteWife.setPosition(new Vector2f(896, 476));
-        Sprite spriteHousemaid = new Sprite(128, 128, textureManager.load("../Resources/Images/Cleaner.png"));
-        spriteHousemaid.setPosition(new Vector2f(896, 476));
-        Sprite spriteChef = new Sprite(128, 128, textureManager.load("../Resources/Images/Chef.png"));
-        spriteChef.setPosition(new Vector2f(896, 476));
-        Sprite spriteGardener = new Sprite(128, 128, textureManager.load("../Resources/Images/Gardener.png"));
-        spriteGardener.setPosition(new Vector2f(896, 476));
-
-        // initalising all npcs
-        Person wife = new Person("Wife", "The wife of Gary Larry", spriteWife);
-        Person housemaid = new Person("House-maid", "The house maid.", spriteHousemaid);
-        Person chef = new Person("Chef", "Gary Larry's personal cook.", spriteChef);
-        Person gardener = new Person("Gardener", "The gardener.", spriteGardener);  
-        // adding all npcs to an arraylist
-        ArrayList<Person> npcs = new ArrayList<Person>();
-        npcs.add(wife);
-        npcs.add(housemaid);
-        npcs.add(chef);
-        npcs.add(gardener);
-
-        // generating the murderer
-        int index = rand.nextInt(npcs.size());
-        murderer = npcs.get(index);
-
-        return npcs;
-    }
-
-    /**
-     * Create all the rooms and link their exits together.
-     */
-    private ArrayList<Room> createRooms() {
-        // initialising all the rooms
-        Room kitchen = new Room("kitchen", "This is the kitchen.");
-        Room storage = new Room("storage", "This is the storage room.");
-        Room bedroom = new Room("bedroom", "This is the bedroom.");
-        Room livingroom = new Room("livingroom", "This is the living room.");
-        Room garage = new Room("garage", "This is the garage.");
-        Room garden = new Room("garden", "This is the garden.");
-        Room shed = new Room("shed", "This is the shed.");
-
-        // initialising all the exits
-        kitchen.setExit("livingroom", livingroom);
-        storage.setExit("livingroom", livingroom);
-        bedroom.setExit("livingroom", livingroom);
-        livingroom.setExit("bedroom", bedroom);
-        livingroom.setExit("storage", storage);
-        livingroom.setExit("kitchen", kitchen);
-        livingroom.setExit("garden", garden);
-        livingroom.setExit("garage", garage);
-        garage.setExit("livingroom", livingroom);
-        garage.setExit("garden", garden);
-        garden.setExit("livingroom", livingroom);
-        garden.setExit("garage", garage);
-        shed.setExit("garden", garden);
-
-        // saving each room to an arraylist
-        ArrayList<Room> rooms = new ArrayList<Room>();
-        rooms.add(kitchen);
-        rooms.add(storage);
-        rooms.add(bedroom);
-        rooms.add(livingroom);
-        rooms.add(garage);
-        
-        // bepaalde ruimtes op slot doen
-        shed.lock();
-
-        // initialising the room the player starts in
-        int index = rand.nextInt(rooms.size());
-        currentRoom = rooms.get(index);
-
-        return rooms;
-    }
-
-
-    /**
-     * Create all the rooms.
-     */
-    private ArrayList<Item> createItems() {
-        // initialising all the items
-        Item vaultKey = new Item("vault-key", "Key for the vault located in the bedroom.");
-        Item carKey = new Item("car-key", "Key for the car located in the garage.");
-        Item shedKey = new Item("shed-key", "Key for the shed locate inside the garden.");
-        Item cellphone = new Item("cellphone", "Cellphone that appears to be someones property.");
-        Item shoppingList = new Item("shopping-list", "A list with last nights bought groceries.");
-        Item ducktape = new Item("ducktape", "Ducktape? What could this be used for?");
-        Item hammer = new Item("hammer", "A hammer.");
-        Item kitchenKnive = new Item("kitchen-knive", "A knive, used to cut meat and vegetables.");
-        Item poison = new Item("poison", "A suspicious looking bottle with a skull on it");
-
-        // adding the items to an arraylist
-        ArrayList<Item> items = new ArrayList<Item>();
-        items.add(vaultKey);
-        items.add(carKey);
-        items.add(shedKey);
-        items.add(cellphone);
-        items.add(shoppingList);
-        items.add(ducktape);
-        items.add(hammer);
-        items.add(kitchenKnive);
-        items.add(poison);
-
-        return items;
-    }
-
-    /**
-     * Adds items to each room randomly.
-     */
-    private void addItemsToRooms(ArrayList<Item> items, ArrayList<Room> rooms) {
-        for (Item i : items) {
-            boolean itemAdded = false;
-            while (!itemAdded) {
-                int index = rand.nextInt(rooms.size());
-                Room room = rooms.get(index);
-                int amountOfItems = room.getInspectablesSize();
-                if (amountOfItems < 2) {
-                    room.addItem(i);
-                    itemAdded = true;
-                } else {
-                    rooms.remove(room);
-                }
-            }
-        }
-    }
-
-    /**
-     * Main play routine.  Loops until end of play.
-     */
-    public void play() {
-        /*printWelcome();
-
-        // Enter the main command loop.  Here we repeatedly read commands and
-        // execute them until the game is over.
-                
-        boolean finished = false;
-        while (! finished) {
-            Command command = parser.getCommand();
-            finished = processCommand(command);
-        }
-        addToTextLog("Thank you for playing.  Good bye.");*/
     }
 
     /**
@@ -468,5 +327,86 @@ public class Game extends Scene implements TextInputCallbackI {
 
     public boolean shouldClose() {
         return shouldClose;
+    }
+
+    public void setupRooms() {
+        // Initialiseer de rooms
+        Room kitchen = new Room("kitchen", "This is the kitchen.");
+        Room storage = new Room("storage", "This is the storage room.");
+        Room bedroom = new Room("bedroom", "This is the bedroom.");
+        Room livingroom = new Room("livingroom", "This is the living room.");
+        Room garage = new Room("garage", "This is the garage.");
+        Room garden = new Room("garden", "This is the garden.");
+        Room shed = new Room("shed", "This is the shed.");
+
+        // Set alle uitgangen
+        kitchen.setExit(livingroom.getName(), livingroom);
+        storage.setExit(livingroom.getName(), livingroom);
+        bedroom.setExit(livingroom.getName(), livingroom);
+        livingroom.setExit(bedroom.getName(), bedroom);
+        livingroom.setExit(storage.getName(), storage);
+        livingroom.setExit(kitchen.getName(), kitchen);
+        livingroom.setExit(garden.getName(), garden);
+        livingroom.setExit(garage.getName(), garage);
+        garage.setExit(livingroom.getName(), livingroom);
+        garage.setExit(garden.getName(), garden);
+        garden.setExit(livingroom.getName(), livingroom);
+        garden.setExit(garage.getName(), garage);
+        garden.setExit(shed.getName(), shed);
+        shed.setExit(garden.getName(), garden);
+
+        // De shed zit op slot
+        shed.lock();
+
+        // De ruimte waarin je begint is de livingroom
+        currentRoom = livingroom;
+
+        // Initialiseer de items
+        Item vaultKey = new Item("vault-key", "Key for the vault located in the bedroom.");
+        Item carKey = new Item("car-key", "Key for the car located in the garage.");
+        Item shedKey = new Item("shed-key", "Key for the shed locate inside the garden.");
+        Item cellphone = new Item("cellphone", "Cellphone that appears to be someones property.");
+        Item shoppingList = new Item("shopping-list", "A list with last nights bought groceries.");
+        Item ducktape = new Item("ducktape", "Ducktape? What could this be used for?");
+        Item hammer = new Item("hammer", "A hammer.");
+        Item kitchenKnive = new Item("kitchen-knive", "A knive, used to cut meat and vegetables.");
+        Item poison = new Item("poison", "A suspicious looking bottle with a skull on it");
+
+        // Plaats de items in de kamer
+        kitchen.addItem(shoppingList);
+        kitchen.addItem(poison);
+        kitchen.addItem(kitchenKnive);
+        bedroom.addItem(cellphone);
+        bedroom.addItem(carKey);
+        garage.addItem(ducktape);
+        garage.addItem(shedKey);
+        garden.addItem(vaultKey);
+        garage.addItem(hammer);
+
+        // Maak de sprites voor de npcs
+        Sprite spriteWife = new Sprite(128, 128, textureManager.load("../Resources/Images/women.png"));
+        spriteWife.setPosition(new Vector2f(896, 476));
+        Sprite spriteHousemaid = new Sprite(128, 128, textureManager.load("../Resources/Images/Cleaner.png"));
+        spriteHousemaid.setPosition(new Vector2f(896, 476));
+        Sprite spriteChef = new Sprite(128, 128, textureManager.load("../Resources/Images/Chef.png"));
+        spriteChef.setPosition(new Vector2f(896, 476));
+        Sprite spriteGardener = new Sprite(128, 128, textureManager.load("../Resources/Images/Gardener.png"));
+        spriteGardener.setPosition(new Vector2f(896, 476));
+
+        // Initialiseer de npc's
+        Person wife = new Person("wife", "The wife of Gary Larry", spriteWife);
+        Person housemaid = new Person("house-maid", "The house maid.", spriteHousemaid);
+        Person chef = new Person("chef", "Gary Larry's personal cook.", spriteChef);
+        Person gardener = new Person("gardener", "The gardener.", spriteGardener);
+
+        // Plaats de npc's in een kamer
+        bedroom.setNpc(wife);
+        livingroom.setNpc(housemaid);
+        kitchen.setNpc(chef);
+        garden.setNpc(gardener);
+
+        // De moordenaar is de chef
+        murderer = chef;
+
     }
 }

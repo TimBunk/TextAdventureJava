@@ -4,8 +4,8 @@
  */
 public class Inspectable {
 
-    protected String name;
-    protected String description;
+    private String name;
+    private String description;
 
     public Inspectable(String name, String description) {
         this.name = name;
@@ -18,7 +18,7 @@ public class Inspectable {
      * @return je krijgt de beschrijving terug van deze inspectable
      */
     public String inspect() {
-        return this.description;
+        return description;
     }
 
     public String getName() {

@@ -80,6 +80,8 @@ public class Game extends Scene implements TextInputCallbackI {
         } else {
             textNameSuspect.setString("");
         }
+        textNameInventory.setString(Localization.getString(Localization.Text.INVENTORY));
+        textInput.setPlaceHolder(Localization.getString(Localization.Text.PLACEHOLDER), new Vector4f(0.5f, 0.5f, 0.5f, 1.0f));
         textInput.update();
     }
 
@@ -99,7 +101,7 @@ public class Game extends Scene implements TextInputCallbackI {
         }
 
         draw(bruce.getSprite());
-        
+
         draw(spriteInventoryBackground);
         draw(spriteTextInputBackground);
 
@@ -131,7 +133,7 @@ public class Game extends Scene implements TextInputCallbackI {
 
         switch (commandWord) {
             case UNKNOWN:
-                addToTextLog("I don't know what you mean...");
+                addToTextLog(Localization.getString(Localization.Text.UNKNOWN_COMMAND));
                 break;
 
             case HELP:
@@ -198,7 +200,7 @@ public class Game extends Scene implements TextInputCallbackI {
 
     private void goBack() {
         if (backlog.size() < 1) {
-            addToTextLog("You cannot use this command yet.");
+            addToTextLog(Localization.getString(Localization.Text.UNUSABLE_COMMAND));
         } else {
             String roomToGoBack = backlog.pop();
             Command c = parser.getCommand(Localization.getString(Localization.Commands.GO_COMMAND) + " " + roomToGoBack);
@@ -218,12 +220,12 @@ public class Game extends Scene implements TextInputCallbackI {
         if (itemToAdd != null) {
             if (bruce.pickup(itemToAdd)) {
                 currentRoom.removeItem(itemToAdd);
-                addToTextLog("Picked up: " + item);
+                addToTextLog(String.format("%s%s",Localization.getString(Localization.Items.PICKED_UP), item));
             } else {
-                addToTextLog("Could not pick up: " + item);
+                addToTextLog(String.format("%s%s",Localization.getString(Localization.Items.PICKED_UP_FAILED), item));
             }
         } else {
-            addToTextLog("That item does not exist.");
+            addToTextLog(Localization.getString(Localization.Items.ITEM_NOT_EXIST));
         }
     }
 
@@ -236,9 +238,9 @@ public class Game extends Scene implements TextInputCallbackI {
         Item droppedItem = bruce.drop(name);
         if (droppedItem != null) {
             currentRoom.addInspectable(droppedItem);
-            addToTextLog("Dropped: " + droppedItem.getName());
+            addToTextLog(Localization.getString(Localization.Items.DROPPED) + droppedItem.getName());
         } else {
-            addToTextLog("That item is not in your inventory.");
+            addToTextLog(Localization.getString(Localization.Items.ITEM_NOT_INVENTORY));
         }
     }
 
@@ -249,7 +251,7 @@ public class Game extends Scene implements TextInputCallbackI {
     private String goRoom(Command command) {
         if (!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
-            addToTextLog("Go where?");
+            addToTextLog(Localization.getString(Localization.Rooms.GO_WHERE));
             return null;
         }
 
@@ -259,7 +261,7 @@ public class Game extends Scene implements TextInputCallbackI {
         Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
-            addToTextLog("There is no door!");
+            addToTextLog(Localization.getString(Localization.Rooms.NO_DOOR));
             return null;
         } else {
             String previousRoom = currentRoom.getName();
@@ -287,7 +289,7 @@ public class Game extends Scene implements TextInputCallbackI {
      */
     private boolean quit(Command command) {
         if (command.hasSecondWord()) {
-            addToTextLog("Quit what?");
+            addToTextLog(Localization.getString(Localization.Text.QUIT_WHAT));
             return false;
         } else {
             return true;  // signal that we want to quit
@@ -508,7 +510,7 @@ public class Game extends Scene implements TextInputCallbackI {
         textNameSuspect = new Text(font, "");
         textNameSuspect.setSize(14);
         textNameSuspect.setPosition(new Vector2f(832, 412));
-        textNameInventory = new Text(font, "Inventory");
+        textNameInventory = new Text(font, "");
         textNameInventory.setSize(14);
         textNameInventory.setPosition(new Vector2f(21, 390));
         textLog = new Text(font, "");
@@ -520,7 +522,6 @@ public class Game extends Scene implements TextInputCallbackI {
         textInput = new TextInput(font);
         textInput.setSize(14);
         textInput.setPosition(new Vector2f(145, 39));
-        textInput.setPlaceHolder("TYPE SOMETHING...", new Vector4f(0.5f, 0.5f, 0.5f, 1.0f));
         textInput.setCallback(this);
         textInput.setMaxChars(70);
 

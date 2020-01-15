@@ -66,7 +66,7 @@ public class Room extends Lockable {
      * @return A long description of this room
      */
     public String getLongDescription() {
-        String roomDescription = Localization.getString(Localization.Text.ROOM_DESCRIPTION) + name + "\n";
+        String roomDescription = Localization.getString(Localization.Text.ROOM_DESCRIPTION) + getName() + "\n";
         String objectString = getInspectableObjectsString();
         roomDescription += objectString;
         String exitString = getExitString();
@@ -158,7 +158,7 @@ public class Room extends Lockable {
      * @return een string met een beschrijving over de inspectable of null als de inspectable niet gevonden werd
      */
     public String inspectInspectable(String inspectableName) {
-        if (name.equals(inspectableName)) {
+        if (getName().equals(inspectableName)) {
             return getLongDescription();
         }
         for (Inspectable i : inspectables) {

@@ -13,14 +13,15 @@ public class Item extends Inspectable {
         this.sprite = sprite;
     }
 
+
     /**
      * Uses an item.
      *
      * @param item, the item you want to use.
      */
-    public void use(Item item) {
+    /*public void use(Item item) {
         System.out.println("Using item " + name);
-    }
+    }*/
 
 
     public Sprite getSprite() { return sprite; }

@@ -32,6 +32,8 @@ public class Localization {
     // alle text
     public interface Text {
         String WELCOME_TEXT = "text.welcome";
+        String UNKNOWN_COMMAND = "text.unkown_command";
+        String UNUSABLE_COMMAND = "text.unusable_command";
         String ROOM_DESCRIPTION = "text.room_long_description.";
         String ROOM_EMPTY = "text.room_empty";
         String ROOM_INSPECTABLE_NON_EXISTENT = "text.room_inspectable_non_existent";
@@ -41,6 +43,9 @@ public class Localization {
         String LANGUAGE_CHANGE_SUCCESS = "text.language_change_success";
         String LANGUAGE_OPTIONS = "text.language_options";
         String INSPECT_WHAT = "text.inspect_what";
+        String QUIT_WHAT = "text.quit_what";
+        String PLACEHOLDER = "text.placeholder";
+        String INVENTORY = "text.inventory";
     }
 
     // alle vragen
@@ -72,6 +77,11 @@ public class Localization {
         String KITCHEN_KNIVE_DESCRIPTION = "item.kitchen_knive_description";
         String POISON_NAME = "item.poison_name";
         String POISON_DESCRIPTION = "item.poison_description";
+        String PICKED_UP = "text.picked_up";
+        String PICKED_UP_FAILED = "text.picked_up_failed";
+        String ITEM_NOT_EXIST = "text.item_not_exist";
+        String ITEM_NOT_INVENTORY = "text.item_not_inventory";
+        String DROPPED = "text.dropped";
     }
 
     // alle kamers
@@ -90,6 +100,8 @@ public class Localization {
         String GARDEN_ROOM_DESCRIPTION = "room.garden.description";
         String SHED_ROOM_NAME = "room.shed.name";
         String SHED_ROOM_DESCRIPTION = "room.shed.description";
+        String GO_WHERE = "text.go_where";
+        String NO_DOOR = "text.no_door";
     }
     
     // alle personen
@@ -189,6 +201,16 @@ public class Localization {
                 "Veel geluk, en type help voor een lijst voor alle commando's."
         );
 
+        // Text
+        languages.addWords(Text.UNKNOWN_COMMAND,
+                "I don't know what you mean...",
+                "Ik weet niet wat je bedoelt..."
+        );
+        languages.addWords(Text.UNUSABLE_COMMAND,
+                "You cannot use this command right now.",
+                "Deze command kan je nu niet gebruiken"
+        );
+
         // Kamer beschrijvingen
         languages.addWords(Text.ROOM_DESCRIPTION,
                 "You are in the ",
@@ -267,6 +289,15 @@ public class Localization {
                 "The livingroom, a tidy and cosy place.",
                 "De woonkamer, een gezellige knusse ruimte."
         );
+        languages.addWords(Rooms.GO_WHERE,
+                "Go where?",
+                "Verplaats waar naar toe?"
+        );
+        languages.addWords(Rooms.NO_DOOR,
+                "There is no door.",
+                "Er is geen deur.");
+
+        // Text
         languages.addWords(Text.ROOM_INSPECTABLE_NON_EXISTENT,
                 "There is no ",
                 "Er is geen "
@@ -274,6 +305,18 @@ public class Localization {
         languages.addWords(Text.INSPECT_WHAT,
                 "Inspect what?",
                 "Inspecteer wat?"
+        );
+        languages.addWords(Text.QUIT_WHAT,
+                "Quit what?",
+                "Sluit wat?"
+        );
+        languages.addWords(Text.PLACEHOLDER,
+                "TYPE SOMETHING...",
+                "TIEP IETS..."
+        );
+        languages.addWords(Text.INVENTORY,
+                "Inventory",
+                "Inventaris"
         );
 
         // Talen
@@ -312,6 +355,28 @@ public class Localization {
         languages.addWords(Persons.NO_RESPONSE,
                 "No one responded.",
                 "Niemand geeft antwoord."
+        );
+
+        // Items
+        languages.addWords(Items.PICKED_UP,
+                "Picked up: ",
+                "Opgepakt: "
+        );
+        languages.addWords(Items.PICKED_UP_FAILED,
+                "Could not pick up: ",
+                "Kon item niet oppakken: "
+        );
+        languages.addWords(Items.ITEM_NOT_EXIST,
+                "That item does not exist.",
+                "Die item bestaat niet."
+        );
+        languages.addWords(Items.ITEM_NOT_INVENTORY,
+                "That item is not in your inventory.",
+                "Die item zit niet in je inventaris"
+        );
+        languages.addWords(Items.DROPPED,
+                "Dropped: ",
+                "Laten vallen: "
         );
 
         dictionary.put("en", LanguageHashMaps.englishWords);

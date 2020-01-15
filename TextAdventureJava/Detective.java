@@ -10,13 +10,10 @@ public class Detective extends Inspectable {
 
     private ArrayList<Item> inventory;
     private Sprite sprite;
-    private Text text;
 
     public Detective(String name, String description, Sprite sprite) {
         super(name, description);
         this.sprite = sprite;
-        this.name = name;
-        this.description = description;
         inventory = new ArrayList<Item>();
     }
 
@@ -62,7 +59,7 @@ public class Detective extends Inspectable {
             inventoryString += "Your inventory is empty.";
         } else {
             for (Item i : inventory) {
-                inventoryString += i.name + " ";
+                inventoryString += i.getName() + " ";
             }
         }
         return inventoryString;

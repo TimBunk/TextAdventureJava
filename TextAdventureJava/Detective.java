@@ -38,18 +38,17 @@ public class Detective {
     }
 
     /**
-     * Removes an item from the detectives inventory.
-     * Checks if his inventory is already empty or not.
+     * Verwijdert de item uit de inventory list en returnt hem
      *
-     * @param item, the item object to be removed to the inventory.
-     * @return true, if the item was succesfully dropped, false otherwise.
+     * @param itemName, het item object dat verwijdert moet worden
+     * @return de item wordt gererturned of als de item niet gevonden wordt, wordt er null gereturned
      */
-    public boolean drop(Item item) {
-        if (inventory.size() == 0) {
-            return false;
+    public Item drop(String itemName) {
+        int i = findItem(itemName);
+        if (inventory.size() == 0 || i == -1) {
+            return null;
         } else {
-            inventory.remove(item);
-            return true;
+            return inventory.remove(i);
         }
     }
 
@@ -71,18 +70,16 @@ public class Detective {
     }
 
     /**
-     * Haalt een item op uit de inventory.
-     *
-     * @param itemName het item wat je wilt ophalen.
-     * @return i, het opgehaalde item.
+     * @param itemName de naam vand de item die je zoekt
+     * @return returns een index of -1 als de item niet gevonden kon worden
      */
-    public Item getInventoryItem(String itemName) {
-        for (Item i : inventory) {
-            if (i.getName().equals(itemName)) {
+    private int findItem(String itemName) {
+        for (int i=0;i<inventory.size();i++) {
+            if (inventory.get(i).getName().equals(itemName)) {
                 return i;
             }
         }
-        return null;
+        return -1;
     }
 
     public Sprite getSprite() {

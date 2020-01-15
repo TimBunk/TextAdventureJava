@@ -250,14 +250,10 @@ public class Game extends Scene implements TextInputCallbackI {
      * @param name, the item you want to drop.
      */
     private void dropItem(String name) {
-        Item itemToDrop = bruce.getInventoryItem(name);
-        if (itemToDrop != null) {
-            if (bruce.drop(itemToDrop)) {
-                currentRoom.addItem(itemToDrop);
-                addToTextLog("Dropped: " + name);
-            } else {
-                addToTextLog("Could not drop: " + name);
-            }
+        Item droppedItem = bruce.drop(name);
+        if (droppedItem != null) {
+            currentRoom.addItem(droppedItem);
+            addToTextLog("Dropped: " + droppedItem.getName());
         } else {
             addToTextLog("That item is not in your inventory.");
         }

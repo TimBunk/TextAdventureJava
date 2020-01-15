@@ -163,6 +163,10 @@ public class Game extends Scene implements TextInputCallbackI {
                 inspect(command);
                 break;
 
+            case ASK:
+                ask(command.getSecondWord());
+                break;
+
             case LANGUAGE:
                 language(command.getSecondWord());
                 break;
@@ -316,6 +320,31 @@ public class Game extends Scene implements TextInputCallbackI {
         }
     }
 
+    private void ask(String questionNumberString) {
+        // Check of er een nummer is gegeven
+        int questionNumber = extractNumber(questionNumberString);
+        questionNumber--;
+        if (questionNumber >= 0 && questionNumber < questions.size()) {
+            addToTextLog(String.format("%s: %s", bruce.getName(), questions.get(questionNumber)));
+            // Als er een npc in de room is dan gaat hij de vraag beantwoorden
+            if (currentRoom.getNpc() != null) {
+                // TODO: Laat de npc antwoorden
+            } else {
+                // Als er niemand in de room is dan antwoord er ook niemand
+                addToTextLog("No one responded.");
+            }
+        }
+        // Geef de speler een hint hoe hij ask commando moet gebruiken
+        else {
+            questionNumberString = "ask { ";
+            for (int i = 1;i<=questions.size();i++) {
+                questionNumberString += String.format("%d ", i);
+            }
+            questionNumberString += "}";
+            addToTextLog(questionNumberString);
+        }
+    }
+
     @Override
     public void textInputCallback(String text) {
         addToTextLog(text);
@@ -413,7 +442,11 @@ public class Game extends Scene implements TextInputCallbackI {
         murderer = chef;
 
         // Initialiseer de questions
-
+        questions.add(Localization.getString(Localization.Questions.QUESTION_1));
+        questions.add(Localization.getString(Localization.Questions.QUESTION_2));
+        questions.add(Localization.getString(Localization.Questions.QUESTION_3));
+        questions.add(Localization.getString(Localization.Questions.QUESTION_4));
+        questions.add(Localization.getString(Localization.Questions.QUESTION_5));
     }
 
     public void setupGraphics() throws IOException {
@@ -449,5 +482,28 @@ public class Game extends Scene implements TextInputCallbackI {
         textInput.setMaxChars(70);
 
         bruce = new Detective("Bruce Caine", "Bruce Caine, the best detective in the west.", spriteBruce);
+    }
+
+    /**
+     * Deze functie zet een string om in een nummer bv "12".
+     * @param str de string waar je de nummer van wil hebben
+     * @return je krijgt de nummer terug die in de string staat en bij een onzinning waarde zoals "abcwadawdw" krijg je -1
+     */
+    private int extractNumber(final String str) {
+        // Als de string null is of leeg dat betekent automatisch al dat er geen nummer inzit
+        if(str == null || str.isEmpty()) return -1;
+        // Loop door de string en kijk of alle chars nummers zijn
+        StringBuilder sb = new StringBuilder();
+        for(char c : str.toCharArray()){
+            if(Character.isDigit(c)){
+                sb.append(c);
+            }
+            else {
+                if (sb.toString().isEmpty()) { return -1; }
+                break;
+            }
+        }
+        // Maak van de string een integer
+        return Integer.parseInt(sb.toString());
     }
 }

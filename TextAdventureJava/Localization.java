@@ -26,6 +26,7 @@ public class Localization {
         String LANGUAGE_COMMAND = "commands.language.name";
         String USE_COMMAND = "commands.use.name";
         String INSPECT_COMMAND = "commands.inspect.name";
+        String ASK_COMMAND = "commands.ask.number";
     }
 
     // alle text
@@ -40,6 +41,15 @@ public class Localization {
         String LANGUAGE_CHANGE_SUCCESS = "text.language_change_success";
         String LANGUAGE_OPTIONS = "text.language_options";
         String INSPECT_WHAT = "text.inspect_what";
+    }
+
+    // alle vragen
+    public interface Questions {
+        String QUESTION_1 = "question.1";
+        String QUESTION_2 = "question.2";
+        String QUESTION_3 = "question.3";
+        String QUESTION_4 = "question.4";
+        String QUESTION_5 = "question.5";
     }
 
     // alle items
@@ -161,6 +171,10 @@ public class Localization {
                 "inspect",
                 "inspecteer"
         );
+        languages.addWords(Commands.ASK_COMMAND,
+                "ask",
+                "vraag"
+        );
 
         // Welkom
         languages.addWords(Text.WELCOME_TEXT,
@@ -269,6 +283,28 @@ public class Localization {
         languages.addWords(Text.LANGUAGE_CHANGE_SUCCESS,
                 "The languages has been changed.",
                 "De taal is verandert."
+        );
+
+        // Vragen
+        languages.addWords(Questions.QUESTION_1,
+                "Where were you when the murder happend?",
+                "Waar was je op het tijdstip van de moord?"
+        );
+        languages.addWords(Questions.QUESTION_2,
+                "Was there someone else with you when the murder happend?",
+                "Was er iemand bij jou op het tijdstip van de moord?"
+        );
+        languages.addWords(Questions.QUESTION_3,
+                "Who do you think killed him?",
+                "Wie denk je dat hem heeft vermoord?"
+        );
+        languages.addWords(Questions.QUESTION_4,
+                "How was your relationship with the man?",
+                "Hoe was jou contact met de man?"
+        );
+        languages.addWords(Questions.QUESTION_5,
+                "How are you doing?",
+                "Hoe gaat het met je?"
         );
 
         dictionary.put("en", LanguageHashMaps.englishWords);

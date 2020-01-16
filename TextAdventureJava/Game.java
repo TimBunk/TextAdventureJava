@@ -42,7 +42,6 @@ public class Game extends Scene implements TextInputCallbackI {
     private Deque<String> backlog = new ArrayDeque<String>();
 
     // Text
-    private Font font;
     private Text textNameDetective;
     private Text textNameSuspect;
     private Text textNameInventory;
@@ -408,10 +407,10 @@ public class Game extends Scene implements TextInputCallbackI {
         // De ruimte waarin je begint is de livingroom
         currentRoom = livingroom;
 
-        Sprite spriteVaultKey = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
-        Sprite spriteDucktape = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
-        Sprite spriteShedKey = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
-        Sprite cellPhoneSprite = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+        Sprite spriteVaultKey = new Sprite(64, 64, textureManager.load("Resources/Images/vault-key.png"));
+        Sprite spriteDucktape = new Sprite(64, 64, textureManager.load("Resources/Images/duct-tape.png"));
+        Sprite spriteShedKey = new Sprite(64, 64, textureManager.load("Resources/Images/shed-key.png"));
+        Sprite cellPhoneSprite = new Sprite(64, 64, textureManager.load("Resources/Images/phone.png"));
 
         Item vaultKey = new Item("vault-key", "Key for the vault located in the bedroom.", spriteVaultKey);
         Item ducktape = new Item("ducktape", "Ducktape? What could this be used for?", spriteDucktape);
@@ -494,10 +493,10 @@ public class Game extends Scene implements TextInputCallbackI {
 
             case "gardener":
                 deadBody.setDescription("Brian is covered in bruises, and has a bump on his head.");
-                Sprite pillSprite = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+                Sprite pillSprite = new Sprite(64, 64, textureManager.load("Resources/Images/pills.png"));
                 Item pills = new Item("pills", "Pills to prevent anger attacks, it has a label on it with Ernesto's name", pillSprite);
                 kitchen.addInspectable(pills);
-                Sprite hammerSprite = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+                Sprite hammerSprite = new Sprite(64, 64, textureManager.load("Resources/Images/hammer.png"));
                 Item hammer = new Item("Hammer", "A hammer that has some blood on the tip.", hammerSprite);
                 shed.addInspectable(hammer);
                 cellPhone.setDescription("anonymous: WHERE ARE MY FUCKING PILLS? IL HURT YOU!!!!!!");
@@ -506,29 +505,29 @@ public class Game extends Scene implements TextInputCallbackI {
             case "housemaid":
                 deadBody.setDescription("Brian has a hole in his neck.");
                 housemaid.setDescription("She has multiple bruises and it appears someone hit her on her left eye.");
-                Sprite pencilSprite = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+                Sprite pencilSprite = new Sprite(64, 64, textureManager.load("Resources/Images/pencil.png"));
                 Item pencil = new Item("pencil", "A pencil with some blood on the tip.", pencilSprite);
                 livingroom.addInspectable(pencil);
-                Sprite pencilBoxSprite = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+                Sprite pencilBoxSprite = new Sprite(64, 64, textureManager.load("Resources/Images/pencil-box.png"));
                 Item pencilBox = new Item("pencil-box", "This box has 1 missing pencil and its labelled with the name: Vianne", pencilBoxSprite);
                 storage.addInspectable(pencilBox);
                 cellPhone.setDescription("anonymous: I will resign if you don't stop hurting me!! :(((((");
                 break;
 
             case "chef":
-                Sprite poisonSprite = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+                Sprite poisonSprite = new Sprite(64, 64, textureManager.load("Resources/Images/poison.png"));
                 Item poison = new Item("mysterious-bottle", "Hmmm a mysterious bottle with a skull on it, and it smells odd.", poisonSprite);
                 kitchen.addInspectable(poison);
                 deadBody.setDescription("Brian is looking a little green, and does not seem to be hurt. He has thrown up besides him.");
                 cellPhone.setDescription("anonymous: HOW DARE YOU HATE MY FOOD YOU DONKEY, MAYBE I SHOULD PUT YOU IN THE OVEN????");
 
             case "wife":
-                Sprite knifeSprite = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+                Sprite knifeSprite = new Sprite(64, 64, textureManager.load("Resources/Images/knife.png"));
                 Item knife = new Item("knife", "A sharp looking kitchen knife, with some blood on the tip.", knifeSprite);
                 livingroom.addInspectable(knife);
                 knifeDisplay.setDescription("1 knife appears to be missing from this nicely arranged display.");
                 deadBody.setDescription("Brian appears to be stabbed multiple times. He is bloody all over.");
-                Sprite diarySprite = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+                Sprite diarySprite = new Sprite(64, 64, textureManager.load("Resources/Images/diary.png"));
                 Item diary = new Item("diary", "I hope that my husband doesnt find out im cheatin :(((", diarySprite);
                 bedroom.addInspectable(diary);
                 bed.setDescription("The bed is really messy, and there is some blood on the sheeds.");
@@ -547,7 +546,7 @@ public class Game extends Scene implements TextInputCallbackI {
         spriteTextInputBackground = new Sprite(680, 64, new Vector4f(0.0f, 0.0f, 0.0f, 1.0f));
         spriteTextInputBackground.setPosition(new Vector2f(480, 32));
         // Text
-        font = fontManager.load("Resources/Fonts/OCR_A_Extended");
+        Font font = fontManager.load("Resources/Fonts/OCR_A_Extended");
         textNameDetective = new Text(font, "bruce caine");
         textNameDetective.setSize(14);
         textNameDetective.setPosition(new Vector2f(0, 412));

@@ -411,6 +411,7 @@ public class Game extends Scene implements TextInputCallbackI {
         Sprite spriteVaultKey = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
         Sprite spriteDucktape = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
         Sprite spriteShedKey = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+        Sprite cellPhoneSprite = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
 
         Item vaultKey = new Item("vault-key", "Key for the vault located in the bedroom.", spriteVaultKey);
         Item ducktape = new Item("ducktape", "Ducktape? What could this be used for?", spriteDucktape);
@@ -420,6 +421,8 @@ public class Game extends Scene implements TextInputCallbackI {
         Inspectable kitchenGarden = new Inspectable("kitchen-garden", "A bunch of crops are being grown here.");
         Inspectable workbench = new Inspectable("workbench", "A bunch of tools are being displayed here.");
         Locker vault = new Locker("vault", "A solid vault, that can withstand some hits.");
+        Inspectable deadBody = new Inspectable("Deadbody", "A very dead body.");
+        Item cellPhone = new Item("cellphone", "wow its a cellphone.", cellPhoneSprite);
 
         garden.addInspectable(kitchenGarden);
         bedroom.addInspectable(bed);
@@ -431,6 +434,7 @@ public class Game extends Scene implements TextInputCallbackI {
         bedroom.addInspectable(vault);
 
         vault.lock();
+        vault.addContents(cellPhone);
 
         // Maak de sprites voor de npcs
         Sprite spriteWife = new Sprite(128, 128, textureManager.load("Resources/Images/women.png"));
@@ -489,16 +493,46 @@ public class Game extends Scene implements TextInputCallbackI {
         switch (chosenMurderer) {
 
             case "gardener":
-
+                deadBody.setDescription("Brian is covered in bruises, and has a bump on his head.");
+                Sprite pillSprite = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+                Item pills = new Item("pills", "Pills to prevent anger attacks, it has a label on it with Ernesto's name", pillSprite);
+                kitchen.addInspectable(pills);
+                Sprite hammerSprite = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+                Item hammer = new Item("Hammer", "A hammer that has some blood on the tip.", hammerSprite);
+                shed.addInspectable(hammer);
+                cellPhone.setDescription("anonymous: WHERE ARE MY FUCKING PILLS? IL HURT YOU!!!!!!");
                 break;
 
             case "housemaid":
+                deadBody.setDescription("Brian has a hole in his neck.");
+                housemaid.setDescription("She has multiple bruises and it appears someone hit her on her left eye.");
+                Sprite pencilSprite = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+                Item pencil = new Item("pencil", "A pencil with some blood on the tip.", pencilSprite);
+                livingroom.addInspectable(pencil);
+                Sprite pencilBoxSprite = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+                Item pencilBox = new Item("pencil-box", "This box has 1 missing pencil and its labelled with the name: Vianne", pencilBoxSprite);
+                storage.addInspectable(pencilBox);
+                cellPhone.setDescription("anonymous: I will resign if you don't stop hurting me!! :(((((");
                 break;
 
             case "chef":
-                break;
+                Sprite poisonSprite = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+                Item poison = new Item("mysterious-bottle", "Hmmm a mysterious bottle with a skull on it, and it smells odd.", poisonSprite);
+                kitchen.addInspectable(poison);
+                deadBody.setDescription("Brian is looking a little green, and does not seem to be hurt. He has thrown up besides him.");
+                cellPhone.setDescription("anonymous: HOW DARE YOU HATE MY FOOD YOU DONKEY, MAYBE I SHOULD PUT YOU IN THE OVEN????");
 
             case "wife":
+                Sprite knifeSprite = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+                Item knife = new Item("knife", "A sharp looking kitchen knife, with some blood on the tip.", knifeSprite);
+                livingroom.addInspectable(knife);
+                knifeDisplay.setDescription("1 knife appears to be missing from this nicely arranged display.");
+                deadBody.setDescription("Brian appears to be stabbed multiple times. He is bloody all over.");
+                Sprite diarySprite = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+                Item diary = new Item("diary", "I hope that my husband doesnt find out im cheatin :(((", diarySprite);
+                bedroom.addInspectable(diary);
+                bed.setDescription("The bed is really messy, and there is some blood on the sheeds.");
+                cellPhone.setDescription("Brian: If i ever see you cheating again i will divorce you.");
                 break;
 
         }

@@ -16,7 +16,7 @@ public class Locker extends Lockable {
      * Voegt een item toe aan de contens
      * @param item, het item om toe te voegen.
      */
-    private void addContents(Item item) {
+    public void addContents(Item item) {
         contents.add(item);
     }
 
@@ -24,7 +24,7 @@ public class Locker extends Lockable {
      * Verwijdert een item uit de contents.
      * @param item, het item te verwijderen.
      */
-    private void removeContents(Item item) {
+    public void removeContents(Item item) {
         contents.remove(item);
     }
 
@@ -32,7 +32,7 @@ public class Locker extends Lockable {
      * Haalt de beschrijving op van de inhoud van het object.
      * @return, de naam van de content.
      */
-    private String getContents() {
+    public String getContents() {
         return this.contents.get(0).getName();
     }
 }

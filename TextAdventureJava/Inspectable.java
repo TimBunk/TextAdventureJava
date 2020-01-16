@@ -21,6 +21,10 @@ public class Inspectable {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getName() {
         return name;
     }

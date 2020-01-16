@@ -429,6 +429,7 @@ public class Game extends Scene implements TextInputCallbackI {
         Item hammer = new Item("hammer", "A hammer.", spriteHammer);
         Item kitchenKnive = new Item("kitchen-knive", "A knive, used to cut meat and vegetables.", spriteKitchenKnive);
         Item poison = new Item("poison", "A suspicious looking bottle with a skull on it", spritePoison);
+        Inspectable deadBody = new Inspectable("dead-body", "A dead body.");
 
         // Plaats de items in de kamer
         kitchen.addInspectable(shoppingList);
@@ -440,6 +441,7 @@ public class Game extends Scene implements TextInputCallbackI {
         garage.addInspectable(shedKey);
         garden.addInspectable(vaultKey);
         garage.addInspectable(hammer);
+        livingroom.addInspectable(deadBody);
 
         // Maak de sprites voor de npcs
         Sprite spriteWife = new Sprite(128, 128, textureManager.load("Resources/Images/women.png"));

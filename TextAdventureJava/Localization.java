@@ -367,8 +367,8 @@ public class Localization {
                 "Kon item niet oppakken: "
         );
         languages.addWords(Items.ITEM_NOT_EXIST,
-                "That item does not exist.",
-                "Die item bestaat niet."
+                "You can not pick that up.",
+                "Dat kan je niet oppakken."
         );
         languages.addWords(Items.ITEM_NOT_INVENTORY,
                 "That item is not in your inventory.",

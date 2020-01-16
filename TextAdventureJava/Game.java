@@ -408,40 +408,29 @@ public class Game extends Scene implements TextInputCallbackI {
         // De ruimte waarin je begint is de livingroom
         currentRoom = livingroom;
 
-        // Maak de sprites voor de items
         Sprite spriteVaultKey = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
-        Sprite spriteCarKey = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
-        Sprite spriteShedKey = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
-        Sprite spriteCellphone = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
-        Sprite spriteShoppingList = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
         Sprite spriteDucktape = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
-        Sprite spriteHammer = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
-        Sprite spriteKitchenKnive = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
-        Sprite spritePoison = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
+        Sprite spriteShedKey = new Sprite(64, 64, textureManager.load("Resources/Images/Bruce_Cain.png"));
 
-        // Initialiseer de items
         Item vaultKey = new Item("vault-key", "Key for the vault located in the bedroom.", spriteVaultKey);
-        Item carKey = new Item("car-key", "Key for the car located in the garage.", spriteCarKey);
-        Item shedKey = new Item("shed-key", "Key for the shed locate inside the garden.", spriteShedKey);
-        Item cellphone = new Item("cellphone", "Cellphone that appears to be someones property.", spriteCellphone);
-        Item shoppingList = new Item("shopping-list", "A list with last nights bought groceries.", spriteShoppingList);
         Item ducktape = new Item("ducktape", "Ducktape? What could this be used for?", spriteDucktape);
-        Item hammer = new Item("hammer", "A hammer.", spriteHammer);
-        Item kitchenKnive = new Item("kitchen-knive", "A knive, used to cut meat and vegetables.", spriteKitchenKnive);
-        Item poison = new Item("poison", "A suspicious looking bottle with a skull on it", spritePoison);
-        Inspectable deadBody = new Inspectable("dead-body", "A dead body.");
+        Item shedKey = new Item("shed-key", "A rusty looking key for the shed in the garden.", spriteShedKey);
+        Inspectable knifeDisplay = new Inspectable("knive-display", "A display for knives.");
+        Inspectable bed = new Inspectable("bed", "This is where brian sleeps with his wife.");
+        Inspectable kitchenGarden = new Inspectable("kitchen-garden", "A bunch of crops are being grown here.");
+        Inspectable workbench = new Inspectable("workbench", "A bunch of tools are being displayed here.");
+        Locker vault = new Locker("vault", "A solid vault, that can withstand some hits.");
 
-        // Plaats de items in de kamer
-        kitchen.addInspectable(shoppingList);
-        kitchen.addInspectable(poison);
-        kitchen.addInspectable(kitchenKnive);
-        bedroom.addInspectable(cellphone);
-        bedroom.addInspectable(carKey);
-        garage.addInspectable(ducktape);
+        garden.addInspectable(kitchenGarden);
+        bedroom.addInspectable(bed);
+        storage.addInspectable(ducktape);
+        shed.addInspectable(vaultKey);
+        kitchen.addInspectable(knifeDisplay);
+        shed.addInspectable(workbench);
         garage.addInspectable(shedKey);
-        garden.addInspectable(vaultKey);
-        garage.addInspectable(hammer);
-        livingroom.addInspectable(deadBody);
+        bedroom.addInspectable(vault);
+
+        vault.lock();
 
         // Maak de sprites voor de npcs
         Sprite spriteWife = new Sprite(128, 128, textureManager.load("Resources/Images/women.png"));
@@ -486,7 +475,9 @@ public class Game extends Scene implements TextInputCallbackI {
         garden.setNpc(gardener);
 
         // De moordenaar is de chef
-        murderer = chef;
+        Person[] possibleMuderers = {chef, housemaid, wife, gardener};
+        int murderer = rand.nextInt(possibleMuderers.length);
+        String chosenMurderer = possibleMuderers[murderer].getName();
 
         // Initialiseer de questions
         questions.add(Localization.Questions.QUESTION_1);
@@ -494,6 +485,23 @@ public class Game extends Scene implements TextInputCallbackI {
         questions.add(Localization.Questions.QUESTION_3);
         questions.add(Localization.Questions.QUESTION_4);
         questions.add(Localization.Questions.QUESTION_5);
+
+        switch (chosenMurderer) {
+
+            case "gardener":
+
+                break;
+
+            case "housemaid":
+                break;
+
+            case "chef":
+                break;
+
+            case "wife":
+                break;
+
+        }
     }
 
     public void setupGraphics() throws IOException {

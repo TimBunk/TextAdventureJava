@@ -1,6 +1,8 @@
+import java.util.ArrayList;
+
 /**
  * @author Ruben Eekhof rubeneekhof@gmail.com
- * All objects that can be locked.
+ * Alle objecten die op slot kunnen.
  */
 public class Lockable extends Inspectable {
 
@@ -12,10 +14,8 @@ public class Lockable extends Inspectable {
     }
 
     /**
-     * Unlocks an object.
-     *
-     * @param lockableObject, the object to be unlocked
-     * @return true, if unlocked succesfully, false otherwise.
+     * Unlockt het object.
+     * @return true, als dit met succes is gedaan, false indien niet.
      */
     public boolean unlock() {
         if (locked) {
@@ -27,10 +27,8 @@ public class Lockable extends Inspectable {
     }
 
     /**
-     * Locks an object.
-     *
-     * @param lockableObject, the object to be locked.
-     * @return true, if locked succesfully, false otherwise.
+     * Doet een object op slot.
+     * @return true, als het object met succes op slot is gedaan, false indien niet.
      */
     public boolean lock() {
         if (!locked) {
@@ -39,15 +37,6 @@ public class Lockable extends Inspectable {
         } else {
             return false;
         }
-    }
-
-    /**
-     * Checks if an object is locked or not.
-     *
-     * @return true, if the objects is locked, false otherwise.
-     */
-    private boolean isLocked() {
-        return this.locked;
     }
 }
 

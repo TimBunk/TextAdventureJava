@@ -60,9 +60,19 @@ public class Localization {
     public interface Questions {
         String QUESTION_1 = "question.1";
         String QUESTION_2 = "question.2";
-        String QUESTION_3 = "question.3";
-        String QUESTION_4 = "question.4";
-        String QUESTION_5 = "question.5";
+    }
+
+    // alle antwoorden
+    public interface Answers {
+        String CHEF_1 = "answer.chef.1";
+        String CHEF_2 = "answer.chef.2";
+        String GARDENER_1 = "answer.gardener.1";
+        String GARDENER_2 = "answer.gardener.2";
+        String HOUSE_MAID_1 = "answer.house_maid.1";
+        String HOUSE_MAID_2 = "answer.house_maid.2";
+        String WIFE_1 = "answer.wife.1";
+        String WIFE_2 = "answer.wife.2";
+
     }
 
     // alle items
@@ -374,24 +384,46 @@ public class Localization {
 
         // Vragen
         languages.addWords(Questions.QUESTION_1,
-                "Where were you when the murder happend?",
-                "Waar was je op het tijdstip van de moord?"
-        );
-        languages.addWords(Questions.QUESTION_2,
-                "Was there someone else with you when the murder happend?",
-                "Was er iemand bij jou op het tijdstip van de moord?"
-        );
-        languages.addWords(Questions.QUESTION_3,
-                "Who do you think killed him?",
-                "Wie denk je dat hem heeft vermoord?"
-        );
-        languages.addWords(Questions.QUESTION_4,
                 "How was your relationship with the man?",
                 "Hoe was jou contact met de man?"
         );
-        languages.addWords(Questions.QUESTION_5,
+        languages.addWords(Questions.QUESTION_2,
                 "How are you doing?",
                 "Hoe gaat het met je?"
+        );
+
+        // Antwoorden
+        languages.addWords(Answers.CHEF_1,
+                "I hated to cook for him, the only reason I was still working here was for the money. That stupid donkey did not appreciat my food!",
+                "Ik haat het om voor hem te koken de enigste reden dat ik hier nog aan het werk was, was voor het geld. Die stomme ezel weet niet wat lekker eten is!"
+        );
+        languages.addWords(Answers.CHEF_2,
+                "Good, I was planning to find a other job anyways.",
+                "Goed, ik was toch van plan nieuw werk te zoeken."
+        );
+        languages.addWords(Answers.GARDENER_1,
+                "We always had a fight because I didn't do my job properly according to him! That bastard!",
+                "We hadden altijd ruzie omdat ik mijn werk niet goed deed volgens hem! Die klootzak!"
+        );
+        languages.addWords(Answers.GARDENER_2,
+                "I am rather angry because I have lost my pills. Without my pills I can just get a tantrum!",
+                "Ik ben nogal boos omdat ik mijn pillen kwijt ben. Zonder mijn pillen kan ik zomaar een woedeaanval krijgen!"
+        );
+        languages.addWords(Answers.HOUSE_MAID_1,
+                "I was afraid of him because he always yelled at me and because he threatened me in the past to hit me if I didn't do my job well.",
+                "Ik was bang voor hem omdat hij altijd tegen mij schreeuwde en omdat hij mij in het verleden heeft bedreigd om mij te gaan slaan als ik mijn werk niet goed deed."
+        );
+        languages.addWords(Answers.HOUSE_MAID_2,
+                "It was a terrible man but he did not deserve this.",
+                "Het was een vreselijke man maar dit gun je niemand."
+        );
+        languages.addWords(Answers.WIFE_1,
+                "We had little contact. The only reason I was married to him was for the money",
+                "We hadden weinig contact, het ging mij alleen maar om het geld."
+        );
+        languages.addWords(Answers.WIFE_2,
+                "I may not care much for him, but nobody deserves to be killed.",
+                "Ik mocht dan wel niet veel om hem geven maar niemand verdient het om vermoord te worden."
         );
 
         // Personen

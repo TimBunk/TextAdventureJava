@@ -472,29 +472,17 @@ public class Game extends Scene implements TextInputCallbackI {
 
         // Initialiseer de npc's
         Person wife = new Person("wife", "The wife of Gary Larry", spriteWife);
-        wife.addAnswer("answer1");
-        wife.addAnswer("answer2");
-        wife.addAnswer("answer3");
-        wife.addAnswer("answer4");
-        wife.addAnswer("answer5");
+        wife.addAnswer(Localization.Answers.WIFE_1);
+        wife.addAnswer(Localization.Answers.WIFE_2);
         Person housemaid = new Person("house-maid", "The house maid.", spriteHousemaid);
-        housemaid.addAnswer("answer1");
-        housemaid.addAnswer("answer2");
-        housemaid.addAnswer("answer3");
-        housemaid.addAnswer("answer4");
-        housemaid.addAnswer("answer5");
+        housemaid.addAnswer(Localization.Answers.HOUSE_MAID_1);
+        housemaid.addAnswer(Localization.Answers.HOUSE_MAID_2);
         Person chef = new Person("chef", "Gary Larry's personal cook.", spriteChef);
-        chef.addAnswer("answer1");
-        chef.addAnswer("answer2");
-        chef.addAnswer("answer3");
-        chef.addAnswer("answer4");
-        chef.addAnswer("answer5");
+        chef.addAnswer(Localization.Answers.CHEF_1);
+        chef.addAnswer(Localization.Answers.CHEF_2);
         Person gardener = new Person("gardener", "The gardener.", spriteGardener);
-        gardener.addAnswer("answer1");
-        gardener.addAnswer("answer2");
-        gardener.addAnswer("answer3");
-        gardener.addAnswer("answer4");
-        gardener.addAnswer("answer5");
+        gardener.addAnswer(Localization.Answers.GARDENER_1);
+        gardener.addAnswer(Localization.Answers.GARDENER_2);
 
         // Plaats de npc's in een kamer
         bedroom.setNpc(wife);
@@ -511,9 +499,6 @@ public class Game extends Scene implements TextInputCallbackI {
         // Initialiseer de questions
         questions.add(Localization.Questions.QUESTION_1);
         questions.add(Localization.Questions.QUESTION_2);
-        questions.add(Localization.Questions.QUESTION_3);
-        questions.add(Localization.Questions.QUESTION_4);
-        questions.add(Localization.Questions.QUESTION_5);
 
         switch (murderer.getName()) {
 

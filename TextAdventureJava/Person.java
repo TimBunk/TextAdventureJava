@@ -36,6 +36,6 @@ public class Person extends Inspectable {
      */
     public String getAnswer(int index) {
         if (index < 0 || index >= answers.size()) { return null; }
-        return answers.get(index);
+        return Localization.getString(answers.get(index));
     }
 }

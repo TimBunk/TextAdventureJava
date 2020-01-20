@@ -159,7 +159,7 @@ public class Room extends Lockable {
      */
     public String inspectInspectable(String inspectableName) {
         if (getName().equals(inspectableName)) {
-            return getLongDescription();
+            return inspect();
         }
         for (Inspectable i : inspectables) {
             if (i.getName().equals(inspectableName)) {

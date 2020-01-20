@@ -58,6 +58,23 @@ public class Sprite {
         counter++;
     }
 
+    /**
+     * Copy constructor
+     * @param copy de sprite waar je een exacte kopie van wilt maken
+     */
+    public Sprite(Sprite copy) {
+        this.width = copy.width;
+        this.height = copy.height;
+        this.color = new Vector4f(copy.color);
+        this.textureID = copy.textureID;
+        pivot = new Vector2f(copy.pivot);
+        position = new Vector2f(copy.position);
+        rotation = copy.rotation;
+        layer = copy.layer;
+        id = counter;
+        counter++;
+    }
+
     // Getters
     public Vector4f getColor() {
         return color;

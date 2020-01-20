@@ -60,7 +60,6 @@ public class Game extends Scene implements TextInputCallbackI {
      * Create the game and initialise its internal map.
      */
     public Game() throws IOException {
-
         shouldClose = false;
         rand = new Random();
         parser = new Parser();
@@ -620,4 +619,7 @@ public class Game extends Scene implements TextInputCallbackI {
         // Maak van de string een integer
         return Integer.parseInt(sb.toString());
     }
+
+    public Person getMurderer() { return murderer; }
+    public Person getArrested() { return arrested; }
 }

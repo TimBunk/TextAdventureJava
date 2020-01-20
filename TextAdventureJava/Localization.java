@@ -47,6 +47,13 @@ public class Localization {
         String QUIT_WHAT = "text.quit_what";
         String PLACEHOLDER = "text.placeholder";
         String INVENTORY = "text.inventory";
+        String DEVELOPED_BY = "text.developed_by";
+        String YOU_WON = "text.you_won";
+        String YOU_LOST = "text.you_lost";
+        String ACTUAL_MURDERER = "text.actual_murderer";
+        String REPLAY = "text.replay";
+        String ARRESTED = "text.arrested";
+        String MURDERER = "text.murderer";
     }
 
     // alle vragen
@@ -217,6 +224,34 @@ public class Localization {
         languages.addWords(Text.UNUSABLE_COMMAND,
                 "You cannot use this command right now.",
                 "Deze command kan je nu niet gebruiken"
+        );
+        languages.addWords(Text.DEVELOPED_BY,
+                "Developed by: Ruben Eekhof && Tim Bunk\nTested by: Arjan Bakema",
+                "Gemaakt door: Ruben Eekhof && Tim Bunk\nGetest door: Arjan Bakema"
+        );
+        languages.addWords(Text.YOU_WON,
+                "You won! You arrrested: ",
+                "Je hebt gewonnen! Gearresteerd: "
+        );
+        languages.addWords(Text.YOU_LOST,
+                "You lost! You arrrested: ",
+                "Je hebt verloren! Gearresteerd: "
+        );
+        languages.addWords(Text.ACTUAL_MURDERER,
+                "The actual murderer is: ",
+                "De echt moordenaar is: "
+        );
+        languages.addWords(Text.REPLAY,
+                "To replay the game press ENTER, to exit press the close button of the window",
+                "Om het spel opnieuw te spelen klik op ENTER, druk op de sluitknop van het venster om af te sluiten"
+        );
+        languages.addWords(Text.ARRESTED,
+                "Arrested",
+                "Gearresteerd"
+        );
+        languages.addWords(Text.MURDERER,
+                "Murderer",
+                "Moordenaar"
         );
 
         // Kamer beschrijvingen

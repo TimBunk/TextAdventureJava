@@ -124,13 +124,9 @@ public class Localization {
     
     // alle personen
     public interface Persons {
-        String WIFE_NAME = "person.wife.name";
-        String WIFE_DESCRIPTION = "person.wife.description"; 
-        String GARDENER_NAME = "person.gardener.name";  
-        String GARDENER_DESCRIPTION = "person.gardener.description";  
-        String CHEF_NAME = "person.chef.name"; 
-        String CHEF_DESCRIPTION = "person.chef.description"; 
-        String HOUSEMAID_NAME = "person.housemaid.name";
+        String WIFE_DESCRIPTION = "person.wife.description";
+        String GARDENER_DESCRIPTION = "person.gardener.description";
+        String CHEF_DESCRIPTION = "person.chef.description";
         String HOUSEMAID_DESCRIPTION = "person.housemaid.description";
         String NO_RESPONSE = "text.no_response";
         String ARREST_EMPTY_ROOM = "text.arrest.room_is_emppty";
@@ -427,6 +423,22 @@ public class Localization {
         );
 
         // Personen
+        languages.addWords(Persons.CHEF_DESCRIPTION,
+                "Brian's private chef.",
+                "De prive kok van Brian."
+        );
+        languages.addWords(Persons.WIFE_DESCRIPTION,
+                "The wife of Brian.",
+                "De vrouw van Brian."
+        );
+        languages.addWords(Persons.HOUSEMAID_DESCRIPTION,
+                "The house maid.",
+                "De schoonmaakster"
+        );
+        languages.addWords(Persons.GARDENER_DESCRIPTION,
+                "The gardener.",
+                "De tuinier."
+        );
         languages.addWords(Persons.NO_RESPONSE,
                 "No one responded.",
                 "Niemand geeft antwoord."

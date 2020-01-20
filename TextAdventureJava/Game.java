@@ -323,6 +323,9 @@ public class Game extends Scene implements TextInputCallbackI {
                 if (description != null) {
                     addToTextLog(description);
                 }
+                else if (bruce.getName().equals(command.getSecondWord())) {
+                    addToTextLog(bruce.inspect());
+                }
                 // Als de inspectable helemaal niet wordt gevonden dan vertellen we de speler dat de inspectable niet is gevonden
                 else {
                     addToTextLog(Localization.getString(Localization.Text.ROOM_INSPECTABLE_NON_EXISTENT) + command.getSecondWord());
@@ -379,7 +382,6 @@ public class Game extends Scene implements TextInputCallbackI {
         // Als alles klopt dan arresteeren we die persoon
         else {
             arrested = npc;
-            addToTextLog("Arrested that person");
         }
     }
 
@@ -471,16 +473,16 @@ public class Game extends Scene implements TextInputCallbackI {
         spriteGardener.setPosition(new Vector2f(896, 476));
 
         // Initialiseer de npc's
-        Person wife = new Person("wife", "The wife of Gary Larry", spriteWife);
+        Person wife = new Person("lisa", Localization.Persons.WIFE_DESCRIPTION, spriteWife);
         wife.addAnswer(Localization.Answers.WIFE_1);
         wife.addAnswer(Localization.Answers.WIFE_2);
-        Person housemaid = new Person("house-maid", "The house maid.", spriteHousemaid);
+        Person housemaid = new Person("vianne", Localization.Persons.HOUSEMAID_DESCRIPTION, spriteHousemaid);
         housemaid.addAnswer(Localization.Answers.HOUSE_MAID_1);
         housemaid.addAnswer(Localization.Answers.HOUSE_MAID_2);
-        Person chef = new Person("chef", "Gary Larry's personal cook.", spriteChef);
+        Person chef = new Person("gordon", Localization.Persons.CHEF_DESCRIPTION, spriteChef);
         chef.addAnswer(Localization.Answers.CHEF_1);
         chef.addAnswer(Localization.Answers.CHEF_2);
-        Person gardener = new Person("gardener", "The gardener.", spriteGardener);
+        Person gardener = new Person("ernesto", Localization.Persons.GARDENER_DESCRIPTION, spriteGardener);
         gardener.addAnswer(Localization.Answers.GARDENER_1);
         gardener.addAnswer(Localization.Answers.GARDENER_2);
 
@@ -558,7 +560,7 @@ public class Game extends Scene implements TextInputCallbackI {
         spriteTextInputBackground.setPosition(new Vector2f(480, 32));
         // Text
         Font font = fontManager.load("Resources/Fonts/OCR_A_Extended");
-        textNameDetective = new Text(font, "bruce caine");
+        textNameDetective = new Text(font, "bruce-caine");
         textNameDetective.setSize(14);
         textNameDetective.setPosition(new Vector2f(0, 412));
         textNameSuspect = new Text(font, "");
@@ -579,7 +581,7 @@ public class Game extends Scene implements TextInputCallbackI {
         textInput.setCallback(this);
         textInput.setMaxChars(70);
 
-        bruce = new Detective("Bruce Caine", "Bruce Caine, the best detective in the west.", spriteBruce);
+        bruce = new Detective("bruce-caine", "Bruce Caine, the best detective in the west.", spriteBruce);
     }
 
     /**

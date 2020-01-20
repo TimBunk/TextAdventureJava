@@ -27,6 +27,7 @@ public class Localization {
         String USE_COMMAND = "commands.use.name";
         String INSPECT_COMMAND = "commands.inspect.name";
         String ASK_COMMAND = "commands.ask.number";
+        String ARREST_COMMAND = "commands.arrest.name";
     }
 
     // alle text
@@ -115,6 +116,9 @@ public class Localization {
         String HOUSEMAID_NAME = "person.housemaid.name";
         String HOUSEMAID_DESCRIPTION = "person.housemaid.description";
         String NO_RESPONSE = "text.no_response";
+        String ARREST_EMPTY_ROOM = "text.arrest.room_is_emppty";
+        String ARREST_WHO = "text.arrest.who";
+        String ARREST_PERSON_NOT_IN_ROOM = "text.arrest.person_not_in_room";
     }
 
     private interface LanguageHashMaps {
@@ -187,6 +191,10 @@ public class Localization {
         languages.addWords(Commands.ASK_COMMAND,
                 "ask",
                 "vraag"
+        );
+        languages.addWords(Commands.ARREST_COMMAND,
+                "arrest",
+                "arresteer"
         );
 
         // Welkom
@@ -355,6 +363,18 @@ public class Localization {
         languages.addWords(Persons.NO_RESPONSE,
                 "No one responded.",
                 "Niemand geeft antwoord."
+        );
+        languages.addWords(Persons.ARREST_EMPTY_ROOM,
+                "There is no one in this room.",
+                "Er is niemand in deze kamer."
+        );
+        languages.addWords(Persons.ARREST_PERSON_NOT_IN_ROOM,
+                "That person is not in this room.",
+                "Die persoon is niet in deze kamer."
+        );
+        languages.addWords(Persons.ARREST_WHO,
+                "Arrest who?",
+                "Arresteer wie?"
         );
 
         // Items

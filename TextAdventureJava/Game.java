@@ -38,6 +38,7 @@ public class Game extends Scene implements TextInputCallbackI {
     private Detective bruce;
     private ArrayList<String> questions;
     private Person murderer;
+    private Person arrested;
     private Room currentRoom;
     private Deque<String> backlog = new ArrayDeque<String>();
 
@@ -174,6 +175,10 @@ public class Game extends Scene implements TextInputCallbackI {
                 ask(command.getSecondWord());
                 break;
 
+            case ARREST:
+                arrest(command.getSecondWord());
+                break;
+
             case LANGUAGE:
                 language(command.getSecondWord());
                 break;
@@ -210,7 +215,7 @@ public class Game extends Scene implements TextInputCallbackI {
     /**
      * Shows the players inventory.
      */
-    public void inventory() {
+    private void inventory() {
         addToTextLog(bruce.getInventoryString());
     }
 
@@ -358,6 +363,27 @@ public class Game extends Scene implements TextInputCallbackI {
         }
     }
 
+    private void arrest(String name) {
+        // Kijk of er een npc in de room is
+        Person npc = currentRoom.getNpc();
+        if (npc == null) {
+            addToTextLog(Localization.getString(Localization.Persons.ARREST_EMPTY_ROOM));
+        }
+        // Check of de speler wel een naam heeft opgegeven
+        else if(name == null) {
+            addToTextLog(Localization.getString(Localization.Persons.ARREST_WHO));
+        }
+        // Check of naam matcht met de persoon in de kamer
+        else if (npc.getName().equals(name) == false) {
+            addToTextLog(Localization.getString(Localization.Persons.ARREST_PERSON_NOT_IN_ROOM));
+        }
+        // Als alles klopt dan arresteeren we die persoon
+        else {
+            arrested = npc;
+            addToTextLog("Arrested that person");
+        }
+    }
+
     @Override
     public void textInputCallback(String text) {
         addToTextLog(text);
@@ -365,7 +391,7 @@ public class Game extends Scene implements TextInputCallbackI {
         processCommand(command);
     }
 
-    public void addToTextLog(String text) {
+    private void addToTextLog(String text) {
         String s = textLog.getString();
         s = String.format("%s%s\n", s, text);
         textLog.setString(s);
@@ -375,7 +401,7 @@ public class Game extends Scene implements TextInputCallbackI {
         return shouldClose;
     }
 
-    public void setupRooms() {
+    private void setupRooms() {
         // Initialiseer de rooms
         Room kitchen = new Room("kitchen", "This is the kitchen.");
         Room storage = new Room("storage", "This is the storage room.");
@@ -479,8 +505,9 @@ public class Game extends Scene implements TextInputCallbackI {
 
         // De moordenaar is de chef
         Person[] possibleMuderers = {chef, housemaid, wife, gardener};
-        int murderer = rand.nextInt(possibleMuderers.length);
-        String chosenMurderer = possibleMuderers[murderer].getName();
+        int randomIndex = rand.nextInt(possibleMuderers.length);
+        murderer = possibleMuderers[randomIndex];
+        arrested = null;
 
         // Initialiseer de questions
         questions.add(Localization.Questions.QUESTION_1);
@@ -489,7 +516,7 @@ public class Game extends Scene implements TextInputCallbackI {
         questions.add(Localization.Questions.QUESTION_4);
         questions.add(Localization.Questions.QUESTION_5);
 
-        switch (chosenMurderer) {
+        switch (murderer.getName()) {
 
             case "gardener":
                 deadBody.setDescription("Brian is covered in bruises, and has a bump on his head.");
@@ -537,7 +564,7 @@ public class Game extends Scene implements TextInputCallbackI {
         }
     }
 
-    public void setupGraphics() throws IOException {
+    private void setupGraphics() throws IOException {
         // Sprites
         Sprite spriteBruce = new Sprite(128, 128, textureManager.load("Resources/Images/Bruce_Cain.png"));
         spriteBruce.setPosition(new Vector2f(64, 476));

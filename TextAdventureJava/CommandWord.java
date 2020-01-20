@@ -19,7 +19,8 @@ public enum CommandWord {
     LOOK(Localization.Commands.LOOK_COMMAND),
     BACK(Localization.Commands.BACK_COMMAND),
     LANGUAGE(Localization.Commands.LANGUAGE_COMMAND),
-    ASK(Localization.Commands.ASK_COMMAND);
+    ASK(Localization.Commands.ASK_COMMAND),
+    ARREST(Localization.Commands.ARREST_COMMAND);
 
     // The command string.
     private String commandString;

@@ -40,7 +40,7 @@ public class Game extends Scene implements TextInputCallbackI {
     private Person murderer;
     private Person arrested;
     private Room currentRoom;
-    private Deque<String> backlog = new ArrayDeque<String>();
+    private Deque<Room> backlog = new ArrayDeque<Room>();
 
     // Text
     private Text textNameDetective;
@@ -140,7 +140,7 @@ public class Game extends Scene implements TextInputCallbackI {
                 break;
 
             case GO:
-                String previousRoom = goRoom(command);
+                Room previousRoom = goRoom(command);
                 if (previousRoom != null) {
                     backlog.push(previousRoom);
                 }
@@ -205,8 +205,8 @@ public class Game extends Scene implements TextInputCallbackI {
         if (backlog.size() < 1) {
             addToTextLog(Localization.getString(Localization.Text.UNUSABLE_COMMAND));
         } else {
-            String roomToGoBack = backlog.pop();
-            Command c = parser.getCommand(Localization.getString(Localization.Commands.GO_COMMAND) + " " + roomToGoBack);
+            Room roomToGoBack = backlog.pop();
+            Command c = parser.getCommand(Localization.getString(Localization.Commands.GO_COMMAND) + " " + roomToGoBack.getName());
             goRoom(c);
         }
     }
@@ -251,7 +251,7 @@ public class Game extends Scene implements TextInputCallbackI {
      * Try to go in one direction. If there is an exit, enter the new
      * room, otherwise print an error message.
      */
-    private String goRoom(Command command) {
+    private Room goRoom(Command command) {
         if (!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
             addToTextLog(Localization.getString(Localization.Rooms.GO_WHERE));
@@ -267,7 +267,7 @@ public class Game extends Scene implements TextInputCallbackI {
             addToTextLog(Localization.getString(Localization.Rooms.NO_DOOR));
             return null;
         } else {
-            String previousRoom = currentRoom.getName();
+            Room previousRoom = currentRoom;
             currentRoom = nextRoom;
             addToTextLog(currentRoom.getLongDescription());
             return previousRoom;
@@ -404,29 +404,29 @@ public class Game extends Scene implements TextInputCallbackI {
 
     private void setupRooms() {
         // Initialiseer de rooms
-        Room kitchen = new Room("kitchen", "This is the kitchen.");
-        Room storage = new Room("storage", "This is the storage room.");
-        Room bedroom = new Room("bedroom", "This is the bedroom.");
-        Room livingroom = new Room("livingroom", "This is the living room.");
-        Room garage = new Room("garage", "This is the garage.");
-        Room garden = new Room("garden", "This is the garden.");
-        Room shed = new Room("shed", "This is the shed.");
+        Room kitchen = new Room(Localization.Rooms.KITCHEN_ROOM_NAME, Localization.Rooms.KITCHEN_ROOM_DESCRIPTION);
+        Room storage = new Room(Localization.Rooms.STORAGE_ROOM_NAME, Localization.Rooms.STORAGE_ROOM_DESCRIPTION);
+        Room bedroom = new Room(Localization.Rooms.BEDROOM_ROOM_NAME, Localization.Rooms.BEDROOM_ROOM_DESCRIPTION);
+        Room livingroom = new Room(Localization.Rooms.LIVINGROOM_ROOM_NAME, Localization.Rooms.LIVINGROOM_ROOM_DESCRIPTION);
+        Room garage = new Room(Localization.Rooms.GARAGE_ROOM_NAME, Localization.Rooms.GARAGE_ROOM_DESCRIPTION);
+        Room garden = new Room(Localization.Rooms.GARDEN_ROOM_NAME, Localization.Rooms.GARDEN_ROOM_DESCRIPTION);
+        Room shed = new Room(Localization.Rooms.SHED_ROOM_NAME, Localization.Rooms.SHED_ROOM_DESCRIPTION);
 
         // Set alle uitgangen
-        kitchen.setExit(livingroom.getName(), livingroom);
-        storage.setExit(livingroom.getName(), livingroom);
-        bedroom.setExit(livingroom.getName(), livingroom);
-        livingroom.setExit(bedroom.getName(), bedroom);
-        livingroom.setExit(storage.getName(), storage);
-        livingroom.setExit(kitchen.getName(), kitchen);
-        livingroom.setExit(garden.getName(), garden);
-        livingroom.setExit(garage.getName(), garage);
-        garage.setExit(livingroom.getName(), livingroom);
-        garage.setExit(garden.getName(), garden);
-        garden.setExit(livingroom.getName(), livingroom);
-        garden.setExit(garage.getName(), garage);
-        garden.setExit(shed.getName(), shed);
-        shed.setExit(garden.getName(), garden);
+        kitchen.setExit(livingroom);
+        storage.setExit(livingroom);
+        bedroom.setExit(livingroom);
+        livingroom.setExit(bedroom);
+        livingroom.setExit(storage);
+        livingroom.setExit(kitchen);
+        livingroom.setExit(garden);
+        livingroom.setExit(garage);
+        garage.setExit(livingroom);
+        garage.setExit(garden);
+        garden.setExit(livingroom);
+        garden.setExit(garage);
+        garden.setExit(shed);
+        shed.setExit(garden);
 
         // De shed zit op slot
         shed.lock();
@@ -439,16 +439,16 @@ public class Game extends Scene implements TextInputCallbackI {
         Sprite spriteShedKey = new Sprite(64, 64, textureManager.load("Resources/Images/shed-key.png"));
         Sprite cellPhoneSprite = new Sprite(64, 64, textureManager.load("Resources/Images/phone.png"));
 
-        Item vaultKey = new Item("vault-key", "Key for the vault located in the bedroom.", spriteVaultKey);
-        Item ducktape = new Item("ducktape", "Ducktape? What could this be used for?", spriteDucktape);
-        Item shedKey = new Item("shed-key", "A rusty looking key for the shed in the garden.", spriteShedKey);
-        Inspectable knifeDisplay = new Inspectable("knive-display", "A display for knives.");
-        Inspectable bed = new Inspectable("bed", "This is where brian sleeps with his wife.");
-        Inspectable kitchenGarden = new Inspectable("kitchen-garden", "A bunch of crops are being grown here.");
-        Inspectable workbench = new Inspectable("workbench", "A bunch of tools are being displayed here.");
-        Locker vault = new Locker("vault", "A solid vault, that can withstand some hits.");
-        Inspectable deadBody = new Inspectable("Deadbody", "A very dead body.");
-        Item cellPhone = new Item("cellphone", "wow its a cellphone.", cellPhoneSprite);
+        Item vaultKey = new Item(Localization.Items.VAULT_KEY_NAME, Localization.Items.VAULT_KEY_DESCRIPTION, spriteVaultKey);
+        Item ducktape = new Item(Localization.Items.DUCKTAPE_NAME, Localization.Items.DUCKTAPE_DESCRIPTION, spriteDucktape);
+        Item shedKey = new Item(Localization.Items.SHED_KEY_NAME, Localization.Items.SHED_KEY_DESCRIPTION, spriteShedKey);
+        Inspectable knifeDisplay = new Inspectable(Localization.Items.KNIFE_DISPLAY_NAME, Localization.Items.KNIFE_DISPLAY_DESCRIPTION);
+        Inspectable bed = new Inspectable(Localization.Items.BED_NAME, Localization.Items.BED_DESCRIPTION);
+        Inspectable kitchenGarden = new Inspectable(Localization.Items.KITCHEN_GARDEN_NAME, Localization.Items.KITCHEN_GARDEN_DESCRIPTION);
+        Inspectable workbench = new Inspectable(Localization.Items.WORKBENCH_NAME, Localization.Items.WORKBENCH_DESCRIPTION);
+        Locker vault = new Locker(Localization.Items.VAULT_NAME, Localization.Items.VAULT_DESCRIPTION);
+        Inspectable deadBody = new Inspectable(Localization.Items.DEAD_BODY_NAME, "");
+        Item cellPhone = new Item(Localization.Items.CELLPHONE_NAME, "", cellPhoneSprite);
 
         garden.addInspectable(kitchenGarden);
         bedroom.addInspectable(bed);
@@ -458,6 +458,7 @@ public class Game extends Scene implements TextInputCallbackI {
         shed.addInspectable(workbench);
         garage.addInspectable(shedKey);
         bedroom.addInspectable(vault);
+        livingroom.addInspectable(deadBody);
 
         vault.lock();
         vault.addContents(cellPhone);
@@ -473,16 +474,16 @@ public class Game extends Scene implements TextInputCallbackI {
         spriteGardener.setPosition(new Vector2f(896, 476));
 
         // Initialiseer de npc's
-        Person wife = new Person("lisa", Localization.Persons.WIFE_DESCRIPTION, spriteWife);
+        Person wife = new Person(Localization.Persons.WIFE_NAME, Localization.Persons.WIFE_DESCRIPTION, spriteWife);
         wife.addAnswer(Localization.Answers.WIFE_1);
         wife.addAnswer(Localization.Answers.WIFE_2);
-        Person housemaid = new Person("vianne", Localization.Persons.HOUSEMAID_DESCRIPTION, spriteHousemaid);
+        Person housemaid = new Person(Localization.Persons.HOUSEMAID_NAME, Localization.Persons.HOUSEMAID_DESCRIPTION, spriteHousemaid);
         housemaid.addAnswer(Localization.Answers.HOUSE_MAID_1);
         housemaid.addAnswer(Localization.Answers.HOUSE_MAID_2);
-        Person chef = new Person("gordon", Localization.Persons.CHEF_DESCRIPTION, spriteChef);
+        Person chef = new Person(Localization.Persons.CHEF_NAME, Localization.Persons.CHEF_DESCRIPTION, spriteChef);
         chef.addAnswer(Localization.Answers.CHEF_1);
         chef.addAnswer(Localization.Answers.CHEF_2);
-        Person gardener = new Person("ernesto", Localization.Persons.GARDENER_DESCRIPTION, spriteGardener);
+        Person gardener = new Person(Localization.Persons.GARDENER_NAME, Localization.Persons.GARDENER_DESCRIPTION, spriteGardener);
         gardener.addAnswer(Localization.Answers.GARDENER_1);
         gardener.addAnswer(Localization.Answers.GARDENER_2);
 
@@ -504,47 +505,47 @@ public class Game extends Scene implements TextInputCallbackI {
 
         switch (murderer.getName()) {
 
-            case "gardener":
-                deadBody.setDescription("Brian is covered in bruises, and has a bump on his head.");
+            case "ernesto":
+                deadBody.setDescription(Localization.Items.DEAD_BODY_DESCRIPTION_GARDENER);
+                cellPhone.setDescription(Localization.Items.CELLPHONE_DESCRIPTION_GARDENER);
                 Sprite pillSprite = new Sprite(64, 64, textureManager.load("Resources/Images/pills.png"));
-                Item pills = new Item("pills", "Pills to prevent anger attacks, it has a label on it with Ernesto's name", pillSprite);
+                Item pills = new Item(Localization.Items.PILLS_NAME, Localization.Items.PILLS_DESCRIPTION, pillSprite);
                 kitchen.addInspectable(pills);
                 Sprite hammerSprite = new Sprite(64, 64, textureManager.load("Resources/Images/hammer.png"));
-                Item hammer = new Item("Hammer", "A hammer that has some blood on the tip.", hammerSprite);
+                Item hammer = new Item(Localization.Items.HAMMER_NAME, Localization.Items.HAMMER_DESCRIPTION, hammerSprite);
                 shed.addInspectable(hammer);
-                cellPhone.setDescription("anonymous: WHERE ARE MY FUCKING PILLS? IL HURT YOU!!!!!!");
                 break;
 
-            case "housemaid":
-                deadBody.setDescription("Brian has a hole in his neck.");
-                housemaid.setDescription("She has multiple bruises and it appears someone hit her on her left eye.");
+            case "vianne":
+                deadBody.setDescription(Localization.Items.DEAD_BODY_DESCRIPTION_HOUSEMAID);
+                cellPhone.setDescription(Localization.Items.CELLPHONE_DESCRIPTION_HOUSEMAID);
+                housemaid.setDescription(Localization.Persons.HOUSEMAID_DESCRIPTION2);
                 Sprite pencilSprite = new Sprite(64, 64, textureManager.load("Resources/Images/pencil.png"));
-                Item pencil = new Item("pencil", "A pencil with some blood on the tip.", pencilSprite);
+                Item pencil = new Item(Localization.Items.PENCIL_NAME, Localization.Items.PENCIL_DESCRIPTION, pencilSprite);
                 livingroom.addInspectable(pencil);
                 Sprite pencilBoxSprite = new Sprite(64, 64, textureManager.load("Resources/Images/pencil-box.png"));
-                Item pencilBox = new Item("pencil-box", "This box has 1 missing pencil and its labelled with the name: Vianne", pencilBoxSprite);
+                Item pencilBox = new Item(Localization.Items.PENCIL_BOX_NAME, Localization.Items.PENCIL_BOX_DESCRIPTION, pencilBoxSprite);
                 storage.addInspectable(pencilBox);
-                cellPhone.setDescription("anonymous: I will resign if you don't stop hurting me!! :(((((");
                 break;
 
-            case "chef":
+            case "gordon":
+                deadBody.setDescription(Localization.Items.DEAD_BODY_DESCRIPTION_CHEF);
+                cellPhone.setDescription(Localization.Items.CELLPHONE_DESCRIPTION_CHEF);
                 Sprite poisonSprite = new Sprite(64, 64, textureManager.load("Resources/Images/poison.png"));
-                Item poison = new Item("mysterious-bottle", "Hmmm a mysterious bottle with a skull on it, and it smells odd.", poisonSprite);
+                Item poison = new Item(Localization.Items.POISON_NAME, Localization.Items.POISON_DESCRIPTION, poisonSprite);
                 kitchen.addInspectable(poison);
-                deadBody.setDescription("Brian is looking a little green, and does not seem to be hurt. He has thrown up besides him.");
-                cellPhone.setDescription("anonymous: HOW DARE YOU HATE MY FOOD YOU DONKEY, MAYBE I SHOULD PUT YOU IN THE OVEN????");
 
-            case "wife":
+            case "lisa":
+                deadBody.setDescription(Localization.Items.DEAD_BODY_DESCRIPTION_WIFE);
+                cellPhone.setDescription(Localization.Items.CELLPHONE_DESCRIPTION_WIFE);
                 Sprite knifeSprite = new Sprite(64, 64, textureManager.load("Resources/Images/knife.png"));
-                Item knife = new Item("knife", "A sharp looking kitchen knife, with some blood on the tip.", knifeSprite);
+                Item knife = new Item(Localization.Items.KITCHEN_KNIVE_NAME, Localization.Items.KITCHEN_KNIVE_DESCRIPTION, knifeSprite);
                 livingroom.addInspectable(knife);
-                knifeDisplay.setDescription("1 knife appears to be missing from this nicely arranged display.");
-                deadBody.setDescription("Brian appears to be stabbed multiple times. He is bloody all over.");
                 Sprite diarySprite = new Sprite(64, 64, textureManager.load("Resources/Images/diary.png"));
-                Item diary = new Item("diary", "I hope that my husband doesnt find out im cheatin :(((", diarySprite);
+                Item diary = new Item(Localization.Items.DIARY_NAME, Localization.Items.DIARY_DESCRIPTION, diarySprite);
                 bedroom.addInspectable(diary);
-                bed.setDescription("The bed is really messy, and there is some blood on the sheeds.");
-                cellPhone.setDescription("Brian: If i ever see you cheating again i will divorce you.");
+                knifeDisplay.setDescription(Localization.Items.KNIFE_DISPLAY_DESCRIPTION_WIFE);
+                bed.setDescription(Localization.Items.BED_DESCRIPTION_WIFE);
                 break;
 
         }
@@ -581,7 +582,7 @@ public class Game extends Scene implements TextInputCallbackI {
         textInput.setCallback(this);
         textInput.setMaxChars(70);
 
-        bruce = new Detective("bruce-caine", "Bruce Caine, the best detective in the west.", spriteBruce);
+        bruce = new Detective(Localization.Persons.DETECTIVE_NAME, Localization.Persons.DETECTIVE_DESCRIPTION, spriteBruce);
     }
 
     /**

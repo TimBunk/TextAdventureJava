@@ -79,22 +79,46 @@ public class Localization {
     public interface Items {
         String VAULT_KEY_NAME = "item.vault_key_name";
         String VAULT_KEY_DESCRIPTION = "item.vault_key_description";
-        String CAR_KEY_NAME = "item.car_key_name";
-        String CAR_KEY_DESCRIPTION = "item.car_key_description";
         String SHED_KEY_NAME = "item.shed_key_name";
         String SHED_KEY_DESCRIPTION = "item.shed_key_description";
-        String CELLPHONE_NAME = "item.cellphone_name";
-        String CELLPHONE_DESCRIPTION = "item.cellphone_description";
-        String SHOPPING_LIST_NAME = "item.shopping_list_name";
-        String SHOPPING_LIST_DESCRIPTION = "item.shopping_list_description";
         String DUCKTAPE_NAME = "item.ducktape_name";
         String DUCKTAPE_DESCRIPTION = "item.ducktape_description";
+        String KNIFE_DISPLAY_NAME = "item.knife_display_name";
+        String KNIFE_DISPLAY_DESCRIPTION = "item.knife_display_description";
+        String KNIFE_DISPLAY_DESCRIPTION_WIFE = "item.knife_display_description_wife";
+        String BED_NAME = "item.bed_name";
+        String BED_DESCRIPTION = "item.bed_description";
+        String BED_DESCRIPTION_WIFE = "item.bed_description_wife";
+        String KITCHEN_GARDEN_NAME = "item.kitchen_garden_name";
+        String KITCHEN_GARDEN_DESCRIPTION = "item.kitchen_garden_description";
+        String WORKBENCH_NAME = "item.workbench_name";
+        String WORKBENCH_DESCRIPTION = "item.workbench_description";
+        String VAULT_NAME = "item.vault_name";
+        String VAULT_DESCRIPTION = "item.vault_description";
+        String DEAD_BODY_NAME = "item.dead_body_name";
+        String DEAD_BODY_DESCRIPTION_GARDENER = "item.dead_body_description_gardener";
+        String DEAD_BODY_DESCRIPTION_WIFE = "item.dead_body_description_wife";
+        String DEAD_BODY_DESCRIPTION_CHEF = "item.dead_body_description_chef";
+        String DEAD_BODY_DESCRIPTION_HOUSEMAID = "item.dead_body_description_housemaid";
+        String CELLPHONE_NAME = "item.cellphone_name";
+        String CELLPHONE_DESCRIPTION_GARDENER = "item.cellphone_description_gardener";
+        String CELLPHONE_DESCRIPTION_WIFE = "item.cellphone_description_wife";
+        String CELLPHONE_DESCRIPTION_CHEF = "item.cellphone_description_chef";
+        String CELLPHONE_DESCRIPTION_HOUSEMAID = "item.cellphone_description_housemaid";
+        String PILLS_NAME = "item.pills_name";
+        String PILLS_DESCRIPTION = "item.pills_description";
         String HAMMER_NAME = "item.hammer_name";
         String HAMMER_DESCRIPTION = "item.hammer_description";
-        String KITCHEN_KNIVE_NAME = "item.kitchen_knive_name";
-        String KITCHEN_KNIVE_DESCRIPTION = "item.kitchen_knive_description";
+        String PENCIL_NAME = "item.pencil_name";
+        String PENCIL_DESCRIPTION = "item.pencil_description";
+        String PENCIL_BOX_NAME = "item.pencil_box_name";
+        String PENCIL_BOX_DESCRIPTION = "item.pencil_box_description";
         String POISON_NAME = "item.poison_name";
         String POISON_DESCRIPTION = "item.poison_description";
+        String KITCHEN_KNIVE_NAME = "item.kitchen_knive_name";
+        String KITCHEN_KNIVE_DESCRIPTION = "item.kitchen_knive_description";
+        String DIARY_NAME = "item.diary_name";
+        String DIARY_DESCRIPTION = "item.diary_description";
         String PICKED_UP = "text.picked_up";
         String PICKED_UP_FAILED = "text.picked_up_failed";
         String ITEM_NOT_EXIST = "text.item_not_exist";
@@ -124,10 +148,17 @@ public class Localization {
     
     // alle personen
     public interface Persons {
+        String DETECTIVE_NAME = "person.detective.name";
+        String DETECTIVE_DESCRIPTION = "person.detective.description";
+        String WIFE_NAME = "person.wife.name";
         String WIFE_DESCRIPTION = "person.wife.description";
+        String GARDENER_NAME = "person.gardener.name";
         String GARDENER_DESCRIPTION = "person.gardener.description";
+        String CHEF_NAME = "person.chef.name";
         String CHEF_DESCRIPTION = "person.chef.description";
+        String HOUSEMAID_NAME = "person.housemaid.name";
         String HOUSEMAID_DESCRIPTION = "person.housemaid.description";
+        String HOUSEMAID_DESCRIPTION2 = "person.housemaid.description2";
         String NO_RESPONSE = "text.no_response";
         String ARREST_EMPTY_ROOM = "text.arrest.room_is_emppty";
         String ARREST_WHO = "text.arrest.who";
@@ -212,14 +243,14 @@ public class Localization {
 
         // Welkom
         languages.addWords(Text.WELCOME_TEXT,
-                "Someone has been murdered." +
-                "\nBruce Cain the best detective on this planet has to find the murderer.\n" +
-                "There are 4 suspects, you have to play as Bruce and find the murderer." +
-                "Good luck, and type help for a list of all commands.",
-                "Er is iemand vermoord." +
-                "\nBruce Cain de beste detective te vinden op deze planeet, moet de moordenaar zien te vinden.\n" +
-                "Er zijn 4 verdachten, jij moet als Bruce onderzoek doen naar wie de moordenaar is." +
-                "Veel geluk, en type help voor een lijst voor alle commando's."
+                "A very rich man called Brian has been murdered." +
+                "\nBruce Cain the best detective on this planet has to find the murderer." +
+                "\nYou play as Bruce and you are inside of Brian's house. Inside there are 4 possible suspects it is up to you to find out who murdered Brian and arrest that person." +
+                "\nGood luck, and type help for a list of all commands.",
+                "Een rijke man genaamd Brian is vermoord." +
+                "\nBruce Cain de beste detective te vinden op deze planeet, moet de moordenaar zien te vinden." +
+                "\nJe speelt als Bruce en je bent in Brian's huis. In het huis zijn 4 verdachten het is aan jou om er achter te komen wie de moord heeft gepleegt en om hem te arresteren." +
+                "\nVeel geluk, en type help voor een lijst voor alle commando's."
         );
 
         // Text
@@ -282,6 +313,7 @@ public class Localization {
                 "Je probeert de moordenaar van de rijke man te zoeken. Je hebt de volgende commandos:\n"
         );
 
+        // Kamers
         languages.addWords(Rooms.BEDROOM_ROOM_NAME,
                 "bedroom",
                 "slaapkamer"
@@ -295,8 +327,8 @@ public class Localization {
                 "garage"
         );
         languages.addWords(Rooms.GARAGE_ROOM_DESCRIPTION,
-                "The garage, the car is parked here.",
-                "De garage, hier staat de auto geparkeerd."
+                "The garage.",
+                "De garage."
         );
         languages.addWords(Rooms.GARDEN_ROOM_NAME,
                 "garden",
@@ -423,17 +455,44 @@ public class Localization {
         );
 
         // Personen
+        languages.addWords(Persons.DETECTIVE_NAME,
+                "bruce-caine",
+                "bruce-caine"
+        );
+        languages.addWords(Persons.DETECTIVE_DESCRIPTION,
+                "Bruce Caine, the best detective in the world.",
+                "Bruce Caine, de beste detective in de wereld.");
+        languages.addWords(Persons.CHEF_NAME,
+                "gordon",
+                "gordon"
+        );
         languages.addWords(Persons.CHEF_DESCRIPTION,
                 "Brian's private chef.",
                 "De prive kok van Brian."
+        );
+        languages.addWords(Persons.WIFE_NAME,
+                "lisa",
+                "lisa"
         );
         languages.addWords(Persons.WIFE_DESCRIPTION,
                 "The wife of Brian.",
                 "De vrouw van Brian."
         );
+        languages.addWords(Persons.HOUSEMAID_NAME,
+                "vianne",
+                "vianne"
+        );
         languages.addWords(Persons.HOUSEMAID_DESCRIPTION,
                 "The house maid.",
                 "De schoonmaakster"
+        );
+        languages.addWords(Persons.HOUSEMAID_DESCRIPTION2,
+                "She has multiple bruises and it appears someone hit her on her left eye.",
+                "Ze heeft meerdere blauwe plekken en het lijkt her op dat iemand haar een blauw oog heeft geslagen."
+        );
+        languages.addWords(Persons.GARDENER_NAME,
+                "ernesto",
+                "ernesto"
         );
         languages.addWords(Persons.GARDENER_DESCRIPTION,
                 "The gardener.",
@@ -457,6 +516,174 @@ public class Localization {
         );
 
         // Items
+        languages.addWords(Items.VAULT_KEY_NAME,
+                "vault-key",
+                "kluis-sleutel"
+        );
+        languages.addWords(Items.VAULT_KEY_DESCRIPTION,
+                "Key for the vault located in the bedroom.",
+                "Sleutel voor de kluis in de slaapkamer."
+        );
+        languages.addWords(Items.DUCKTAPE_NAME,
+                "ducktape",
+                "duck-tape"
+        );
+        languages.addWords(Items.DUCKTAPE_DESCRIPTION,
+                "Ducktape? What could this be used for?",
+                "Duck-tape? Wat moet ik daar mee?"
+        );
+        languages.addWords(Items.SHED_KEY_NAME,
+                "shed-key",
+                "schuur-sleutel"
+        );
+        languages.addWords(Items.SHED_KEY_DESCRIPTION,
+                "A rusty looking key for the shed in the garden.",
+                "Een roestige sleutel voor de schuur in de tuin."
+        );
+        languages.addWords(Items.KNIFE_DISPLAY_NAME,
+                "knive-display",
+                "messenhouder"
+        );
+        languages.addWords(Items.KNIFE_DISPLAY_DESCRIPTION,
+                "A display for knives.",
+                "Een display voor messen."
+        );
+        languages.addWords(Items.KNIFE_DISPLAY_DESCRIPTION_WIFE,
+                "One knife appears to be missing from this nicely arranged display.",
+                "Er lijkt één mes te ontbreken in dit overzichtelijke display."
+        );
+        languages.addWords(Items.BED_NAME,
+                "bed",
+                "bed"
+        );
+        languages.addWords(Items.BED_DESCRIPTION,
+                "This is where Brian used to sleep with his wife.",
+                "Dit is waar Brian altijd sliep met zijn vrouf."
+        );
+        languages.addWords(Items.BED_DESCRIPTION_WIFE,
+                "The bed is really messy and there is some clothing lying around that does not appear to be from Brian.",
+                "Het bed is erg rommelig en er ligt wat kleding op het bed dat niet van Brian lijkt te zijn."
+        );
+        languages.addWords(Items.KITCHEN_GARDEN_NAME,
+                "kitchen-garden",
+                "keuken-tuin"
+        );
+        languages.addWords(Items.KITCHEN_GARDEN_DESCRIPTION,
+                "A bunch of crops are being grown here.",
+                "Er worden hier veel gewassen geteeld."
+        );
+        languages.addWords(Items.WORKBENCH_NAME,
+                "workbench",
+                "werkbank"
+        );
+        languages.addWords(Items.WORKBENCH_DESCRIPTION,
+                "A bunch of tools are being displayed here.",
+                "Overal ligt gereedschap."
+        );
+        languages.addWords(Items.VAULT_NAME,
+                "vault",
+                "kluis"
+        );
+        languages.addWords(Items.VAULT_DESCRIPTION,
+                "A unbreakable vault, that can only be opened with a key.",
+                "Een onbreekbare kluis, die alleen met een sleutel kan worden geopend."
+        );
+        languages.addWords(Items.DEAD_BODY_NAME,
+                "brian-corpse",
+                "brian-lijk"
+        );
+        languages.addWords(Items.DEAD_BODY_DESCRIPTION_CHEF,
+                "Brian is looking a little green, and does not seem to have any bruises. He has thrown up besides him.",
+                "Brian ziet er een beetje groen uit en lijkt geen blauwe plekken te hebben. Hij heeft naast hem overgegeven."
+        );
+        languages.addWords(Items.DEAD_BODY_DESCRIPTION_GARDENER,
+                "Brian is covered in bruises, and has a bump on his head.",
+                "Brian is bedekt met blauwe plekken en heeft een bult op zijn hoofd."
+        );
+        languages.addWords(Items.DEAD_BODY_DESCRIPTION_WIFE,
+                "Brian appears to be stabbed multiple times. There is blood everywhere.",
+                "Brian lijkt meerdere keren gestoken te zijn. Er ligt overal bloed"
+        );
+        languages.addWords(Items.DEAD_BODY_DESCRIPTION_HOUSEMAID,
+                "Brian has a hole in his neck with lots of blood around it.",
+                "Brian heeft een gat in zijn nek met veel bloed er om heen."
+        );
+        languages.addWords(Items.CELLPHONE_NAME,
+                "cellphone",
+                "telefoon"
+        );
+        languages.addWords(Items.CELLPHONE_DESCRIPTION_CHEF,
+                "Message: anonymous: HOW DARE YOU HATE MY FOOD YOU DONKEY, MAYBE I SHOULD PUT YOU IN THE OVEN?!?!",
+                "Bericht: anoniem: HOE DURF JE MIJN ETEN NIET LEKKER TE VINDEN, EZEL! MISSCHIEN ZOU IK JOU IN DE OVEN MOETEN STOPPEN?!?!"
+        );
+        languages.addWords(Items.CELLPHONE_DESCRIPTION_GARDENER,
+                "Message: anonymous: WHERE ARE MY FUCKING PILLS? IL HURT YOU!!!!!!",
+                "Bericht: anoniem: WAAR ZIJN MIJN VERDOMDE PILLEN? IK PAK JE!!!!!!"
+        );
+        languages.addWords(Items.CELLPHONE_DESCRIPTION_WIFE,
+                "Message: Brian: If i ever see you cheating again i will divorce you and you won't get any of my inheritance money.",
+                "Bericht: Brian: Als ik je ooit nog een keer vreemd zie gaan dan gaan we schijden en krijg je geen erfgeld meer!"
+        );
+        languages.addWords(Items.CELLPHONE_DESCRIPTION_HOUSEMAID,
+                "Message: anonymous: I will resign if you don't stop hurting me!! :(((((",
+                "Bericht: anoniem: Ik ga ontslaag nemen als je mij nog een keer pijn doet! :((((("
+        );
+        languages.addWords(Items.PILLS_NAME,
+                "pills",
+                "pillen"
+        );
+        languages.addWords(Items.PILLS_DESCRIPTION,
+                "Pills to prevent anger attacks, it has a label on it with Ernesto's name.",
+                "Pillen die helpen tegen woede aanvallen, er staat een label op met de naam van Ernesto."
+        );
+        languages.addWords(Items.HAMMER_NAME,
+                "hammer",
+                "hamer"
+        );
+        languages.addWords(Items.HAMMER_DESCRIPTION,
+                "A hammer that is covered in blood.",
+                "Een hammer dat bedekt is in bloed."
+        );
+        languages.addWords(Items.PENCIL_NAME,
+                "pencil",
+                "potlood"
+        );
+        languages.addWords(Items.PENCIL_DESCRIPTION,
+                "A pencil covered in blood.",
+                "Een potlood bedekt in bloed."
+        );
+        languages.addWords(Items.PENCIL_BOX_NAME,
+                "pencil-box",
+                "potlood-doos"
+        );
+        languages.addWords(Items.PENCIL_BOX_DESCRIPTION,
+                "This box has one missing pencil and its labelled with the name: Vianne",
+                "Deze doos mist een potlood en er staat een label op met de naam: Vianne"
+        );
+        languages.addWords(Items.POISON_NAME,
+                "mysterious-bottle",
+                "mysterieuze-fles"
+        );
+        languages.addWords(Items.POISON_DESCRIPTION,
+                "Hmmm a mysterious bottle with a skull on it, and it smells odd.",
+                "Hmmm een mysterieuze fles met een doodshoofd er op en het ruikt nog al raar."
+        );
+        languages.addWords(Items.KITCHEN_KNIVE_NAME,
+                "knife",
+                "mes"
+        );
+        languages.addWords(Items.KITCHEN_KNIVE_DESCRIPTION,
+                "A sharp looking kitchen knife, bedekt in bloed.",
+                "Een sherpe keuken mes bedekt in bloed."
+        );
+        languages.addWords(Items.DIARY_NAME,
+                "diary",
+                "dagboek"
+        );
+        languages.addWords(Items.DIARY_DESCRIPTION,
+                "Page 24: I hope that Brian does not find out im cheatin :(((",
+                "Pagina 24: Ik hoop dat Brian er niet achter komt dat ik vreemd ga :((("
+        );
         languages.addWords(Items.PICKED_UP,
                 "Picked up: ",
                 "Opgepakt: "

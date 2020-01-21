@@ -18,7 +18,7 @@ public class Inspectable {
      * @return je krijgt de beschrijving terug van deze inspectable
      */
     public String inspect() {
-        return description;
+        return Localization.getString(description);
     }
 
     public void setDescription(String description) {
@@ -26,6 +26,6 @@ public class Inspectable {
     }
 
     public String getName() {
-        return name;
+        return Localization.getString(name);
     }
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -17,7 +18,7 @@ import java.util.Set;
  */
 
 public class Room extends Lockable {
-    private HashMap<String, Room> exits;        // stores exits of this room.
+    private ArrayList<Room> exits;        // stores exits of this room.
     private ArrayList<Inspectable> inspectables;
     private Person npc;
 
@@ -31,18 +32,17 @@ public class Room extends Lockable {
     public Room(String name, String description) {
         super(name, description);
         inspectables = new ArrayList<Inspectable>();
-        exits = new HashMap<>();
+        exits = new ArrayList<>();
         npc = null;
     }
 
     /**
      * Define an exit from this room.
      *
-     * @param direction The direction of the exit.
      * @param neighbor  The room to which the exit leads.
      */
-    public void setExit(String direction, Room neighbor) {
-        exits.put(direction, neighbor);
+    public void setExit(Room neighbor) {
+        exits.add(neighbor);
     }
 
     /**
@@ -101,9 +101,8 @@ public class Room extends Lockable {
      */
     private String getExitString() {
         String returnString = Localization.getString(Localization.Text.EXIT_STRING);
-        Set<String> keys = exits.keySet();
-        for (String exit : keys) {
-            returnString += exit + " ";
+        for (Room exit : exits) {
+            returnString += exit.getName() + " ";
         }
         return returnString;
     }
@@ -116,7 +115,12 @@ public class Room extends Lockable {
      * @return The room in the given direction.
      */
     public Room getExit(String direction) {
-        return exits.get(direction);
+        for (Room exit : exits) {
+            if (exit.getName().equals(direction)) {
+                return exit;
+            }
+        }
+        return null;
     }
 
     /**
@@ -166,7 +170,7 @@ public class Room extends Lockable {
                 return i.inspect();
             }
         }
-        for (Room r : exits.values()) {
+        for (Room r : exits) {
             if (r.getName().equals(inspectableName)) {
                 return r.inspect();
             }

@@ -28,6 +28,7 @@ public class Localization {
         String INSPECT_COMMAND = "commands.inspect.name";
         String ASK_COMMAND = "commands.ask.number";
         String ARREST_COMMAND = "commands.arrest.name";
+        String UNLOCK_COMMAND = "commands.unlock.name";
     }
 
     // alle text
@@ -184,6 +185,9 @@ public class Localization {
         LanguageHashMaps languages = (String key, String english, String dutch) -> { LanguageHashMaps.englishWords.put(key, english); LanguageHashMaps.dutchWords.put(key, dutch); };
 
         // adding all commands to the hashmap
+        languages.addWords(Commands.UNLOCK_COMMAND,
+                "unlock",
+                "open");
         languages.addWords(Commands.GO_COMMAND,
                 "go",
                 "verplaats"

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Lockable extends Inspectable {
 
     private boolean locked;
+    private Item key;
 
     public Lockable(String name, String description) {
         super(name, description);
@@ -37,6 +38,14 @@ public class Lockable extends Inspectable {
         } else {
             return false;
         }
+    }
+    
+    /**
+     * Bepaalt wat de key word van een bepaald lockable
+     * @param key, de sleutel van het object.
+     */
+    public void setKey(Item key) {
+        this.key = key;
     }
 }
 

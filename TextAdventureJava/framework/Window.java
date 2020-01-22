@@ -109,10 +109,18 @@ public class Window {
         this.backgroundColor = backgroundColor;
     }
 
+    /**
+     * Met deze functie kan je VSync aan of uit doen
+     * @param state true voor aan en false voor uit
+     */
     public void setVSync(boolean state) {
         glfwSwapInterval((state ? 1 : 0));
     }
 
+    /**
+     * Met deze functie kan je callbacks voor de input activeren
+     * @param input de input class die je wil gebruiken
+     */
     public void setInput(Input input) {
         glfwSetKeyCallback(window, input);
         glfwSetCharCallback(window, input);

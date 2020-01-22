@@ -53,6 +53,11 @@ public class Texture {
     }
 
     // Getter
+
+    /**
+     * Elke texture heeft zijn eigen uniek id en deze functie returned die
+     * @return unieke id van deze texture
+     */
     public int getID() {
         return textureID;
     }

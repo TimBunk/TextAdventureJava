@@ -94,10 +94,19 @@ public class TextInput extends Text {
     }
 
     // Setters
+
+    /**
+     * Deze functie zet het maximaal aantal chars dat er mag worden ingetypt
+     * @param maxChars het maximaal aantal chars dat er mag worden ingetypt
+     */
     public void setMaxChars(int maxChars) {
         this.maxChars = maxChars;
     }
 
+    /**
+     * Deze functie neemt een textInputCallbackI aan en roept deze aan wanneer de gebruiker iets heeft ingetypt en op enter heeft geklikt
+     * @param textInputCallbackI
+     */
     public void setCallback(TextInputCallbackI textInputCallbackI) {
         this.textInputCallbackI = textInputCallbackI;
     }
@@ -107,6 +116,11 @@ public class TextInput extends Text {
         super.setColor(color);
     }
 
+    /**
+     * Deze functie zorgt ervoor dat als de textInput leeg is(Nog niks ingetypt) dan wordt er een tijdelijk stuk tekst voor in de plaats gezet
+     * @param placeHolderString een stuk tekst voor de placeholder
+     * @param placeHolderColor de kleur van de tekst
+     */
     public void setPlaceHolder(String placeHolderString, Vector4f placeHolderColor) {
         this.placeHolderString = placeHolderString;
         this.placeHolderColor = placeHolderColor;

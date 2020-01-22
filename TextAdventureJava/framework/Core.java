@@ -55,11 +55,20 @@ public class Core {
     }
 
     // Getters
+
+    /**
+     * Geeft de window terug
+     * @return de huidige window die gebruikt wordt
+     */
     public Window getWindow() {
         return window;
     }
 
     // Setters
+    /**
+     * zet de window en bindt de input class aan deze window
+     * @param window de huidige window die je wilt gebruiken voor het renderen en voor de input
+     */
     public void setWindow(Window window) {
         this.window = window;
         window.setInput(input);

@@ -25,22 +25,27 @@ public class Key {
     }
 
     // Getter
+
+    /**
+     * @return Als een key lang durig wordt ingehoudt dan is repeat true en anders false
+     */
     public boolean getRepeat() {
         return repeat;
     }
 
+    /**
+     * @return Je krijgt UP, PRESSED of DOWN terug van deze functie
+     */
     public KeyState getKeyState() {
         return keyState;
     }
 
-    // Setters
     public void setRepeat(boolean repeat) {
         this.repeat = repeat;
     }
 
     /**
      * Verandert de keyState
-     *
      * @param keyState als de keyState repeat is dan wordt repeat op true gezet en de keystate op DOWN
      */
     public void setKeyState(KeyState keyState) {

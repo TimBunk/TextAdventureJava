@@ -67,19 +67,33 @@ public class Font {
         glyphes.put(id, g);
     }
 
+    /**
+     * Verwijdert de texture uit het geheugen voor deze functie altijd uit voor dat je de applicatie afsluit of wanneer je de font niet meer gaat gebruiken
+     */
     public void destroy() {
         texture.destroy();
     }
 
     // Getters
+    /**
+     * Deze functie geeft de texture terug voor deze font
+     * @return de texture die deze font gebruikts
+     */
     public Texture getTexture() {
         return texture;
     }
-
+    /**
+     * Geeft een glyph terug gebaseerd op de Character die je meegeeft
+     * @param c de character waar je de glyph van wil hebben
+     * @return je krijgt de glyph terug die bij de character hoort als er geen glyph is voor die charachter wordt er null gereturned
+     */
     public Glyph getGlyph(Character c) {
         return glyphes.get(c);
     }
-
+    /**
+     * Je krijgt de standaard grootte van een character in pixels
+     * @return returns de standaard grootte van een character in de font in pixels
+     */
     public float getSize() {
         return size;
     }

@@ -78,7 +78,6 @@ public class Scene {
     public List<Sprite> getSprites() {
         return sprites;
     }
-
     public List<Text> getText() {
         return text;
     }

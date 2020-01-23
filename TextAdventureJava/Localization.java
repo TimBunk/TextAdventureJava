@@ -55,6 +55,10 @@ public class Localization {
         String REPLAY = "text.replay";
         String ARRESTED = "text.arrested";
         String MURDERER = "text.murderer";
+        String COULDNT_UNLOCK = "text.couldnt_unlock";
+        String UNLOCKED_SUCCES = "text.unlocked_succes";
+        String UNLOCKED_ROOM = "text.unlocked_room";
+        String ROOM_LOCKED = "text.room_locked";
     }
 
     // alle vragen
@@ -258,10 +262,22 @@ public class Localization {
         );
 
         // Text
+        languages.addWords(Text.UNLOCKED_ROOM,
+                "The room has succesfully been unlocked.",
+                "De kamer is met succes open gemaakt.");
+        languages.addWords(Text.ROOM_LOCKED,
+                "You can't go there. That room is locked.",
+                "Die kamer zit nog op slot.");
         languages.addWords(Text.UNKNOWN_COMMAND,
                 "I don't know what you mean...",
                 "Ik weet niet wat je bedoelt..."
         );
+        languages.addWords(Text.UNLOCKED_SUCCES,
+                "The vault is unlocked succesfully, the following item is now available:  ",
+                "De kluis met succes opengemaakt, het volgende item is nu beschikbaar: ");
+        languages.addWords(Text.COULDNT_UNLOCK,
+                "I can't unlock that",
+                "Ik kan dat niet openmaken.");
         languages.addWords(Text.UNUSABLE_COMMAND,
                 "You cannot use this command right now.",
                 "Deze command kan je nu niet gebruiken"

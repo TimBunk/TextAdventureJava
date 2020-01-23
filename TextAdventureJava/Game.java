@@ -1,18 +1,7 @@
 /**
- * This class is the main class of the "World of Zuul" application.
- * "World of Zuul" is a very simple, text based adventure game.  Users
- * can walk around some scenery. That's all. It should really be extended
- * to make it more interesting!
- * <p>
- * To play this game, create an instance of this class and call the "play"
- * method.
- * <p>
- * This main class creates and initialises all the others: it creates all
- * rooms, creates the parser and starts the game.  It also evaluates and
- * executes the commands that the parser returns.
- *
- * @author Michael Kölling and David J. Barnes
- * @version 2016.02.29
+ * De game klasse.
+ * Hierin worden alle game rules vastgelegd.
+ * @author Ruben Eekhof, Tim Bunk
  */
 
 import org.joml.Vector2f;
@@ -41,6 +30,7 @@ public class Game extends Scene implements TextInputCallbackI {
     private Person arrested;
     private Room currentRoom;
     private Deque<Room> backlog = new ArrayDeque<Room>();
+    private ArrayList<Locker> lockers;
 
     // Text
     private Text textNameDetective;
@@ -185,6 +175,10 @@ public class Game extends Scene implements TextInputCallbackI {
             case BACK:
                 goBack();
                 break;
+
+            case UNLOCK:
+                unlock(command.getSecondWord());
+                break;
         }
     }
 
@@ -262,9 +256,12 @@ public class Game extends Scene implements TextInputCallbackI {
 
         // Try to leave current room.
         Room nextRoom = currentRoom.getExit(direction);
-
         if (nextRoom == null) {
             addToTextLog(Localization.getString(Localization.Rooms.NO_DOOR));
+            return null;
+        }
+        if (nextRoom.isLocked()) {
+            addToTextLog(Localization.getString(Localization.Text.ROOM_LOCKED));
             return null;
         } else {
             Room previousRoom = currentRoom;
@@ -274,6 +271,10 @@ public class Game extends Scene implements TextInputCallbackI {
         }
     }
 
+    /**
+     * Verandert de taal van de game
+     * @param languageCode, de taal van de game.
+     */
     private void language(String languageCode) {
         if (Localization.setLanguage(languageCode)) {
             addToTextLog(Localization.getString(Localization.Text.LANGUAGE_CHANGE_SUCCESS));
@@ -308,7 +309,7 @@ public class Game extends Scene implements TextInputCallbackI {
 
     private void inspect(Command command) {
         // Als er geen twee woord is vraag dan wat de gebruiker wil inspecteren
-        if (command.hasSecondWord() == false) {
+        if (!command.hasSecondWord()) {
             addToTextLog(Localization.getString(Localization.Text.INSPECT_WHAT));
         }
         else {
@@ -334,6 +335,39 @@ public class Game extends Scene implements TextInputCallbackI {
         }
     }
 
+    /**
+     * Haalt iets van het slot af.
+     * @param lockable, het lockable object dat we van het slot willen halen.
+     */
+    private void unlock(String lockable) {
+        Room roomToUnlock = currentRoom.getExit(lockable);
+        // were trying to unlock a room not a locker
+        if (roomToUnlock != null) {
+            Item key = bruce.containsItem(roomToUnlock.getKey());
+            if (roomToUnlock.isLocked() && key != null) {
+                roomToUnlock.unlock(key);
+                addToTextLog(Localization.getString(Localization.Text.UNLOCKED_ROOM));
+            } else {
+                addToTextLog(Localization.getString(Localization.Text.COULDNT_UNLOCK));
+            }
+        // maybe we are trying to unlock a locker?
+        } else {
+            for(Locker l : lockers) {
+                if(l.getName().equals(lockable) || l.getName().toLowerCase().equals(lockable)) {
+                    Item itemsInLocker = l.getContents();
+                    currentRoom.addInspectable(itemsInLocker);
+                    addToTextLog(Localization.getString(Localization.Text.UNLOCKED_SUCCES) + itemsInLocker);
+                } else {
+                    addToTextLog(Localization.getString(Localization.Text.COULDNT_UNLOCK));
+                }
+            }
+        }
+    }
+
+    /**
+     * Vraag iets aan een person.
+     * @param questionNumberString, het nummer van de vraag die je wilt stellen.
+     */
     private void ask(String questionNumberString) {
         // Check of er een nummer is gegeven
         int questionNumber = extractNumber(questionNumberString);
@@ -365,6 +399,10 @@ public class Game extends Scene implements TextInputCallbackI {
         }
     }
 
+    /**
+     * Arresteert de verdachte
+     * @param name, de naam van de verdachte.
+     */
     private void arrest(String name) {
         // Kijk of er een npc in de room is
         Person npc = currentRoom.getNpc();
@@ -428,9 +466,6 @@ public class Game extends Scene implements TextInputCallbackI {
         garden.setExit(shed);
         shed.setExit(garden);
 
-        // De shed zit op slot
-        shed.lock();
-
         // De ruimte waarin je begint is de livingroom
         currentRoom = livingroom;
 
@@ -460,8 +495,12 @@ public class Game extends Scene implements TextInputCallbackI {
         bedroom.addInspectable(vault);
         livingroom.addInspectable(deadBody);
 
-        vault.lock();
+        vault.lock(vaultKey);
+        shed.lock(shedKey);
         vault.addContents(cellPhone);
+
+        lockers = new ArrayList<>();
+        lockers.add(vault);
 
         // Maak de sprites voor de npcs
         Sprite spriteWife = new Sprite(128, 128, textureManager.load("Resources/Images/women.png"));

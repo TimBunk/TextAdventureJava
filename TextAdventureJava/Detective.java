@@ -99,4 +99,13 @@ public class Detective extends Inspectable {
     public ArrayList<Item> getInventory() {
         return inventory;
     }
+
+    public Item containsItem(Item item) {
+        for(Item i : inventory) {
+            if (i == item) {
+                return i;
+            }
+        }
+        return null;
+    }
 }

@@ -21,10 +21,18 @@ public class Inspectable {
         return Localization.getString(description);
     }
 
+    /**
+     * Zet de beschrijving
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Haalt de naam op
+     * @return name
+     */
     public String getName() {
         return Localization.getString(name);
     }

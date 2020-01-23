@@ -25,14 +25,16 @@ public class Locker extends Lockable {
      * @param item, het item te verwijderen.
      */
     public void removeContents(Item item) {
-        contents.remove(item);
+        for(Item i : contents) {
+            contents.remove(i);
+        }
     }
 
     /**
      * Haalt de beschrijving op van de inhoud van het object.
      * @return, de naam van de content.
      */
-    public String getContents() {
-        return this.contents.get(0).getName();
+    public Item getContents() {
+        return this.contents.get(0);
     }
 }

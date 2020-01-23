@@ -78,6 +78,10 @@ public class Detective extends Inspectable {
         return -1;
     }
 
+    /**
+     * Een getter voor de sprite.
+     * @return sprite
+     */
     public Sprite getSprite() {
         return sprite;
     }
@@ -96,10 +100,19 @@ public class Detective extends Inspectable {
         return null;
     }
 
+    /**
+     * Een getter voor de inventory.
+     * @return inventory
+     */
     public ArrayList<Item> getInventory() {
         return inventory;
     }
 
+    /**
+     * Kijkt of een item zich in de inventory bevind.
+     * @param item
+     * @return item, of null indien niet gevonden.
+     */
     public Item containsItem(Item item) {
         for(Item i : inventory) {
             if (i == item) {

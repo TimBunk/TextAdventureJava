@@ -3,6 +3,7 @@ import framework.Sprite;
 import java.util.ArrayList;
 
 /**
+ * De person class zijn alle npcs die zich in de game bevinden.
  * @author Ruben Eekhof rubeneekhof@gmail.com
  */
 public class Person extends Inspectable {

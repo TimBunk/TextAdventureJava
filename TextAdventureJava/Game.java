@@ -194,6 +194,10 @@ public class Game extends Scene implements TextInputCallbackI {
     }
 
 
+    /**
+     * Ga een kamer terug.
+     * Dit kan alleen als er wel een vorige kamer terug.
+     */
     private void goBack() {
         if (backlog.size() < 1) {
             addToTextLog(Localization.getString(Localization.Text.UNUSABLE_COMMAND));
@@ -447,16 +451,27 @@ public class Game extends Scene implements TextInputCallbackI {
         processCommand(command);
     }
 
+    /**
+     * Voegt een String toe aan de ui.
+     * @param text
+     */
     private void addToTextLog(String text) {
         String s = textLog.getString();
         s = String.format("%s%s\n", s, text);
         textLog.setString(s);
     }
 
+    /**
+     * Een getter voor of de game moet sluiten.
+     * @return shouldClose
+     */
     public boolean shouldClose() {
         return shouldClose;
     }
 
+    /**
+     * Initialiseert alle kamers, en bepaald het game scenario.
+     */
     private void setupRooms() {
         // Initialiseer de rooms
         Room kitchen = new Room(Localization.Rooms.KITCHEN_ROOM_NAME, Localization.Rooms.KITCHEN_ROOM_DESCRIPTION);
@@ -604,6 +619,10 @@ public class Game extends Scene implements TextInputCallbackI {
         }
     }
 
+    /**
+     * Maakt alle visuele componenten van de ui aan.
+     * @throws IOException, input output exception.
+     */
     private void setupGraphics() throws IOException {
         // Sprites
         Sprite spriteBruce = new Sprite(128, 128, textureManager.load("Resources/Images/Bruce_Cain.png"));
@@ -661,6 +680,15 @@ public class Game extends Scene implements TextInputCallbackI {
         return Integer.parseInt(sb.toString());
     }
 
+    /**
+     * Een getter voor de murderer.
+     * @return murderer.
+     */
     public Person getMurderer() { return murderer; }
+
+    /**
+     * Een getter voor de arrestant.
+     * @return arrested, deze kan null zijn.
+     */
     public Person getArrested() { return arrested; }
 }

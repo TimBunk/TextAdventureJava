@@ -4,6 +4,10 @@ import static org.lwjgl.glfw.GLFW.*;
 
 import java.io.IOException;
 
+/**
+ * Deze scene is een visueel plaatje van of je de game hebt gewonnen of verloren.
+ * @author Tim Bunk
+ */
 public class GameEnding extends Scene {
 
     private boolean replay;

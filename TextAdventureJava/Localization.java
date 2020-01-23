@@ -752,6 +752,10 @@ public class Localization {
         return false;
     }
 
+    /**
+     * Haalt de goeie set op uit de dictionary, gebasseerd op welke taal je hebt gekozen.
+     * @return languageOptions
+     */
     public static String getLanguageOptionsString() {
         String languageOptions = getString(Text.LANGUAGE_OPTIONS);
         for (String key : dictionary.keySet()) {

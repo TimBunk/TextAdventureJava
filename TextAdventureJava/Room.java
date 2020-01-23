@@ -181,4 +181,17 @@ public class Room extends Lockable {
         return null;
     }
 
+    /**
+     * Zoekt naar een locker in de lijst van inspectables.
+     * @param name, de naam van de locker.
+     * @return locker, of null of geen gevonden.
+     */
+    public Locker getLocker(String name) {
+        for(Inspectable i : inspectables) {
+            if (i.getName().equals(name) && i instanceof Locker) {
+                return (Locker) i;
+            }
+        }
+        return null;
+    }
 }

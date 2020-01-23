@@ -30,7 +30,6 @@ public class Game extends Scene implements TextInputCallbackI {
     private Person arrested;
     private Room currentRoom;
     private Deque<Room> backlog = new ArrayDeque<Room>();
-    private ArrayList<Locker> lockers;
 
     // Text
     private Text textNameDetective;
@@ -343,6 +342,10 @@ public class Game extends Scene implements TextInputCallbackI {
         Room roomToUnlock = currentRoom.getExit(lockable);
         // were trying to unlock a room not a locker
         if (roomToUnlock != null) {
+            if (!roomToUnlock.isLocked()) {
+                addToTextLog(Localization.getString(Localization.Text.COULDNT_UNLOCK));
+                return;
+            }
             Item key = bruce.containsItem(roomToUnlock.getKey());
             if (roomToUnlock.isLocked() && key != null) {
                 roomToUnlock.unlock(key);
@@ -352,14 +355,28 @@ public class Game extends Scene implements TextInputCallbackI {
             }
         // maybe we are trying to unlock a locker?
         } else {
-            for(Locker l : lockers) {
+            Locker l = currentRoom.getLocker(lockable);
+            if (l != null) {
+                if (!l.isLocked()) {
+                    addToTextLog(Localization.getString(Localization.Text.COULDNT_UNLOCK));
+                    return;
+                }
                 if(l.getName().equals(lockable) || l.getName().toLowerCase().equals(lockable)) {
-                    Item itemsInLocker = l.getContents();
-                    currentRoom.addInspectable(itemsInLocker);
-                    addToTextLog(Localization.getString(Localization.Text.UNLOCKED_SUCCES) + itemsInLocker);
+                    for(Item i : bruce.getInventory()) {
+                        if (i.getName().equals(l.getKey().getName())) {
+                            Item itemsInLocker = l.getContents();
+                            currentRoom.addInspectable(itemsInLocker);
+                            l.unlock(i);
+                            addToTextLog(Localization.getString(Localization.Text.UNLOCKED_SUCCES) + itemsInLocker.getName());
+                            return;
+                        }
+                    }
+                    addToTextLog(Localization.getString(Localization.Text.COULDNT_UNLOCK));
                 } else {
                     addToTextLog(Localization.getString(Localization.Text.COULDNT_UNLOCK));
                 }
+            } else {
+                addToTextLog(Localization.getString(Localization.Text.COULDNT_UNLOCK));
             }
         }
     }
@@ -498,9 +515,6 @@ public class Game extends Scene implements TextInputCallbackI {
         vault.lock(vaultKey);
         shed.lock(shedKey);
         vault.addContents(cellPhone);
-
-        lockers = new ArrayList<>();
-        lockers.add(vault);
 
         // Maak de sprites voor de npcs
         Sprite spriteWife = new Sprite(128, 128, textureManager.load("Resources/Images/women.png"));
